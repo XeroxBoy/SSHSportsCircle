@@ -1,5 +1,10 @@
 package com.cdut.sx.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="remind")
 public class remind {
 
 

@@ -1,10 +1,13 @@
 package com.cdut.sx.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Entity
+@Table(name="message")
 public class message {
     private int messageid;//消息自己的ID
     private String lsex;//性别要求

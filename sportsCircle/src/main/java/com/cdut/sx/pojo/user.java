@@ -2,13 +2,16 @@ package com.cdut.sx.pojo;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Entity
+@Table(name="user")
 public class user extends ActionSupport {
     private int userId;//主键
     private Date birthday;//生日

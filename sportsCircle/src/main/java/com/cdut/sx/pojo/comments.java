@@ -1,6 +1,10 @@
 package com.cdut.sx.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="comments")
 public class comments {
     private int commentId;//评论的ID 主键
     private String userId;//发布人

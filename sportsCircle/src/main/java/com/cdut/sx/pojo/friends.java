@@ -1,5 +1,10 @@
 package com.cdut.sx.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="friends")
 public class friends {
     private int friendsId;//主键
     private String friendsFrom;//好友1方
