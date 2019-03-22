@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!--用class元素来定义一个持久化的类  -->
+    <class name="pojo.user" table="user" catalog="web">
+        <!-- id元素定义主键的映射 -->
+        <id name="userId">
+            <!--用来为该持久化类的实例生成唯一的标识  -->
+            <generator class="increment"/>
+        </id>
+        <!-- property元素为类声明了持久化的 JAVABEAN风格的属性  -->
+        <property name="username" column="userName"/>
+        <property name="password" column="userPassword"/>
+        <property name="birthday"/>
+        <property name="exp" type="java.lang.Integer"/>
+        <property name="sex"/>
+        <property name="email" column="userEmail"/>
+        <property name="Prodays" type="java.lang.Integer"/>
+        <property name="Areabelongto"/>
+        <property name="maxProdays" type="java.lang.Integer"/>
+        <property name="lastProday"/>
+        <!--   <property name="code"></property>
+          <property name="state"></property> -->
+        <set name="messages" lazy="false" cascade="all">
+            <key column="userid"/>
+            <one-to-many class="pojo.message"/>
+        </set>
+    </class>
+</hibernate-mapping>

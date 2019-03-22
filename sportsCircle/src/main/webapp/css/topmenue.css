@@ -1,0 +1,103 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body, button, input, select, textarea {
+    font: 12px/1.5 ����, arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+
+address, cite, dfn, em, var {
+    font-style: normal;
+}
+
+code, kbd, pre, samp {
+    font-family: courier new, courier, monospace;
+}
+
+small {
+    font-size: 12px;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hvoer {
+    text-decoration: underline;
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+legend {
+    color: #000;
+}
+
+fieldset, img {
+    border: 0px;
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.topbody {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.topbar {
+    width: 100%;
+    background-color: #f3f3f3;
+    display: inline-block;
+}
+
+.topbar li {
+    float: left;
+}
+
+.toplist {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.toplist a {
+    color: #000;
+    text-decoration: none;
+}
+
+.title, .toplist a {
+    display: block;
+
+    display: block;
+    float: left;
+}
+
+.toplist a {
+    padding: 15px 20px 15px 20px;
+}
+
+.title {
+    color: #000;
+    text-decoration: none;
+    padding: 15px 30px 15px 30px;
+}
