@@ -2,11 +2,11 @@ package com.cdut.sx.dao.impl;
 
 import com.cdut.sx.dao.Commentsdao;
 import com.cdut.sx.dao.messagedao;
+import com.cdut.sx.pojo.comments;
+import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import com.cdut.sx.pojo.comments;
-import com.cdut.sx.utils.HibernateUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

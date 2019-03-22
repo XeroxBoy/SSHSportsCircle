@@ -1,11 +1,11 @@
 package com.cdut.sx.dao.impl;
 
 import com.cdut.sx.dao.reminddao;
+import com.cdut.sx.pojo.remind;
+import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import com.cdut.sx.pojo.remind;
-import com.cdut.sx.utils.HibernateUtil;
 
 import java.util.ArrayList;
 @Repository("reminddao")

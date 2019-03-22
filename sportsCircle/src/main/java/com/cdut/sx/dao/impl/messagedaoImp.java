@@ -2,6 +2,9 @@ package com.cdut.sx.dao.impl;
 
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.dao.messagedao;
+import com.cdut.sx.pojo.PageBean;
+import com.cdut.sx.pojo.message;
+import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,9 +12,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.springframework.stereotype.Repository;
-import com.cdut.sx.pojo.PageBean;
-import com.cdut.sx.pojo.message;
-import com.cdut.sx.utils.HibernateUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

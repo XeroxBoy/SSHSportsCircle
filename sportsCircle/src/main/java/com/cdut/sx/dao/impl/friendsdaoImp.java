@@ -2,15 +2,15 @@ package com.cdut.sx.dao.impl;
 
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.dao.friendsdao;
+import com.cdut.sx.pojo.PageBean;
+import com.cdut.sx.pojo.friends;
+import com.cdut.sx.pojo.user;
+import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import com.cdut.sx.pojo.PageBean;
-import com.cdut.sx.pojo.friends;
-import com.cdut.sx.pojo.user;
-import com.cdut.sx.utils.HibernateUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

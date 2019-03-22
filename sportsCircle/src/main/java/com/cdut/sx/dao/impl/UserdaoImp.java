@@ -3,13 +3,14 @@ package com.cdut.sx.dao.impl;
 /*
 import utils.MailUtils;
 */
+
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.user;
+import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import com.cdut.sx.pojo.user;
-import com.cdut.sx.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
