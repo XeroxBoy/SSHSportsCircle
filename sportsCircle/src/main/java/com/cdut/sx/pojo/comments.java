@@ -1,16 +1,27 @@
 package com.cdut.sx.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 @Entity
+@Component("comments")
 @Table(name="comments")
 public class comments {
+    @Id
+    @GeneratedValue
     private int commentId;//评论的ID 主键
+    @Column
+    @ManyToOne
     private String userId;//发布人
+    @Column
     private String outTime;//发布时间
+    @Column
+    @ManyToOne
     private int messagebelongTo;//所属状态,外键
+    @Column
     private String contents;//内容
+    @Column
     private String active;//是否可见
 
     public comments() {

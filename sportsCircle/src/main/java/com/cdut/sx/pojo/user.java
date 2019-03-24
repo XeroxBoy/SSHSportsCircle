@@ -1,9 +1,8 @@
 package com.cdut.sx.pojo;
 
-import com.opensymphony.xwork2.ActionSupport;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,18 +11,33 @@ import java.util.Set;
 
 @Entity
 @Table(name="user")
-public class user extends ActionSupport {
+@Component("user")
+public class user  {
+    @Id
+    @GeneratedValue
     private int userId;//主键
+    @Column
     private Date birthday;//生日
+    @Column
     private String username; //主键
+    @Column
     private String password;
+    @Column
     private String email;
+    @Column
     private String sex;
+    @Column
     private int maxProdays = 0;
+    @Column
     private int exp = 0;//经验
+    @Column
     private int Prodays = 0;//打卡天数
+    @Column
     private Date lastProday = new Date();//上一次打卡的日期
+    @Column
     private String Areabelongto;//所属板块
+    @OneToMany
+    @Column
     private Set<message> messages = new HashSet<message>();//一用户有多条状态
 
     public user() {

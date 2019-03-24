@@ -1,13 +1,20 @@
 package com.cdut.sx.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 @Entity
+@Component("friends")
 @Table(name="friends")
 public class friends {
+    @Id
+    @OneToOne
+    @GeneratedValue
     private int friendsId;//主键
+    @Column
     private String friendsFrom;//好友1方
+    @Column
     private String friendsTo;//好友另一方
 
     public int getFriendsId() {

@@ -1,10 +1,12 @@
 package com.cdut.sx.controller;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+@Controller
 
 public class uploadController {
     private File upload;

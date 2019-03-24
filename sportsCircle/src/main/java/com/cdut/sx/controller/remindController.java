@@ -3,10 +3,16 @@ package com.cdut.sx.controller;
 import com.cdut.sx.dao.impl.reminddaoImp;
 import com.cdut.sx.dao.reminddao;
 import com.cdut.sx.pojo.remind;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller
 
 public class remindController {
-    private com.cdut.sx.pojo.remind remind = new remind();
-    private reminddao dao = new reminddaoImp();
+    @Autowired
+    private remind remind;
+    @Autowired
+    private reminddao dao ;
 
     @Override
     public remind getModel() {

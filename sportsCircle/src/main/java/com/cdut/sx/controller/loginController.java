@@ -2,6 +2,7 @@ package com.cdut.sx.controller;
 
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.pojo.user;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,14 +15,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("/login")
 public class loginController {
-    Userdao userdao=new UserdaoImp();
-    private user User = new user();
+    @Autowired
+    Userdao userdao;
+    @Autowired
+    private user User;
 
     public static Date getNextDay(Date date) {//获取今天的前一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        date = calendar.getTime();
+        date = (Date) calendar.getTime();
         return date;
     }
 

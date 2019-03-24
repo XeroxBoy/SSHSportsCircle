@@ -10,14 +10,18 @@ import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-@Repository("Userdao")
-public class UserdaoImp implements Userdao {
-
-    @Override
+@Transactional
+@Service
+public class UserdaoImp{
+    @Autowired
+    private Userdao userdao;
     public ArrayList<user> queryAll() {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -27,7 +31,6 @@ public class UserdaoImp implements Userdao {
         return users;
     }
 
-    @Override
     public List queryByName(String username) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -40,17 +43,16 @@ public class UserdaoImp implements Userdao {
         return user;
     }
 
-    @Override
-    public void save(user user) {
+    public Object save(user user) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         session.save(user);
         trans.commit();
 
+        return null;
     }
 
-    @Override
     public void update(user user) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -60,7 +62,6 @@ public class UserdaoImp implements Userdao {
 
     }
 
-    @Override
     public void delete(user user) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();

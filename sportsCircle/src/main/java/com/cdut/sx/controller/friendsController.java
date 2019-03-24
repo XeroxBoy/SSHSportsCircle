@@ -3,13 +3,18 @@ package com.cdut.sx.controller;
 import com.cdut.sx.dao.friendsdao;
 import com.cdut.sx.dao.impl.friendsdaoImp;
 import com.cdut.sx.pojo.friends;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.Map;
+@Controller
 
 public class friendsController {
-    private friends friends=new friends();
+    @Autowired
+    private friends friends;
     // private Userdao userdao=new UserdaoImp();
-    private friendsdao dao = new friendsdaoImp();
+    @Autowired
+    private friendsdao dao ;
     private Integer currPage = 1;
     public String makeFriend(){
         Map<String, Object> session = ActionContext.getContext().getSession();//将用户信息存入session

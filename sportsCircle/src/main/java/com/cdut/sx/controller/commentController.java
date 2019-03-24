@@ -7,12 +7,20 @@ import com.cdut.sx.pojo.comments;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.List;
+import com.cdut.sx.dao.messagedao;
+import com.cdut.sx.dao.impl.commentsdaoImp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class commentController {
-    private comments comment=new comments();
+    @Autowired
+    private comments comment;
     private int currPage;
-    private Commentsdao commentsdaoImp=new commentsdaoImp();
-    private messagedao messagedao=new messagedaoImp();
+    @Autowired
+    private Commentsdao commentsdaoImp;
+    @Autowired
+    private messagedao messagedao;
 
 
     @Override

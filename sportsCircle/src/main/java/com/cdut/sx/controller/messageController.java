@@ -7,18 +7,23 @@ import com.cdut.sx.dao.reminddao;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.message;
 import com.cdut.sx.pojo.remind;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+@Controller
 public class messageController {
-    reminddao reminddao = new reminddaoImp();
-    private message message=new message();
+    @Autowired
+    reminddao reminddao ;
+    @Autowired
+    private message message;
     private Integer currPage = 1;
-    private messagedao dao=new messagedaoImp();
+    @Autowired
+    private messagedao dao;
     public String message(){ //验证状态是否合理
         Map<String,Object> session=ActionContext.getContext().getSession();//将用户信息存入session
 //  System.out.println(message);

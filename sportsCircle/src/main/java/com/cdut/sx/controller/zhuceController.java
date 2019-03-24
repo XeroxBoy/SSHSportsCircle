@@ -5,18 +5,24 @@ import com.cdut.sx.dao.impl.UserdaoImp;
 import com.cdut.sx.pojo.message;
 import com.cdut.sx.pojo.user;
 import com.cdut.sx.utils.MD5;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.sql.Date;
 import java.util.Map;
 import java.util.Set;
+@Controller
 
 public class zhuceController {
-    private user User=new user();
+    @Autowired
+    Userdao userdao;
+
+    @Autowired
+    private user User;
     public String zhuce(){
         System.out.print(User);
         User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果
         User.setPassword(MD5.encodeMd5(User.getPassword()));
-        Userdao userdao=new UserdaoImp();
         if(userdao.queryByName(User.getUsername()).isEmpty())
         {
             userdao.save(User);
@@ -40,7 +46,6 @@ public class zhuceController {
      * @return 成功则返回"findMyInfoSucess"
      */
     public String findMyInfo() {
-        Userdao userdao = new UserdaoImp();// 用于访问数据库
         Map<String, Object> session = ActionContext.getContext().getSession();// 获取当前用户的用户名
         String userName = (String) session.get("name");
         if (userdao.queryByName(userName).size() == 1) {
@@ -58,14 +63,13 @@ public class zhuceController {
      * 用于修改用户信息
      */
     public String modify() {
-        Userdao userdao = new UserdaoImp();
         Map<String, Object> session = ActionContext.getContext().getSession();
         int userId=(Integer) session.get("id");
         Set<message> message=(Set<message>) session.get("messages");
         //	System.out.println(userId);
         User.setUserId(userId);
         User.setMessages(message);//不然user的message会被清空
-        userdao.update(User);
+        userdao.save(User);
         return "modifySuccess";
     }
 

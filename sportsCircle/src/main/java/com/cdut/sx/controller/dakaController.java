@@ -3,13 +3,19 @@ package com.cdut.sx.controller;
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.dao.impl.UserdaoImp;
 import com.cdut.sx.pojo.user;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Map;
+@Controller
 
 public class dakaController {
+    @Autowired
+    Userdao dao;
+
     public static Date getBeforeDate(Date date) { //获取当前天数的前一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -30,7 +36,7 @@ public class dakaController {
             e1.printStackTrace();
         }
         resp.setContentType("text/html;charset=utf-8");//不然打回来乱码
-        Userdao dao=new UserdaoImp();
+
         user user=dao.queryByName(username).get(0);
         System.out.println(getBeforeDate(new Date()).getDate());
         if(user.getLastProday().getDate()==getBeforeDate(new Date()).getDate()){   //上次打卡日期为昨天

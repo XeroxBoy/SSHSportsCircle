@@ -3,82 +3,72 @@ package com.cdut.sx.dao.impl;
 import com.cdut.sx.dao.Commentsdao;
 import com.cdut.sx.dao.messagedao;
 import com.cdut.sx.pojo.comments;
-import com.cdut.sx.utils.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-@Repository("Commentsdao")
-public class commentsdaoImp implements Commentsdao {
+@Transactional
+@Service
+public class commentsdaoImp {
     @Resource
     private messagedao messagedao;
-
-    //  private Commentsdao commentdao=new commentsdaoImp();
-    @Override
+    @Autowired
+    private Commentsdao commentdao;
+//    @Autowired
+//    @Qualifier("entityManagerFactory")
+//    EntityManagerFactory factory;
+//    @PersistenceContext
+//    private EntityManager manager;
     public ArrayList<comments> queryAll() {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        ArrayList<comments> comments = (ArrayList<comments>) session.createQuery("from comments where active=:active").setString("active", "active").list();
-        trans.commit();
 
-        return comments;
+        return commentdao.queryAll();
     }
 
-    @Override
     public List queryByMsgId(String messagename) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        List comments = session.createQuery("from comments where messagebelongTo=:tcommentsname and active=:active").setString("active", "active").setString("tcommentsname", messagename).list();
-        trans.commit();
 
+
+        List comments=commentdao.queryByMsgId(messagename);
         return comments;
     }
 
-    @Override
-    public void save(comments comments) {
-        // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        session.save(comments);
-        trans.commit();
-
+    public void save(comments comments){
+        commentdao.save(comments);
     }
 
-    @Override
     public void update(comments comments) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        session.update(comments);
-        trans.commit();
+        commentdao.save(comments);
 
     }
 
-    @Override
+
     public void delete(comments comments) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-
-        session.delete(comments);
-        trans.commit();
-
+        commentdao.delete(comments.getCommentId());
     }
 
-    @Override
     public List<comments> queryById(int commentId) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        List<comments> comments = session.createQuery("from comments where commentId=:tcommentsid and active=:active").setString("active", "active").setLong("tcommentsid", commentId).list();
-        trans.commit();
-
-        return comments;
+        return commentdao.queryById(commentId);
     }
 
 }
+//        // 1.获得Factory
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA");
+//        // 2.获取Manager
+//        EntityManager manager = factory.createEntityManager();
+//        // 3.获得事务，并开启事务
+//        EntityTransaction transaction = manager.getTransaction();
+//        transaction.begin();
+//        // 4.执行sql
+//        comments commentsBase=manager.find(comments.class,comments.getCommentId());
+//        manager.remove(commentsBase);
+//        // 5.提交事务，关闭资源
+//        transaction.commit();
+//        manager.close();
+//        factory.close();

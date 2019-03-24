@@ -1,24 +1,41 @@
 package com.cdut.sx.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Component("message")
 @Table(name="message")
 public class message {
+    @Id
+    @GeneratedValue
     private int messageid;//消息自己的ID
+    @Column
     private String lsex;//性别要求
+    @Column
     private String location;//约定地点
+    @Column
     private Date outDate; //发布时间
+    @Column
     private String content;//内容
+    @Column
     private String belongTo;//所属板块
+    @Column
     private String assignTime;//约定时间
+    @Column
+    @OneToMany
     private Set<comments> comments = new HashSet<comments>();//一状态有多条评论
+    @Column
+    @OneToMany
     private Set<remind> reminds = new HashSet<>();//一条状态有多个应约
+    @Column
+    @ManyToOne
     private String userId;//所属用户的ID
+    @Column
     private String active;//是否可查看 "active"和“dead” 两种取值
 
     public message() {

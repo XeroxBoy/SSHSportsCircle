@@ -5,14 +5,18 @@ import com.cdut.sx.pojo.remind;
 import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-@Repository("reminddao")
-public class reminddaoImp implements reminddao {
+@Transactional
+@Service
+public class reminddaoImp {
+    @Autowired
+    private reminddao reminddao;
 
-
-    @Override
     public ArrayList<remind> queryAll(String user) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
@@ -21,15 +25,14 @@ public class reminddaoImp implements reminddao {
         return myReminds;
     }
 
-    @Override
-    public void save(remind remind) {
+    public Object save(remind remind) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         session.save(remind);
         trans.commit();
+        return null;
     }
 
-    @Override
     public void update(remind remind) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
@@ -37,7 +40,6 @@ public class reminddaoImp implements reminddao {
         trans.commit();
     }
 
-    @Override
     public void delete(remind remind) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();

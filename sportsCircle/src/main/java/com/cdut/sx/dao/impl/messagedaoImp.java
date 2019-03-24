@@ -11,18 +11,22 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-@Repository("messagedao")
-public class messagedaoImp implements messagedao {
+
+@Service
+@Transactional
+public class messagedaoImp {
     @Resource
     Userdao userdao;
-
+    @Autowired
+    messagedao messagedao;
     // 查询所有message
-    @Override
     public ArrayList<message> queryAll() {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -35,7 +39,6 @@ public class messagedaoImp implements messagedao {
     }
 
     // 按照username查询message 即这个人发过的状态
-    @Override
     public List<message> queryByUserId(String username) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -48,7 +51,6 @@ public class messagedaoImp implements messagedao {
         return message;
     }
 
-    @Override
     public List<message> queryById(int messageId) { //按message编号查message
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -61,8 +63,7 @@ public class messagedaoImp implements messagedao {
         return message;
     }
 
-    @Override
-    public void save(message message) {
+    public Object save(message message) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
@@ -70,9 +71,9 @@ public class messagedaoImp implements messagedao {
         session.save(message);
         trans.commit();
 
+        return null;
     }
 
-    @Override
     public void update(message message) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -83,7 +84,7 @@ public class messagedaoImp implements messagedao {
 
     }
 
-    @Override
+
     public void delete(message message) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -98,7 +99,6 @@ public class messagedaoImp implements messagedao {
      * 1.每一页有1个记录
      *
      */
-    @Override
     public PageBean<message> findByPage(Integer currPage) {
         // TODO Auto-generated method stub
 
@@ -166,7 +166,6 @@ public class messagedaoImp implements messagedao {
         return 0;
     }
 
-    @Override
     public PageBean<message> findMineByPage(Integer currPage, String userId) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -192,6 +191,7 @@ public class messagedaoImp implements messagedao {
         return pageBean;
 
     }
+
 
     public int findMyCount(String userId) {//看我发了多少条记录
         // TODO Auto-generated method stub
@@ -252,7 +252,6 @@ public class messagedaoImp implements messagedao {
 
     }
 
-    @Override
     public PageBean<message> findByArea(Integer currPage, String area) {
         // TODO 自动生成的方法存根
         Session session = HibernateUtil.getSession();

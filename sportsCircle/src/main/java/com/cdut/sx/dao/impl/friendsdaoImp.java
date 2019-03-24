@@ -10,17 +10,21 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-@Repository("friendsdao")
-public class friendsdaoImp implements friendsdao {
+@Service
+@Transactional
+public class friendsdaoImp{
     @Resource
     private Userdao userdao;
-
-    @Override
+    @Autowired
+    private friendsdao friendsdao;
     public ArrayList<friends> queryMyFriends(String me) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
@@ -29,7 +33,6 @@ public class friendsdaoImp implements friendsdao {
         return myFriends;
     }
 
-    @Override
     public void save(String friend1, String friend2) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -41,12 +44,10 @@ public class friendsdaoImp implements friendsdao {
         trans.commit();
     }
 
-    @Override
     public void update(String friend1, String friends2, boolean isCancel) {
 
     }
 
-    @Override
     public int findCount() {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
@@ -62,7 +63,6 @@ public class friendsdaoImp implements friendsdao {
         return 0;
     }
 
-    @Override
     public PageBean<user> findByPage(Integer currPage) {
         // TODO Auto-generated method stub
 
@@ -117,7 +117,6 @@ public class friendsdaoImp implements friendsdao {
         return pageBean;
     }
 
-    @Override
     public List<friends> findByPage(int begin, int pagesize) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
@@ -133,7 +132,6 @@ public class friendsdaoImp implements friendsdao {
 
     }
 
-    @Override
     public void delete(String friends1, String friend2) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
