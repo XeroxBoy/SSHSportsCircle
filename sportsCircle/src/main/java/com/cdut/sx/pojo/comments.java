@@ -13,9 +13,8 @@ public class comments {
     @GeneratedValue
     private int commentId;//评论的ID 主键
 
-    @JoinColumn
+    @JoinColumn(name="userId")
     @ManyToOne(targetEntity = comments.class)
-    @Column(name = "userId")
     private String userId;//发布人
     @Column(name="outTime")
     private String outTime;//发布时间
