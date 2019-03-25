@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 
@@ -18,9 +18,11 @@
         <property name="password" value="${spring.datasource.password}"></property>
         <property name="driverClass" value="${spring.datasource.driver}"></property>
         <property name="jdbcUrl" value="${spring.datasource.url}"></property>
-        <property name="minPoolSize" value="${spring.datasource.minPoolSize}" />
-        <property name="maxPoolSize" value="${spring.datasource.maxPoolSize}" />
+        <property name="minPoolSize" value="${spring.datasource.minPoolSize}"/>
+        <property name="maxPoolSize" value="${spring.datasource.maxPoolSize}"/>
     </bean>
+
+
 
     <!-- 配置 JPA 的 EntityManagerFactory -->
     <bean id="entityManagerFactory"
@@ -33,7 +35,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
@@ -51,9 +53,9 @@
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"></property>
     </bean>
-
     <!-- 配置支持基于注解的事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven/>
+
 
     <!-- 配置 SpringData -->
     <jpa:repositories base-package="com.cdut.sx"
@@ -62,18 +64,18 @@
 
     <!--&lt;!&ndash; 事务的传播特性 &ndash;&gt;-->
     <!--<aop:config>-->
-        <!--<aop:advisor pointcut="execution(* com.cdut.sx.*.*.*.*(..))" advice-ref="txAdvice" />-->
+    <!--<aop:advisor pointcut="execution(* com.cdut.sx.*.*.*.*(..))" advice-ref="txAdvice" />-->
     <!--</aop:config>-->
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-        <!--<tx:attributes>-->
-            <!--<tx:method name="save*" propagation="REQUIRED" />-->
-            <!--<tx:method name="add*" propagation="REQUIRED" />-->
-            <!--<tx:method name="find*" read-only="true" propagation="REQUIRED" />-->
-            <!--<tx:method name="get*" read-only="true" propagation="REQUIRED" />-->
-            <!--<tx:method name="update*" propagation="REQUIRED" />-->
-            <!--<tx:method name="delete*" propagation="REQUIRED" />-->
-            <!--<tx:method name="del*" propagation="REQUIRED" />-->
-            <!--<tx:method name="*"  read-only="true" />-->
-        <!--</tx:attributes>-->
+    <!--<tx:attributes>-->
+    <!--<tx:method name="save*" propagation="REQUIRED" />-->
+    <!--<tx:method name="add*" propagation="REQUIRED" />-->
+    <!--<tx:method name="find*" read-only="true" propagation="REQUIRED" />-->
+    <!--<tx:method name="get*" read-only="true" propagation="REQUIRED" />-->
+    <!--<tx:method name="update*" propagation="REQUIRED" />-->
+    <!--<tx:method name="delete*" propagation="REQUIRED" />-->
+    <!--<tx:method name="del*" propagation="REQUIRED" />-->
+    <!--<tx:method name="*"  read-only="true" />-->
+    <!--</tx:attributes>-->
     <!--</tx:advice>-->
 </beans>

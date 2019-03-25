@@ -1,4 +1,4 @@
-package com.cdut.sx.dao.impl;
+package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.dao.messagedao;
@@ -6,7 +6,6 @@ import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.message;
 import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,73 +26,41 @@ public class messagedaoImp {
     Userdao userdao;
     @Autowired
     messagedao messagedao;
+
     // 查询所有message
     public ArrayList<message> queryAll() {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        ArrayList<message> messages = (ArrayList<message>) session.createQuery(
-                "from message and active='active'").list();
-        trans.commit();
-
-        return messages;
+        return (ArrayList<message>) messagedao.findAll();
     }
 
     // 按照username查询message 即这个人发过的状态
     public List<message> queryByUserId(String username) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        List<message> message = session
-                .createQuery("from message where userId=:tusername and active='active'")
-                .setString("tusername", username).list();
-        trans.commit();
-
-        return message;
+        return messagedao.findByUser(username);
     }
 
-    public List<message> queryById(int messageId) { //按message编号查message
+    public message queryById(int messageId) { //按message编号查message
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        List<message> message = session
-                .createQuery("from message where messageid=:tmessagename and active='active'")
-                .setLong("tmessagename", messageId).list();
-        trans.commit();
-
-        return message;
+        Optional<message> messages = messagedao.findById(messageId);
+        if (messages.get() == null) return null;
+        return messages.get();
     }
 
-    public Object save(message message) {
+    public void save(message message) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-
-        session.save(message);
-        trans.commit();
-
-        return null;
+        messagedao.save(message);
     }
 
     public void update(message message) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-
-        session.update(message);
-        trans.commit();
+        messagedao.save(message);
 
     }
 
 
     public void delete(message message) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-
-        session.delete(message);
-        trans.commit();
-
+        messagedao.delete(message);
     }
 
     /*
@@ -113,14 +81,10 @@ public class messagedaoImp {
         // 封装每页显示的记录数
         int pagesize = 1;
         pageBean.setPageSize(pagesize);
-
-
         //测试
         System.out.println("马上执行findCount");
         // 封装总记录数
-        int totalCount = this.findCount();
-
-
+        int totalCount = (int) this.findCount();
         //测试
         System.out.println(totalCount);
         pageBean.setTotalCount(totalCount);
@@ -142,26 +106,19 @@ public class messagedaoImp {
         Criteria criteria = session.createCriteria(message.class);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-
         List<message> list = criteria.list();
-
         trans.commit();
         return list;
         // TODO Auto-generated method stub
 
     }
 
-    public int findCount() {
+    public long findCount() {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        String hql = "select messageid from message where active='active'";
-        Query query = session.createQuery(hql);
-        List list = query.list();
-        trans.commit();
+        long sizes = messagedao.count();
 
-        if (list.size() > 0) {
-            return list.size();
+        if (sizes > 0) {
+            return sizes;
         }
         return 0;
     }
@@ -177,7 +134,7 @@ public class messagedaoImp {
         int pagesize = 1;
         pageBean.setPageSize(pagesize);
         // 封装总记录数
-        int totalCount = this.findMyCount(userId);
+        int totalCount = (int) this.findMyCount(userId);
         pageBean.setTotalCount(totalCount);
         trans.commit();
         // 封装总页数
@@ -193,29 +150,20 @@ public class messagedaoImp {
     }
 
 
-    public int findMyCount(String userId) {//看我发了多少条记录
+    public long findMyCount(String userId) {//看我发了多少条记录
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        String hql = "select messageid from message where userId=:userId and active='active'";
-        System.out.println("进入了findMyCount，马上进行查询");
-        Query query = session.createQuery(hql).setString("userId", userId);
-        List list = query.list();
-        if (list.size() > 0) {
-            return list.size();
+        long sizes = messagedao.findMyCount(userId);
+        if (sizes > 0) {
+            return sizes;
         }
         return 0;
     }
 
-    public int findAreaCount(String area)//看每个圈子下面有多少状态
+    public long findAreaCount(String area)//看每个圈子下面有多少状态
     {
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        String hql = "select messageid from message where belongTo=:area and active=:active";
-        Query query = session.createQuery(hql).setString("area", area).setString("active", "active");
-        List list = query.list();
-        if (list.size() > 0) {
-            return list.size();
+        long sizes = messagedao.findAreaCount(area);
+        if (sizes > 0) {
+            return sizes;
         }
         return 0;
     }
@@ -263,7 +211,7 @@ public class messagedaoImp {
         int pagesize = 2;
         pageBean.setPageSize(pagesize);
         // 封装总记录数
-        int totalCount = this.findAreaCount(area);
+        int totalCount = (int) this.findAreaCount(area);
         //  System.out.println(totalCount);
         pageBean.setTotalCount(totalCount);
         trans.commit();

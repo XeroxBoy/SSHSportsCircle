@@ -1,4 +1,4 @@
-package com.cdut.sx.dao.impl;
+package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Commentsdao;
 import com.cdut.sx.dao.messagedao;
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 @Transactional
 @Service
 public class commentsdaoImp {
@@ -17,33 +18,30 @@ public class commentsdaoImp {
     private messagedao messagedao;
     @Autowired
     private Commentsdao commentdao;
-//    @Autowired
+
+    //    @Autowired
 //    @Qualifier("entityManagerFactory")
 //    EntityManagerFactory factory;
 //    @PersistenceContext
 //    private EntityManager manager;
     public ArrayList<comments> queryAll() {
         // TODO Auto-generated method stub
-
         return commentdao.queryAll();
     }
 
     public List queryByMsgId(String messagename) {
         // TODO Auto-generated method stub
-
-
-        List comments=commentdao.queryByMsgId(messagename);
+        List comments = commentdao.queryByMsgId(messagename);
         return comments;
     }
 
-    public void save(comments comments){
+    public void save(comments comments) {
         commentdao.save(comments);
     }
 
     public void update(comments comments) {
         // TODO Auto-generated method stub
         commentdao.save(comments);
-
     }
 
 

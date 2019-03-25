@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <!--用class元素来定义一个持久化的类  -->
-    <class name="pojo.comments" table="comments" catalog="web">
+    <class name="com.cdut.sx.pojo.comments" table="comments" catalog="web">
         <!-- id元素定义主键的映射 -->
         <id name="commentId">
             <!--用来为该持久化类的实例生成唯一的标识  -->

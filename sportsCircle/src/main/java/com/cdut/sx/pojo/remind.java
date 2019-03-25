@@ -5,20 +5,20 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 @Entity
-@Table(name="remind")
+@Table(name = "remind")
 @Component("remind")
 public class remind {
 
     @Id
     @GeneratedValue
     private int remindId;//主键
-    @Column
+    @Column(name="userFrom")
     private String userFrom;//发送者
-    @Column
+    @Column(name="userTo")
     private String userTo;//接受者
-    @Column
+    @Column(name="messagebelongTo")
     private int messagebelongTo;//所属状态,外键
-    @Column
+    @Column(name="active")
     private String active = "active";//是否向应约者显示此约定,dead,active 两种取值
 
     public int getRemindId() {

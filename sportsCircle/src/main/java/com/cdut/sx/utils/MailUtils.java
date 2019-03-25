@@ -42,6 +42,12 @@ import javax.mail.internet.MimeMessage;
  * @param code 邮件的激活码
  * @throws MessagingException
  * @throws Exception
+ * <p>
+ * 发送邮件的方法
+ * @param to  给谁发邮件
+ * @param code 邮件的激活码
+ * @throws MessagingException
+ * @throws Exception
  *//*
 
 public class MailUtils {

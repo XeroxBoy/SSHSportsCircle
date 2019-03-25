@@ -1,4 +1,4 @@
-package com.cdut.sx.sportsCircle;
+package com.cdut.sx;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class SportsCircleApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(SportsCircleApplication.class, args);
-	}
+        SpringApplication.run(SportsCircleApplication.class, args);
+    }
 
 }

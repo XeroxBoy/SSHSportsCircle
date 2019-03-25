@@ -9,33 +9,32 @@ import java.util.Set;
 
 @Entity
 @Component("message")
-@Table(name="message")
+@Table(name = "message")
 public class message {
     @Id
     @GeneratedValue
+    @Column(name="messageid")
     private int messageid;//消息自己的ID
-    @Column
+    @Column(name="lsex")
     private String lsex;//性别要求
-    @Column
+    @Column(name="location")
     private String location;//约定地点
-    @Column
+    @Column(name="outDate")
     private Date outDate; //发布时间
-    @Column
+    @Column(name="content")
     private String content;//内容
-    @Column
+    @Column(name="belongTo")
     private String belongTo;//所属板块
-    @Column
+    @Column(name="assignTime")
     private String assignTime;//约定时间
-    @Column
     @OneToMany
     private Set<comments> comments = new HashSet<comments>();//一状态有多条评论
-    @Column
     @OneToMany
     private Set<remind> reminds = new HashSet<>();//一条状态有多个应约
-    @Column
-    @ManyToOne
+    @JoinColumn(name="userId")
+    @ManyToOne(targetEntity = message.class)
     private String userId;//所属用户的ID
-    @Column
+    @Column(name="active")
     private String active;//是否可查看 "active"和“dead” 两种取值
 
     public message() {

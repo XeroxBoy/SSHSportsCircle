@@ -6,15 +6,15 @@ import javax.persistence.*;
 
 @Entity
 @Component("friends")
-@Table(name="friends")
+@Table(name = "friends")
 public class friends {
     @Id
-    @OneToOne
     @GeneratedValue
+    @Column(name="idfriends")
     private int friendsId;//主键
-    @Column
+    @Column(name="friendsFrom")
     private String friendsFrom;//好友1方
-    @Column
+    @Column(name="friendsTo")
     private String friendsTo;//好友另一方
 
     public int getFriendsId() {

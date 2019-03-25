@@ -1,4 +1,4 @@
-package com.cdut.sx.dao.impl;
+package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.dao.friendsdao;
@@ -7,60 +7,47 @@ import com.cdut.sx.pojo.friends;
 import com.cdut.sx.pojo.user;
 import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @Transactional
-public class friendsdaoImp{
+public class friendsdaoImp {
     @Resource
     private Userdao userdao;
     @Autowired
     private friendsdao friendsdao;
+
     public ArrayList<friends> queryMyFriends(String me) {
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        ArrayList<friends> myFriends = (ArrayList<friends>) session.createQuery("from friends where friendsFrom=:friendfrom").setString("friendfrom", me).list();
-        trans.commit();
-        return myFriends;
+
+        return friendsdao.queryMyFriends(me);
     }
 
-    public void save(String friend1, String friend2) {
+    public void save(friends friend) {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        friends friend = new friends();
-        friend.setFriendsFrom(friend1);
-        friend.setFriendsTo(friend2);
-        session.save(friend);
-        trans.commit();
+        friendsdao.save(friend);
     }
 
     public void update(String friend1, String friends2, boolean isCancel) {
-
+        friends friend = new friends();
+        friend.setFriendsFrom(friend1);
+        friend.setFriendsTo(friends2);
+        if (isCancel)
+            friendsdao.delete(friend1, friends2);
+        else
+            friendsdao.save(friend);
     }
 
     public int findCount() {
         // TODO Auto-generated method stub
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        String hql = "select friendsId from friends";
-        Query query = session.createQuery(hql);
-        List list = query.list();
-        trans.commit();
-
-        if (list.size() > 0) {
-            return list.size();
-        }
-        return 0;
+        return (int) friendsdao.count();
     }
 
     public PageBean<user> findByPage(Integer currPage) {
@@ -69,32 +56,23 @@ public class friendsdaoImp{
 
         //测试
         System.out.println("进入findByPage");
-        Session session = HibernateUtil.getSession();
-        Transaction trans = null;
+
         int totalCount = 0;
         int pagesize = 0;
         PageBean<user> pageBean = new PageBean<user>();
-
         try {
-            trans = session.beginTransaction();
-
             // 封装当前页数
             pageBean.setCurrPage(currPage);
             // 封装每页显示的记录数
             pagesize = 10;
             pageBean.setPageSize(pagesize);
-
-
             //测试
             System.out.println("马上执行findCount");
             // 封装总记录数
             totalCount = this.findCount();
-
-
             //测试
             System.out.println(totalCount);
             pageBean.setTotalCount(totalCount);
-            trans.commit();
 
         } catch (Exception e) {
 
@@ -123,9 +101,7 @@ public class friendsdaoImp{
         Criteria criteria = session.createCriteria(friends.class);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-
         List<friends> list = criteria.list();
-
         trans.commit();
         return list;
         // TODO Auto-generated method stub
@@ -133,13 +109,7 @@ public class friendsdaoImp{
     }
 
     public void delete(String friends1, String friend2) {
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        List OriFriend = session.createQuery("from friends where friendsFrom=:friendfrom and friendsTo=:friendto").setString("friendfrom", friends1).setString("friendto", friend2).list();
-        friends friendsTodelete = (friends) OriFriend.get(0);
-        if (friendsTodelete != null)
-            session.delete(friendsTodelete);
-        trans.commit();
+        friendsdao.delete(friends1, friend2);
     }
 }
 

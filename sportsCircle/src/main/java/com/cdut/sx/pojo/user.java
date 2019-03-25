@@ -3,6 +3,7 @@ package com.cdut.sx.pojo;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,34 +11,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Component("user")
-public class user  {
+public class user {
     @Id
     @GeneratedValue
+    @Column(name="userId")
     private int userId;//主键
-    @Column
+    @Column(name="birthday")
     private Date birthday;//生日
-    @Column
+    @Column(name="userName")
+    @NotBlank(message="{user.name.valid}")
     private String username; //主键
-    @Column
+    @Column(name="userPassword")
+    @NotBlank(message="{user.password.valid}")
     private String password;
-    @Column
+    @Column(name="userEmail")
     private String email;
-    @Column
+    @Column(name="sex")
     private String sex;
-    @Column
+    @Column(name="maxProdays")
     private int maxProdays = 0;
-    @Column
+    @Column(name="exp")
     private int exp = 0;//经验
-    @Column
+    @Column(name="Prodays")
     private int Prodays = 0;//打卡天数
-    @Column
+    @Column(name="lastProday")
     private Date lastProday = new Date();//上一次打卡的日期
-    @Column
+    @Column(name="Areabelongto")
     private String Areabelongto;//所属板块
     @OneToMany
-    @Column
     private Set<message> messages = new HashSet<message>();//一用户有多条状态
 
     public user() {

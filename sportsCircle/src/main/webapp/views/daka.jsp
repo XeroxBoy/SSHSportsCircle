@@ -11,7 +11,7 @@
 
     <style type="text/css">
         input {
-            border: 10px solid red;
+            border: 10px solid #ffbaad;
             -moz-border-radius: 10px;
         }
     </style>
