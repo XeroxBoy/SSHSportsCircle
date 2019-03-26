@@ -11,6 +11,8 @@
     <groupId>com.cdut.sx</groupId>
     <artifactId>sportsCircle</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+
     <name>sportsCircle</name>
     <description>Demo project for Spring Boot</description>
 
@@ -72,6 +74,8 @@
     </dependencies>
 
     <build>
+        <finalName>sportsCircle</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

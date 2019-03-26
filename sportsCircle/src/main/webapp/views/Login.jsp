@@ -51,8 +51,8 @@
     <h2>Register Your Account And come into our circle!</h2>
     <div class="content">
         <div id="form_wrapper" class="form_wrapper">
-            <s:fielderror/><!-- 错误信息 -->
-            <form class="login active" action="login.action" method="post">
+            <%--<s:fielderror/><!-- 错误信息 -->--%>
+            <form class="login active" action="/login" method="post">
                 <h3>Login</h3>
                 <div>
                     <label>用户名:</label>
