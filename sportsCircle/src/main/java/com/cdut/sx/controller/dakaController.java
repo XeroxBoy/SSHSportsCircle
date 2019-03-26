@@ -14,7 +14,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Date;
 
-@Controller
 @RestController
 public class dakaController {
     @Autowired

@@ -5,17 +5,17 @@ import com.cdut.sx.pojo.user;
 import com.cdut.sx.service.UserdaoImp;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Set;
 
-@RestController
+@Controller
 
 public class zhuceController {
     @Autowired

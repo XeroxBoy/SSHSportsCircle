@@ -4,10 +4,10 @@ import com.cdut.sx.pojo.user;
 import com.cdut.sx.service.UserdaoImp;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+@Controller
 public class loginController {
     @Autowired
     UserdaoImp userdao;
@@ -33,13 +33,12 @@ public class loginController {
         return date;
     }
     @RequestMapping("/")
-    public ModelAndView start(){
-        return new ModelAndView("views/Login");
+    public String start(){
+        return "views/Login";
     }
     @SuppressWarnings("deprecation")
     @RequestMapping("/login")
     public ModelAndView user(@Validated @ModelAttribute user User, HttpSession session, HttpServletRequest request, HttpServletResponse response) { //验证方法 进行数据库操作
-
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码
         List<user> user = userdao.queryByName(User.getUsername());//获取用户信息

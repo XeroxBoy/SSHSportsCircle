@@ -3,15 +3,15 @@ package com.cdut.sx.controller;
 //import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 
-@RestController
+@Controller
 public class uploadController {
     private File upload;
     private String uploadFileName;
