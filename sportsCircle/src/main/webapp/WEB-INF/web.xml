@@ -62,6 +62,6 @@
     </filter>
     <filter-mapping>
         <filter-name>openSession</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </filter-mapping>
 </web-app>

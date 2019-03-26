@@ -3,7 +3,6 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -153,7 +152,7 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
-<form action="message.action" method="post" class="form-inline" role="form">
+<form action="/daka" method="post" class="form-inline" role="form">
     <div class="form-group">
         <h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">发出你的邀请</h3>
         <label for="contents">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control"

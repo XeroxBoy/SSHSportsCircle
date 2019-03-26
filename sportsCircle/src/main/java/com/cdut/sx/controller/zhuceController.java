@@ -5,16 +5,17 @@ import com.cdut.sx.pojo.user;
 import com.cdut.sx.service.UserdaoImp;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Set;
 
-@Controller
+@RestController
 
 public class zhuceController {
     @Autowired
@@ -22,7 +23,7 @@ public class zhuceController {
 
     @Autowired
     private user User;
-
+    @RequestMapping("/zhuce")
     public ModelAndView zhuce(@Validated @ModelAttribute("user") user User) {
         ModelAndView mav = new ModelAndView("views/fitcircle");
         ModelAndView errormav = new ModelAndView("views/error");
@@ -41,6 +42,7 @@ public class zhuceController {
      *
      * @return 成功则返回"findMyInfoSucess"
      */
+    @RequestMapping("/findMyInfo")
     public ModelAndView findMyInfo(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         ModelAndView errormav = new ModelAndView("views/error");
@@ -59,6 +61,7 @@ public class zhuceController {
     /**
      * 用于修改用户信息
      */
+    @RequestMapping("/modify")
     public ModelAndView modify(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         int userId = (Integer) session.getAttribute("id");

@@ -34,6 +34,11 @@ public class Websocket extends WebSocketServer {
     }
 
     @Override
+    public void onStart() {
+
+    }
+
+    @Override
     public void onMessage(WebSocket conn, String message) {
         // TODO Auto-generated method stub
         WebsocketService.addUser(message, conn);

@@ -3,7 +3,6 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -216,7 +215,7 @@
 <br>
 
 <%-- <s:debug /> --%>
-<form id="form1" style="margin-left: 10px;margin-right: 10px" action="zhuce-modify.action" method="post"
+<form id="form1" style="margin-left: 10px;margin-right: 10px" action="/modify" method="post"
       role="form">
     <div class="input-group">
         <label>用户名: </label><input name="username" type="text" readonly="readonly"
@@ -256,7 +255,7 @@
 </form>
 
 <table>
-    <form action="upload.action" method="post" enctype="multipart/form-data">
+    <form action="/upload" method="post" enctype="multipart/form-data">
         <input type="file" id="upload" name="upload"/><br>
         <input type="submit" value="提交"/>
         <br>

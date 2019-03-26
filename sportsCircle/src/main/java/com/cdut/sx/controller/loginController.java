@@ -4,10 +4,10 @@ import com.cdut.sx.pojo.user;
 import com.cdut.sx.service.UserdaoImp;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
 public class loginController {
     @Autowired
     UserdaoImp userdao;
@@ -32,7 +32,10 @@ public class loginController {
         date = (Date) calendar.getTime();
         return date;
     }
-
+    @RequestMapping("/")
+    public ModelAndView start(){
+        return new ModelAndView("views/Login");
+    }
     @SuppressWarnings("deprecation")
     @RequestMapping("/login")
     public ModelAndView user(@Validated @ModelAttribute user User, HttpSession session, HttpServletRequest request, HttpServletResponse response) { //验证方法 进行数据库操作

@@ -1,8 +1,7 @@
 package com.cdut.sx.typeConverter;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.conversion.impl.DefaultTypeConverter;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.TypeConstraintException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,10 +9,10 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 
-public class MyDateConverter extends DefaultTypeConverter {
+public class MyDateConverter  {
 
 
-    public Object convertValue(Object value, Class toType) {
+    public Object convertValue(Object value, Class toType, HttpSession session) {
         // TODO Auto-generated method stub
 
         SimpleDateFormat sdf = null;
@@ -23,7 +22,7 @@ public class MyDateConverter extends DefaultTypeConverter {
                 sdf = getSimpleDateFormat(dataStr);
                 return sdf.parse(dataStr);
             } else if (toType == String.class) {
-                sdf = (SimpleDateFormat) ActionContext.getContext().getSession().get("sdf");
+                sdf = (SimpleDateFormat) session.getAttribute("sdf");
                 Date date = (Date) value;
                 return sdf.format(date);
             }
@@ -31,7 +30,7 @@ public class MyDateConverter extends DefaultTypeConverter {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return super.convertValue(value, toType);
+        return null;
     }
 
     private SimpleDateFormat getSimpleDateFormat(String dataStr) {
