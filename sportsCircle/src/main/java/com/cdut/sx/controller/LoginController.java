@@ -74,7 +74,9 @@ public class LoginController {
             }
 
             if (user1.getProdays() != 0) {//连续打卡了
-                if (user1.getLastProday().equals(beforeday) && user1.getLastProday().getMonth() != new Date().getMonth()) {
+                if (!user1.getLastProday().equals(beforeday) || user1.getLastProday().getMonth() == new Date().getMonth()) {
+
+                } else {
                     date = date - user1.getProdays();//处理打卡日期月底和月初连续的情况 适应js中的日历函数 比如说31，1，2打了三次卡
                     //那他这个月应该画勾的日期会从 2-3=-1算起 打3个勾 最终效果就是1，2号打勾
 
