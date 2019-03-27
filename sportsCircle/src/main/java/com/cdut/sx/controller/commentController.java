@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
-//import java.sql.Date;
 
 @Controller
 public class commentController {
