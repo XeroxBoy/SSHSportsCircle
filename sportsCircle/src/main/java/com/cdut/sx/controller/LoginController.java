@@ -1,7 +1,7 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.user;
-import com.cdut.sx.service.UserdaoImp;
+import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class loginController {
+public class LoginController {
     @Autowired
-    UserdaoImp userdao;
+    UserService userdao;
     @Autowired
     private user User;
 
@@ -36,9 +36,19 @@ public class loginController {
     public String start(){
         return "views/Login";
     }
+
+    /**
+     * @param User
+     * @param session
+     * @param request
+     * @param response
+     * @return
+     */
     @SuppressWarnings("deprecation")
     @RequestMapping("/login")
-    public ModelAndView user(@Validated @ModelAttribute user User, HttpSession session, HttpServletRequest request, HttpServletResponse response) { //验证方法 进行数据库操作
+    public ModelAndView user(@Validated @ModelAttribute user User, HttpSession session,
+                             HttpServletRequest request, HttpServletResponse response) {
+        this.User = User; //验证方法 进行数据库操作
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码
         List<user> user = userdao.queryByName(User.getUsername());//获取用户信息
@@ -50,7 +60,6 @@ public class loginController {
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
                 return errormav; //查询失败 去失败页面
             if (!code.equals((String) session.getAttribute("randstr"))) {//验证码数错了 不能用== 不然比较的是引用
-                System.out.println(code + "   " + session.getAttribute("randstr"));
                 return errormav;
             }
             if (remember != null)
@@ -86,15 +95,6 @@ public class loginController {
             return errormav;
     }
 
-
-//    public void validate() {
-//        if ("".equals(User.getUsername().trim())) {
-//            this.addFieldError("username", "用户名不能为空！");
-//            if ("".equals(User.getPassword().trim())) {
-//                this.addFieldError("password", "密码不能为空");
-//            }
-//        }
-//    }
 
     public void setCookie(HttpServletResponse response) {
         Cookie cookie1 = new Cookie("zh", User.getUsername());

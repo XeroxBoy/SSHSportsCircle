@@ -1,7 +1,7 @@
 package com.cdut.sx.service;
 
+import com.cdut.sx.dao.Friendsdao;
 import com.cdut.sx.dao.Userdao;
-import com.cdut.sx.dao.friendsdao;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.friends;
 import com.cdut.sx.pojo.user;
@@ -19,11 +19,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class friendsdaoImp {
+public class FriendsService {
     @Resource
     private Userdao userdao;
     @Autowired
-    private friendsdao friendsdao;
+    private Friendsdao friendsdao;
 
     public ArrayList<friends> queryMyFriends(String me) {
 
@@ -50,33 +50,20 @@ public class friendsdaoImp {
         return (int) friendsdao.count();
     }
 
-    public PageBean<user> findByPage(Integer currPage) {
+    public PageBean<user> findByPage(Integer currPage) throws Exception {
         // TODO Auto-generated method stub
-
-
-        //测试
-        System.out.println("进入findByPage");
-
         int totalCount = 0;
         int pagesize = 0;
         PageBean<user> pageBean = new PageBean<user>();
-        try {
-            // 封装当前页数
-            pageBean.setCurrPage(currPage);
-            // 封装每页显示的记录数
-            pagesize = 10;
-            pageBean.setPageSize(pagesize);
-            //测试
-            System.out.println("马上执行findCount");
-            // 封装总记录数
-            totalCount = this.findCount();
-            //测试
-            System.out.println(totalCount);
-            pageBean.setTotalCount(totalCount);
+        // 封装当前页数
+        pageBean.setCurrPage(currPage);
+        // 封装每页显示的记录数
+        pagesize = 10;
+        pageBean.setPageSize(pagesize);
+        // 封装总记录数
+        totalCount = this.findCount();
+        pageBean.setTotalCount(totalCount);
 
-        } catch (Exception e) {
-
-        }
         // 封装总页数
         double tc = totalCount;
         Double num = Math.ceil(tc / pagesize);

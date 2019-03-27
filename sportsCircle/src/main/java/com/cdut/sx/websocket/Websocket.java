@@ -8,14 +8,11 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-/*
-import javax.mail.Session;
-*/
-public class Websocket extends WebSocketServer {
 
+public class Websocket extends WebSocketServer {
+    private static Thread t = new Thread();
     public Websocket(int port) throws UnknownHostException {
         super(new InetSocketAddress(port));
-        System.out.println(port);
         // TODO Auto-generated constructor stub
     }
 
@@ -43,7 +40,7 @@ public class Websocket extends WebSocketServer {
         // TODO Auto-generated method stub
         WebsocketService.addUser(message, conn);
         while (!WebsocketService.isEmpty()) {//所有用户退出之前
-            Thread t = new Thread();
+            t = new Thread();
             WebsocketService.sendMessage("系统时间：" + new Date());
             try {
                 t.sleep(1000);

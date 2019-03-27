@@ -7,13 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 public interface Commentsdao extends JpaRepository<comments, Integer> {
     @Query(value = "select * from comments", nativeQuery = true)
-    public ArrayList<comments> queryAll();//查询所有人
+    public List<comments> queryAll();//查询所有人
 
     @Modifying
     @Query(value = "delete from comments where commentId=:id", nativeQuery = true)

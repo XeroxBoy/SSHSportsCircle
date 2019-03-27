@@ -1,7 +1,7 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.remind;
-import com.cdut.sx.service.reminddaoImp;
+import com.cdut.sx.service.RemindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ public class remindController {
     @Autowired
     private remind remind;
     @Autowired
-    private reminddaoImp dao;
+    private RemindService dao;
 
     @RequestMapping("/sendPromise")
     public String sendPromise() {//邀约函数

@@ -1,6 +1,5 @@
 package com.cdut.sx.controller;
 
-//import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,6 @@ public class uploadController {
     public String upload1(HttpSession session, HttpServletRequest request) {
         if (uploadFileName != null) {
             String username = (String) session.getAttribute("name");//把头像文件命名为username
-            System.out.print(username);
             if (username == null || username == "")
                 return "fail";
             String path = request.getServletContext().getRealPath("/WEB-INF/upload");
@@ -43,7 +41,6 @@ public class uploadController {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            System.out.println(path);
             File destFile = new File(path, username + ".jpg");
             try {
                 FileUtils.copyFile(upload, destFile);

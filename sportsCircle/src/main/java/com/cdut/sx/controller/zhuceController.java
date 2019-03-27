@@ -2,7 +2,7 @@ package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.message;
 import com.cdut.sx.pojo.user;
-import com.cdut.sx.service.UserdaoImp;
+import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,11 @@ import java.util.Set;
 @Controller
 public class zhuceController {
     @Autowired
-    UserdaoImp userdao;
+    UserService userdao;
 
     @Autowired
     private user User;
+
     @RequestMapping("/zhuce")
     public ModelAndView zhuce(@Validated @ModelAttribute("user") user User) {
         ModelAndView mav = new ModelAndView("views/fitcircle");
@@ -65,19 +66,9 @@ public class zhuceController {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         int userId = (Integer) session.getAttribute("id");
         Set<message> message = (Set<message>) session.getAttribute("messages");
-        //	System.out.println(userId);
         User.setUserId(userId);
         User.setMessages(message);//不然user的message会被清空
         userdao.save(User);
         return mav;
     }
-
-//    public void validateZhuce() { //跟数据库中的信息进行比对
-//        System.out.print(User.getUsername());
-//        if ("".equals(User.getUsername().trim())) //防止它打一堆空格
-//            this.addFieldError("username", "用户名不能为空！");
-//        if ("".equals(User.getPassword().trim()))
-//            this.addFieldError("password", "密码不能为空");
-//    }
 }
-

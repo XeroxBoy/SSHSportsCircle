@@ -1,9 +1,10 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.comments;
-import com.cdut.sx.service.commentsdaoImp;
+import com.cdut.sx.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,14 +14,17 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ *
+ */
 @Controller
 public class commentController {
-    @Autowired
-    private comments comment;
-    private int currPage;
-    @Autowired
-    private commentsdaoImp commentsdaoImp;
 
+    private int currPage;
+    private static final String ERR = "views/error";
+    private static final String ZHUYE = "views/fitcircle";
+    @Autowired
+    private CommentsService commentsdaoImp;
 
     public int getCurrPage() {
         return currPage;
@@ -31,7 +35,8 @@ public class commentController {
     }
 
     @RequestMapping("/comment")
-    public ModelAndView save() {
+    public ModelAndView save(@ModelAttribute comments comment) {
+        if (comment == null) return new ModelAndView(ERR);
         comment.setActive("active");
         comment.setOutTime("" + new Date().getDate());
         String content = "";
@@ -45,31 +50,18 @@ public class commentController {
         }//转码
         comment.setContents(content);
         comment.setUserId(userId);
-        if (comment != null)
-            commentsdaoImp.save(comment);
-     /*	Userdao userdao=new UserdaoImp();
-        message messagebelongTo=messagedao.queryById(comment.getMessagebelongTo()).get(0);//获取所属的状态
-        String userEmail=userdao.queryByName(messagebelongTo.getUserId()).get(0).getEmail();//获取楼主的email
-        try {
-			Sendmail.pushMessage(userEmail,"您的帖子有回复了 内容如下: \n"+comment.getContents());
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-        return new ModelAndView("views/fitcircle");
+        commentsdaoImp.save(comment);
+        return new ModelAndView(ZHUYE);
     }
+
     @RequestMapping("/commentDelete")
     public String delete(HttpServletRequest request) {
         int commentid = Integer.parseInt(request.getParameter("commentId"));
         List<comments> comment = commentsdaoImp.queryById(commentid);
-        if (comment != null && !comment.isEmpty()) {
-            comment.get(0).setActive("dead");
-        }
+        if (comment == null || comment.isEmpty()) return ERR;
+        comment.get(0).setActive("dead");
         commentsdaoImp.save(comment.get(0));
-        return "views/fitcircle";
+        return ZHUYE;
     }
 }
 

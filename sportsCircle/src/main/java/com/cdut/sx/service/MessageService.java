@@ -1,7 +1,7 @@
 package com.cdut.sx.service;
 
+import com.cdut.sx.dao.Messagedao;
 import com.cdut.sx.dao.Userdao;
-import com.cdut.sx.dao.messagedao;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.message;
 import com.cdut.sx.utils.HibernateUtil;
@@ -21,11 +21,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class messagedaoImp {
+public class MessageService {
     @Resource
     Userdao userdao;
     @Autowired
-    messagedao messagedao;
+    Messagedao messagedao;
 
     // 查询所有message
     public ArrayList<message> queryAll() {
@@ -42,8 +42,8 @@ public class messagedaoImp {
     public message queryById(int messageId) { //按message编号查message
         // TODO Auto-generated method stub
         Optional<message> messages = messagedao.findById(messageId);
-        if (messages.get() == null) return null;
-        return messages.get();
+        if (messages.get() != null) return messages.get();
+        return null;
     }
 
     public void save(message message) {
@@ -69,10 +69,6 @@ public class messagedaoImp {
      */
     public PageBean<message> findByPage(Integer currPage) {
         // TODO Auto-generated method stub
-
-
-        //测试
-        System.out.println("进入findByPage");
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         PageBean<message> pageBean = new PageBean<message>();
@@ -81,12 +77,8 @@ public class messagedaoImp {
         // 封装每页显示的记录数
         int pagesize = 1;
         pageBean.setPageSize(pagesize);
-        //测试
-        System.out.println("马上执行findCount");
         // 封装总记录数
         int totalCount = (int) this.findCount();
-        //测试
-        System.out.println(totalCount);
         pageBean.setTotalCount(totalCount);
         trans.commit();
         // 封装总页数
@@ -212,7 +204,6 @@ public class messagedaoImp {
         pageBean.setPageSize(pagesize);
         // 封装总记录数
         int totalCount = (int) this.findAreaCount(area);
-        //  System.out.println(totalCount);
         pageBean.setTotalCount(totalCount);
         trans.commit();
         // 封装总页数

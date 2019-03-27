@@ -1,7 +1,7 @@
 package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Commentsdao;
-import com.cdut.sx.dao.messagedao;
+import com.cdut.sx.dao.Messagedao;
 import com.cdut.sx.pojo.comments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,20 +13,16 @@ import java.util.List;
 
 @Transactional
 @Service
-public class commentsdaoImp {
+public class CommentsService {
     @Resource
-    private messagedao messagedao;
+    private Messagedao messagedao;
     @Autowired
     private Commentsdao commentdao;
 
-    //    @Autowired
-//    @Qualifier("entityManagerFactory")
-//    EntityManagerFactory factory;
-//    @PersistenceContext
-//    private EntityManager manager;
     public ArrayList<comments> queryAll() {
         // TODO Auto-generated method stub
-        return commentdao.queryAll();
+        ArrayList<comments> comments = (ArrayList<comments>) commentdao.queryAll();
+        return comments;
     }
 
     public List queryByMsgId(String messagename) {
@@ -56,17 +52,3 @@ public class commentsdaoImp {
     }
 
 }
-//        // 1.获得Factory
-//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA");
-//        // 2.获取Manager
-//        EntityManager manager = factory.createEntityManager();
-//        // 3.获得事务，并开启事务
-//        EntityTransaction transaction = manager.getTransaction();
-//        transaction.begin();
-//        // 4.执行sql
-//        comments commentsBase=manager.find(comments.class,comments.getCommentId());
-//        manager.remove(commentsBase);
-//        // 5.提交事务，关闭资源
-//        transaction.commit();
-//        manager.close();
-//        factory.close();

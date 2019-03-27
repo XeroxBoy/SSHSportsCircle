@@ -1,6 +1,6 @@
 package com.cdut.sx.service;
 
-import com.cdut.sx.dao.reminddao;
+import com.cdut.sx.dao.Reminddao;
 import com.cdut.sx.pojo.remind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 @Transactional
 @Service
-public class reminddaoImp {
+public class RemindService {
     @Autowired
-    private reminddao reminddao;
+    private Reminddao reminddao;
 
     public ArrayList<remind> queryAll(String user) {
         ArrayList<remind> myReminds = (ArrayList<remind>) reminddao.findAll();

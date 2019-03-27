@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface reminddao extends JpaRepository<remind, Integer> {
+public interface Reminddao extends JpaRepository<remind, Integer> {
 
 }
 

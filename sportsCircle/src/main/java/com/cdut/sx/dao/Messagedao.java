@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface messagedao extends JpaRepository<message, Integer> {
+public interface Messagedao extends JpaRepository<message, Integer> {
 
     @Query(value = "select from message where userId=:userId", nativeQuery = true)
     public List<message> findByUser(@Param("userId") String userId);

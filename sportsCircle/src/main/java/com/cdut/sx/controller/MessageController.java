@@ -2,11 +2,11 @@ package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.message;
-import com.cdut.sx.pojo.remind;
-import com.cdut.sx.service.messagedaoImp;
-import com.cdut.sx.service.reminddaoImp;
+import com.cdut.sx.service.MessageService;
+import com.cdut.sx.service.RemindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,25 +14,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 
+/**
+ *
+ */
 @Controller
-public class messageController {
+public class MessageController {
+    private static final String PAGE = "PageBean";
+    private static final String ZHUYE = "views/fitcircle";
     @Autowired
-    reminddaoImp reminddao;
-    @Autowired
-    private message message;
+    RemindService reminddao;
     private Integer currPage = 1;
     @Autowired
-    private messagedaoImp dao;
+    private MessageService dao;
+    private message message;
+
     @RequestMapping("/message")
-    public ModelAndView message(HttpSession session) { //验证状态是否合理
-        message.setActive("active");
+    public ModelAndView message(HttpSession session, @ModelAttribute message message) {
+        this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
+        message.setActive("active");
+
         message.setUserId((String) session.getAttribute("name"));//给message所属人属性赋值
         dao.save(message);
-        return new ModelAndView("views/fitcircle");
+        return new ModelAndView(ZHUYE);
     }
 
     public Integer getCurrPage() {
@@ -42,27 +48,21 @@ public class messageController {
     public void setCurrPage(Integer currPage) {
         this.currPage = currPage;
     }
+
     @RequestMapping("/findAll")
     public ModelAndView findAll() {
-        System.out.println("进入findAll");
         PageBean<message> pageBean = dao.findByPage(currPage);
-        //System.out.println("执行了findBypage,接下来遍历pageBean里面的list");
-/*	for(int i=0;i<pageBean.getList().size();++i)
-	{
-		System.out.println(pageBean.getList().get(i));
-	}*/
-
-        //将pageBean存入到值栈中
-        ModelAndView mav = new ModelAndView("views/fitcircle");
-        mav.addObject("pageBean", pageBean);
+        ModelAndView mav = new ModelAndView(ZHUYE);
+        mav.addObject(PAGE, pageBean);
         return mav;
     }
+
     @RequestMapping("/solve")
     public String solve(HttpServletRequest request) { //将message状态置为解决
         String messageId = request.getParameter("messageId");
-        message message = dao.queryById(Integer.valueOf(messageId));
+        message = dao.queryById(Integer.valueOf(messageId));
         message.setActive("dead");
-        return "views/fitcircle";
+        return ZHUYE;
     }
 
     /**
@@ -72,15 +72,7 @@ public class messageController {
      */
     @RequestMapping("/findArea")
     public ModelAndView findArea(HttpServletRequest request, HttpSession session) {
-	/*	messagedao Messagedao=new messagedaoImp();
-		message message1=Messagedao.queryById(message.getMessageid()).get(0);
-		message=message1;//把评论给他
-*/
-        //	System.out.println(message.getComments());
-        ModelAndView mav = new ModelAndView("views/fitcircle");
-        String username = (String) session.getAttribute("name");
-        ArrayList<remind> reminds = reminddao.queryAll(username);
-
+        ModelAndView mav = new ModelAndView(ZHUYE);
         String area = request.getParameter("area");//如果是点链接跳过来的话
         if (area == null)//如果是通过登录等方式跳过来的话
             area = (String) session.getAttribute("area");
@@ -92,16 +84,11 @@ public class messageController {
                 e.printStackTrace();
             }
         }
-        System.out.println("area" + area);
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-        //System.out.print(area);
         PageBean<message> pageBean = dao.findByArea(currPage, area);
-        for (int i = 0; i < pageBean.getList().size(); i++) {
-            System.out.println(pageBean.getList().get(i));
-        }
-        mav.addObject("pageBean", pageBean);
+        mav.addObject(PAGE, pageBean);
         return mav;
 
     }
@@ -113,35 +100,14 @@ public class messageController {
      */
     @RequestMapping("/findMine")
     public ModelAndView findMine(HttpSession session) {
-        //	System.out.println("进入了findMine()");
-        ModelAndView mav = new ModelAndView("views/fitcircle");
+        ModelAndView mav = new ModelAndView(ZHUYE);
         String userId;
         userId = String.valueOf(session.getAttribute("id")); // Servlet 中获取 Session 对象
-        System.out.println(userId);
         PageBean<message> pageBean = dao.findMineByPage(currPage, userId);
-        for (int i = 0; i < pageBean.getList().size(); ++i) {
-            System.out.println(pageBean.getList().get(i));
-        }
-        mav.addObject("pageBean", pageBean);
+        mav.addObject(PAGE, pageBean);
         return mav;
     }
 
-//    public String sendPromise() {
-//        //	HttpServletRequest request = ServletActionContext.getRequest();
-//        //	request.getParameter("")
-//        sendMessageToHost();//给楼主发送通知
-//        return "sendPromiseSuccess";
-//    }
-
-//    private void sendMessageToHost() {
-//    }
-//    @RequestMapping("/makePromise")
-//    public ModelAndView makePromise() {
-//        ModelAndView mav = new ModelAndView("views/fitcircle");
-//        message.setActive("dead");
-//        dao.save(message);
-//        return mav;
-//    }
     @RequestMapping("/deleteMessage")
     public ModelAndView delete(HttpServletRequest request) {
         int messageid = Integer.parseInt(request.getParameter("messageid"));
@@ -150,8 +116,7 @@ public class messageController {
             messages.setActive("dead");
         }
         dao.save(messages);
-        ModelAndView mav = new ModelAndView("views/fitcircle");
-        return mav;
+        return new ModelAndView(ZHUYE);
     }
 }
 

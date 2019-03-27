@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/*
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-*/
 
 
 public class WebsocketService {
+    private WebsocketService() {
+    }
     private static final Map<WebSocket, String> userconnections = new HashMap<WebSocket, String>();
 
     //向连接池中添加连接
@@ -36,8 +34,6 @@ public class WebsocketService {
         synchronized (keySet) {
             for (WebSocket conn : keySet) {
                 String user = userconnections.get(conn);
-                System.out.println(user);
-
                 if (user != null) {
                     conn.send(message);
                 }

@@ -1,9 +1,8 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.user;
-import com.cdut.sx.service.UserdaoImp;
+import com.cdut.sx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,15 +14,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 @RestController
-public class dakaController {
+public class DakaController {
     @Autowired
-    UserdaoImp dao;
+    private UserService dao;
 
-    public static Date getBeforeDate(Date date) { //获取当前天数的前一天
+    private static Date getBeforeDate(Date date) { //获取当前天数的前一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(calendar.DAY_OF_MONTH, -1);
-        Date date1 = new Date(calendar.getTimeInMillis());
+
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        Date date1;
+        date1 = new Date(calendar.getTimeInMillis());
         return date1;
     }
     @RequestMapping("/daka")
@@ -39,7 +40,6 @@ public class dakaController {
         resp.setContentType("text/html;charset=utf-8");//不然打回来乱码
 
         user user = dao.queryByName(username).get(0);
-        System.out.println(getBeforeDate(new Date()).getDate());
         if (user.getLastProday().getDate() == getBeforeDate(new Date()).getDate()) {   //上次打卡日期为昨天
             int prodays = user.getProdays();//当前连续打卡天数
             user.setProdays(prodays + 1);//总打卡天数+1
