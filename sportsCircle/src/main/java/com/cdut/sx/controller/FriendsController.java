@@ -1,6 +1,6 @@
 package com.cdut.sx.controller;
 
-import com.cdut.sx.pojo.friends;
+import com.cdut.sx.pojo.Friends;
 import com.cdut.sx.service.FriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class FriendsController {
     @Autowired
-    private friends friends;
+    private Friends friends;
     @Autowired
     private FriendsService dao;
     private Integer currPage = 1;
@@ -26,7 +26,7 @@ public class FriendsController {
         String friendsTo = request.getParameter("friendsTo");
         if (!username.equals(friendsTo))//不和自己交朋友
         {
-            friends newFriend = new friends();
+            Friends newFriend = new Friends();
             newFriend.setFriendsTo(friendsTo);
             newFriend.setFriendsFrom(username);
             dao.save(newFriend);
@@ -39,7 +39,7 @@ public class FriendsController {
         ModelAndView mav = new ModelAndView("views/friends");
         if (currPage == 0)
             currPage = 1;
-        ArrayList<friends> friendList = dao.queryMyFriends(username);
+        ArrayList<Friends> friendList = dao.queryMyFriends(username);
         if (friendList != null && !friendList.isEmpty()) {
             mav.addObject("friendsList", friendList);
             return mav;

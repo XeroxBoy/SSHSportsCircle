@@ -1,7 +1,7 @@
 package com.cdut.sx.controller;
 
-import com.cdut.sx.pojo.message;
-import com.cdut.sx.pojo.user;
+import com.cdut.sx.pojo.Message;
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,15 @@ import java.util.Date;
 import java.util.Set;
 
 @Controller
-public class zhuceController {
+public class ZhuceController {
     @Autowired
     UserService userdao;
 
     @Autowired
-    private user User;
+    private User User;
 
     @RequestMapping("/zhuce")
-    public ModelAndView zhuce(@Validated @ModelAttribute("user") user User) {
+    public ModelAndView zhuce(@Validated @ModelAttribute("user") User User) {
         ModelAndView mav = new ModelAndView("views/fitcircle");
         ModelAndView errormav = new ModelAndView("views/error");
         User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果
@@ -48,7 +48,7 @@ public class zhuceController {
         ModelAndView errormav = new ModelAndView("views/error");
         String userName = (String) session.getAttribute("name");
         if (userdao.queryByName(userName).size() == 1) {
-            user user = userdao.queryByName(userName).get(0);
+            User user = userdao.queryByName(userName).get(0);
             this.User = user;
             mav.addObject("User", User);
             return mav;
@@ -65,7 +65,7 @@ public class zhuceController {
     public ModelAndView modify(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         int userId = (Integer) session.getAttribute("id");
-        Set<message> message = (Set<message>) session.getAttribute("messages");
+        Set<Message> message = (Set<Message>) session.getAttribute("messages");
         User.setUserId(userId);
         User.setMessages(message);//不然user的message会被清空
         userdao.save(User);

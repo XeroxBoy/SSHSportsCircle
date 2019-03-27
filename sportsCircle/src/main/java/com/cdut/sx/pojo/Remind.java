@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "remind")
 @Component("remind")
-public class remind {
+public class Remind {
 
     @Id
     @GeneratedValue

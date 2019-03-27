@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Component("message")
 @Table(name = "message")
-public class message {
+public class Message {
     @Id
     @GeneratedValue
     @Column(name="messageid")
@@ -28,20 +28,20 @@ public class message {
     @Column(name="assignTime")
     private String assignTime;//约定时间
     @OneToMany
-    private Set<comments> comments = new HashSet<comments>();//一状态有多条评论
+    private Set<Comments> comments = new HashSet<Comments>();//一状态有多条评论
     @OneToMany
-    private Set<remind> reminds = new HashSet<>();//一条状态有多个应约
+    private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
     @JoinColumn(name="userId")
-    @ManyToOne(targetEntity = message.class)
+    @ManyToOne(targetEntity = Message.class)
     private String userId;//所属用户的ID
     @Column(name="active")
     private String active;//是否可查看 "active"和“dead” 两种取值
 
-    public message() {
+    public Message() {
         super();
     }
 
-    public message(String lsex, String location, String userId,
+    public Message(String lsex, String location, String userId,
                    Date outDate, String content, String belongTo, String assignTime) {
         super();
 
@@ -55,9 +55,9 @@ public class message {
         this.active = "active";
     }
 
-    public message(int messageid, String lsex, String location, Date outDate,
+    public Message(int messageid, String lsex, String location, Date outDate,
                    String content, String belongTo, String assignTime,
-                   Set<comments> comments, String userId, String active) {
+                   Set<Comments> comments, String userId, String active) {
         super();
         this.messageid = messageid;
         this.lsex = lsex;
@@ -71,11 +71,11 @@ public class message {
         this.active = active;
     }
 
-    public Set<remind> getReminds() {
+    public Set<Remind> getReminds() {
         return reminds;
     }
 
-    public void setReminds(Set<remind> reminds) {
+    public void setReminds(Set<Remind> reminds) {
         this.reminds = reminds;
     }
 
@@ -126,11 +126,11 @@ public class message {
         this.assignTime = assignTime;
     }
 
-    public Set<comments> getComments() {
+    public Set<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(Set<comments> comments) {
+    public void setComments(Set<Comments> comments) {
         this.comments = comments;
     }
 

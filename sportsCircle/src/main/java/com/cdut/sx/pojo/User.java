@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Component("user")
-public class user {
+public class User {
     @Id
     @GeneratedValue
     @Column(name="userId")
@@ -41,14 +41,14 @@ public class user {
     @Column(name="Areabelongto")
     private String Areabelongto;//所属板块
     @OneToMany
-    private Set<message> messages = new HashSet<message>();//一用户有多条状态
+    private Set<Message> messages = new HashSet<Message>();//一用户有多条状态
 
-    public user() {
+    public User() {
         super();
     }
 
 
-    public user(String birthday, String username, String password, String email,
+    public User(String birthday, String username, String password, String email,
                 String sex, String areabelongto) {  //无打卡天数
         super();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -65,13 +65,13 @@ public class user {
         this.Areabelongto = areabelongto;
     }
 
-    public user(String username, String password) {
+    public User(String username, String password) {
         super();
         this.username = username;
         this.password = password;
     }
 
-    public user(Date birthday, String username, String password, String email,
+    public User(Date birthday, String username, String password, String email,
                 String sex, String areabelongto) {
         super();
         this.birthday = birthday;
@@ -143,11 +143,11 @@ public class user {
         Areabelongto = areabelongto;
     }
 
-    public Set<message> getMessages() {
+    public Set<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<message> messages) {
+    public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
 

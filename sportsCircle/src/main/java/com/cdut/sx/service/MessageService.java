@@ -2,8 +2,8 @@ package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Messagedao;
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
-import com.cdut.sx.pojo.message;
 import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -28,37 +28,37 @@ public class MessageService {
     Messagedao messagedao;
 
     // 查询所有message
-    public ArrayList<message> queryAll() {
+    public ArrayList<Message> queryAll() {
         // TODO Auto-generated method stub
-        return (ArrayList<message>) messagedao.findAll();
+        return (ArrayList<Message>) messagedao.findAll();
     }
 
     // 按照username查询message 即这个人发过的状态
-    public List<message> queryByUserId(String username) {
+    public List<Message> queryByUserId(String username) {
         // TODO Auto-generated method stub
         return messagedao.findByUser(username);
     }
 
-    public message queryById(int messageId) { //按message编号查message
+    public Message queryById(int messageId) { //按message编号查message
         // TODO Auto-generated method stub
-        Optional<message> messages = messagedao.findById(messageId);
+        Optional<Message> messages = messagedao.findById(messageId);
         if (messages.get() != null) return messages.get();
         return null;
     }
 
-    public void save(message message) {
+    public void save(Message message) {
         // TODO Auto-generated method stub
         messagedao.save(message);
     }
 
-    public void update(message message) {
+    public void update(Message message) {
         // TODO Auto-generated method stub
         messagedao.save(message);
 
     }
 
 
-    public void delete(message message) {
+    public void delete(Message message) {
         // TODO Auto-generated method stub
         messagedao.delete(message);
     }
@@ -67,11 +67,11 @@ public class MessageService {
      * 1.每一页有1个记录
      *
      */
-    public PageBean<message> findByPage(Integer currPage) {
+    public PageBean<Message> findByPage(Integer currPage) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        PageBean<message> pageBean = new PageBean<message>();
+        PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
@@ -87,18 +87,18 @@ public class MessageService {
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
-        List<message> list = this.findByPage(begin, pagesize);
+        List<Message> list = this.findByPage(begin, pagesize);
         pageBean.setList(list);
         return pageBean;
     }
 
-    public List<message> findByPage(int begin, int pagesize) {
+    public List<Message> findByPage(int begin, int pagesize) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        Criteria criteria = session.createCriteria(message.class);
+        Criteria criteria = session.createCriteria(Message.class);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<message> list = criteria.list();
+        List<Message> list = criteria.list();
         trans.commit();
         return list;
         // TODO Auto-generated method stub
@@ -115,11 +115,11 @@ public class MessageService {
         return 0;
     }
 
-    public PageBean<message> findMineByPage(Integer currPage, String userId) {
+    public PageBean<Message> findMineByPage(Integer currPage, String userId) {
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        PageBean<message> pageBean = new PageBean<message>();
+        PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
@@ -135,7 +135,7 @@ public class MessageService {
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
-        List<message> list = this.findByPage(begin, pagesize, userId);
+        List<Message> list = this.findByPage(begin, pagesize, userId);
         pageBean.setList(list);
         return pageBean;
 
@@ -160,43 +160,43 @@ public class MessageService {
         return 0;
     }
 
-    public List<message> findByPage(int begin, int pagesize, String userId) {//找出这个人发过的状态
+    public List<Message> findByPage(int begin, int pagesize, String userId) {//找出这个人发过的状态
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        Criteria criteria = session.createCriteria(message.class);
+        Criteria criteria = session.createCriteria(Message.class);
         Criterion criterion = Expression.eq("userId", userId);
         criteria.add(criterion);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<message> list = criteria.list();
+        List<Message> list = criteria.list();
         trans.commit();
         return list;
 
     }
 
-    public List<message> findByPageArea(int begin, int pagesize, String area) {//跟据页数和圈子筛选
+    public List<Message> findByPageArea(int begin, int pagesize, String area) {//跟据页数和圈子筛选
         // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        Criteria criteria = session.createCriteria(message.class);
+        Criteria criteria = session.createCriteria(Message.class);
         Criterion criterion = Expression.eq("belongTo", area);
         Criterion criterion1 = Expression.eq("active", "active");
         criteria.add(criterion);
         criteria.add(criterion1);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<message> list = criteria.list();
+        List<Message> list = criteria.list();
         trans.commit();
         return list;
 
     }
 
-    public PageBean<message> findByArea(Integer currPage, String area) {
+    public PageBean<Message> findByArea(Integer currPage, String area) {
         // TODO 自动生成的方法存根
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        PageBean<message> pageBean = new PageBean<message>();
+        PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
@@ -212,7 +212,7 @@ public class MessageService {
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
-        List<message> list = this.findByPageArea(begin, pagesize, area);
+        List<Message> list = this.findByPageArea(begin, pagesize, area);
         pageBean.setList(list);
         return pageBean;
     }

@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <!--用class元素来定义一个持久化的类  -->
-    <class name="com.cdut.sx.pojo.message" table="message" catalog="web">
+    <class name="com.cdut.sx.pojo.Message" table="message" catalog="web">
         <!-- id元素定义主键的映射 -->
         <id name="messageid">
             <!--用来为该持久化类的实例生成唯一的标识  -->
@@ -21,7 +21,7 @@
         <property name="location"/>
         <set name="comments" lazy="false" cascade="all">
             <key column="messagebelongTo"/>
-            <one-to-many class="com.cdut.sx.pojo.comments"/>
+            <one-to-many class="com.cdut.sx.pojo.Comments"/>
         </set>
         <!--<set name="reminds" lazy="false" cascade="all">
             <key column="messagebelongTo"/>

@@ -1,6 +1,6 @@
 package com.cdut.sx.controller;
 
-import com.cdut.sx.pojo.comments;
+import com.cdut.sx.pojo.Comments;
 import com.cdut.sx.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  */
 @Controller
-public class commentController {
+public class CommentController {
 
     private int currPage;
     private static final String ERR = "views/error";
@@ -35,7 +35,7 @@ public class commentController {
     }
 
     @RequestMapping("/comment")
-    public ModelAndView save(@ModelAttribute comments comment) {
+    public ModelAndView save(@ModelAttribute Comments comment) {
         if (comment == null) return new ModelAndView(ERR);
         comment.setActive("active");
         comment.setOutTime("" + new Date().getDate());
@@ -57,7 +57,7 @@ public class commentController {
     @RequestMapping("/commentDelete")
     public String delete(HttpServletRequest request) {
         int commentid = Integer.parseInt(request.getParameter("commentId"));
-        List<comments> comment = commentsdaoImp.queryById(commentid);
+        List<Comments> comment = commentsdaoImp.queryById(commentid);
         if (comment == null || comment.isEmpty()) return ERR;
         comment.get(0).setActive("dead");
         commentsdaoImp.save(comment.get(0));

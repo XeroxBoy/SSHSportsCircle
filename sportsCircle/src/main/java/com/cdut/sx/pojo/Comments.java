@@ -7,29 +7,29 @@ import javax.persistence.*;
 @Entity
 @Component("comments")
 @Table(name = "comments")
-public class comments {
+public class Comments {
     @Id
     @Column(name="commentId")
     @GeneratedValue
     private int commentId;//评论的ID 主键
 
     @JoinColumn(name="userId")
-    @ManyToOne(targetEntity = comments.class)
+    @ManyToOne(targetEntity = Comments.class)
     private String userId;//发布人
     @Column(name="outTime")
     private String outTime;//发布时间
     @JoinColumn(name="messagebelongTo")
-    @ManyToOne(targetEntity = comments.class)
+    @ManyToOne(targetEntity = Comments.class)
     private int messagebelongTo;//所属状态,外键
     @Column(name="contents")
     private String contents;//内容
     @Column(name="active")
     private String active;//是否可见
 
-    public comments() {
+    public Comments() {
     }
 
-    public comments(int commentId, String userId, String outTime,
+    public Comments(int commentId, String userId, String outTime,
                     int messagebelongTo, String contents) {
         super();
         this.commentId = commentId;

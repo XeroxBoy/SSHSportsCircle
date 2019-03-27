@@ -1,6 +1,6 @@
 package com.cdut.sx.dao;
 
-import com.cdut.sx.pojo.comments;
+import com.cdut.sx.pojo.Comments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface Commentsdao extends JpaRepository<comments, Integer> {
+public interface Commentsdao extends JpaRepository<Comments, Integer> {
     @Query(value = "select * from comments", nativeQuery = true)
-    public List<comments> queryAll();//查询所有人
+    public List<Comments> queryAll();//查询所有人
 
     @Modifying
     @Query(value = "delete from comments where commentId=:id", nativeQuery = true)
@@ -22,6 +22,6 @@ public interface Commentsdao extends JpaRepository<comments, Integer> {
     List queryByMsgId(@Param("message") String messagename);//查这个msg的评论
 
     @Query(value = "select * from comments where commentId=:id", nativeQuery = true)
-    List<comments> queryById(@Param("id") int commentId);//根据评论ID查评论
+    List<Comments> queryById(@Param("id") int commentId);//根据评论ID查评论
 
 }

@@ -1,6 +1,6 @@
 package com.cdut.sx.controller;
 
-import com.cdut.sx.pojo.user;
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     UserService userdao;
     @Autowired
-    private user User;
+    private User User;
 
     public static Date getNextDay(Date date) {//获取今天的前一天
         Calendar calendar = Calendar.getInstance();
@@ -46,17 +46,17 @@ public class LoginController {
      */
     @SuppressWarnings("deprecation")
     @RequestMapping("/login")
-    public ModelAndView user(@Validated @ModelAttribute user User, HttpSession session,
+    public ModelAndView user(@Validated @ModelAttribute User User, HttpSession session,
                              HttpServletRequest request, HttpServletResponse response) {
         this.User = User; //验证方法 进行数据库操作
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码
-        List<user> user = userdao.queryByName(User.getUsername());//获取用户信息
+        List<com.cdut.sx.pojo.User> user = userdao.queryByName(User.getUsername());//获取用户信息
         String reqPass = MD5.encodeMd5(User.getPassword());
         ModelAndView mav = new ModelAndView("views/fitcircle");
         ModelAndView errormav = new ModelAndView("views/Login");
         if (user.size() != 0) {
-            user user1 = user.get(0);//获取数据库中的对象
+            User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
                 return errormav; //查询失败 去失败页面
             if (!code.equals((String) session.getAttribute("randstr"))) {//验证码数错了 不能用== 不然比较的是引用

@@ -2,7 +2,7 @@ package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Commentsdao;
 import com.cdut.sx.dao.Messagedao;
-import com.cdut.sx.pojo.comments;
+import com.cdut.sx.pojo.Comments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +19,9 @@ public class CommentsService {
     @Autowired
     private Commentsdao commentdao;
 
-    public ArrayList<comments> queryAll() {
+    public ArrayList<Comments> queryAll() {
         // TODO Auto-generated method stub
-        ArrayList<comments> comments = (ArrayList<comments>) commentdao.queryAll();
+        ArrayList<Comments> comments = (ArrayList<Comments>) commentdao.queryAll();
         return comments;
     }
 
@@ -31,22 +31,22 @@ public class CommentsService {
         return comments;
     }
 
-    public void save(comments comments) {
+    public void save(Comments comments) {
         commentdao.save(comments);
     }
 
-    public void update(comments comments) {
+    public void update(Comments comments) {
         // TODO Auto-generated method stub
         commentdao.save(comments);
     }
 
 
-    public void delete(comments comments) {
+    public void delete(Comments comments) {
         // TODO Auto-generated method stub
         commentdao.delete(comments.getCommentId());
     }
 
-    public List<comments> queryById(int commentId) {
+    public List<Comments> queryById(int commentId) {
         // TODO Auto-generated method stub
         return commentdao.queryById(commentId);
     }

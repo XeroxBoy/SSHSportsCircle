@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
-public class uploadController {
+public class UploadController {
     private File upload;
     private String uploadFileName;
 

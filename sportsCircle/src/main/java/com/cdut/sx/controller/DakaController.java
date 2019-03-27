@@ -1,6 +1,6 @@
 package com.cdut.sx.controller;
 
-import com.cdut.sx.pojo.user;
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +39,7 @@ public class DakaController {
         }
         resp.setContentType("text/html;charset=utf-8");//不然打回来乱码
 
-        user user = dao.queryByName(username).get(0);
+        User user = dao.queryByName(username).get(0);
         if (user.getLastProday().getDate() == getBeforeDate(new Date()).getDate()) {   //上次打卡日期为昨天
             int prodays = user.getProdays();//当前连续打卡天数
             user.setProdays(prodays + 1);//总打卡天数+1

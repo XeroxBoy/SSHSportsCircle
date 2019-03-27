@@ -2,9 +2,9 @@ package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Friendsdao;
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.Friends;
 import com.cdut.sx.pojo.PageBean;
-import com.cdut.sx.pojo.friends;
-import com.cdut.sx.pojo.user;
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -25,18 +25,18 @@ public class FriendsService {
     @Autowired
     private Friendsdao friendsdao;
 
-    public ArrayList<friends> queryMyFriends(String me) {
+    public ArrayList<Friends> queryMyFriends(String me) {
 
         return friendsdao.queryMyFriends(me);
     }
 
-    public void save(friends friend) {
+    public void save(Friends friend) {
         // TODO Auto-generated method stub
         friendsdao.save(friend);
     }
 
     public void update(String friend1, String friends2, boolean isCancel) {
-        friends friend = new friends();
+        Friends friend = new Friends();
         friend.setFriendsFrom(friend1);
         friend.setFriendsTo(friends2);
         if (isCancel)
@@ -50,11 +50,11 @@ public class FriendsService {
         return (int) friendsdao.count();
     }
 
-    public PageBean<user> findByPage(Integer currPage) throws Exception {
+    public PageBean<User> findByPage(Integer currPage) throws Exception {
         // TODO Auto-generated method stub
         int totalCount = 0;
         int pagesize = 0;
-        PageBean<user> pageBean = new PageBean<user>();
+        PageBean<User> pageBean = new PageBean<User>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
@@ -70,11 +70,11 @@ public class FriendsService {
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
-        List<friends> list = this.findByPage(begin, pagesize);
+        List<Friends> list = this.findByPage(begin, pagesize);
         if (list.isEmpty()) return null;
-        List<user> inforList = new ArrayList<>();
-        for (friends one : list) {
-            List<user> friend = userdao.queryByName(one.getFriendsTo());//查询好友信息
+        List<User> inforList = new ArrayList<>();
+        for (Friends one : list) {
+            List<User> friend = userdao.queryByName(one.getFriendsTo());//查询好友信息
             if (friend != null && !friend.isEmpty())
                 inforList.add(friend.get(0));//将好友信息
         }
@@ -82,13 +82,13 @@ public class FriendsService {
         return pageBean;
     }
 
-    public List<friends> findByPage(int begin, int pagesize) {
+    public List<Friends> findByPage(int begin, int pagesize) {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
-        Criteria criteria = session.createCriteria(friends.class);
+        Criteria criteria = session.createCriteria(Friends.class);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<friends> list = criteria.list();
+        List<Friends> list = criteria.list();
         trans.commit();
         return list;
         // TODO Auto-generated method stub
