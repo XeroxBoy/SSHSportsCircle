@@ -60,12 +60,12 @@
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
             document.querySelector("#nar").innerHTML = "  健身圈";
-            document.getElementById("bg").src = "images/e2.png";
+            document.getElementById("bg").src = "../images/e2.png";
         }
 
         if (area == "打球圈") {
             document.querySelector("#nar").innerHTML = "  打球圈";
-            document.getElementById("bg").src = "images/ball.png";
+            document.getElementById("bg").src = "../images/ball.png";
         }
     });</script>
 
@@ -110,7 +110,7 @@
                     class="icon-bar"></span>
             </button>
             <h1>
-                <a class="navbar-brand" href="message-findArea.action?area=${sessionScope.area }"><img
+                <a class="navbar-brand" href="/findArea?area=${sessionScope.area }"><img
                         src="../images/e.png" id="bg"/><font id="nar">跑步圈</font></a>
             </h1>
         </div>
@@ -119,27 +119,23 @@
                     class="nav navbar-nav navbar-right wow fadeInRight animated animated"
                     data-wow-delay="0.4s">
                 <li style="display:inline;"><a class="nav-in"
-                                               href='message-findArea.action?area=跑步圈'><span class="flip"
-                                                                                             data-letters="跑步圈">跑步圈</span></a>
+                                               href='/findArea?area=跑步圈'><span class="flip"
+                                                                               data-letters="跑步圈">跑步圈</span></a>
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <li><a href="message-findArea.action?area=打球圈"><span class="nav-in"
-                                                                             data-letters="打球圈"
-                                                                             style="font-size:15px;color:#FFF">打球圈</span></a>
+                        <li><a href="/findArea?area=打球圈"><span class="nav-in"
+                                                               data-letters="打球圈"
+                                                               style="font-size:15px;color:#FFF">打球圈</span></a>
                         </li>
-                        <li><a href="message-findArea.action?area=健身圈"><span class="nav-in"
-                                                                             data-letters="健身圈"
-                                                                             style="font-size:15px;color:#FFF">健身圈</span></a>
-                        </li>
-                        <li><a href="http://118.25.222.77:8080/game/index.jsp" target="_blank"><span class="nav-in"
-                                                                                                     data-letters="健身圈"
-                                                                                                     style="font-size:15px;color:#FFF">游戏圈</span></a>
+                        <li><a href="/findArea?area=健身圈"><span class="nav-in"
+                                                               data-letters="健身圈"
+                                                               style="font-size:15px;color:#FFF">健身圈</span></a>
                         </li>
                     </ul>
                 </li>
                 <%--
                                     <li><a class="nav-in" href="friends-friendList.action"><span
                                             data-letters="我的好友">我的好友</span></a></li>--%>
-                <li><a class="nav-in" href="zhuce-findMyInfo.action"><span
+                <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
                 <li><a class="nav-in" href="date.jsp"><span data-letters="我要约啦">我要约啦</span></a></li>
                 <li><a class="nav-in" href="daka.jsp"><span
@@ -155,9 +151,9 @@
 <form action="/daka" method="post" class="form-inline" role="form">
     <div class="form-group">
         <h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">发出你的邀请</h3>
-        <label for="contents">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control"
-                                                     style="vertical-align:top;position: relative;width:400px"
-                                                     required></textarea><br><br>
+        <label for="content">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control"
+                                                    style="vertical-align:top;position: relative;width:400px"
+                                                    required></textarea><br><br>
         <label for="location">集合地点:</label><input type="text" name="location" class="form-control"
                                                   style="width: 302px; " required><br>
         <label for="assignTime"><br>约定时间:</label>
@@ -197,4 +193,5 @@
 
 </form>
 
+</body>
 </html>

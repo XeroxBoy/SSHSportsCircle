@@ -89,6 +89,6 @@
 
 
 <!-- The JavaScript -->
-<script type="text/javascript" src="js/jquery-lastest.js"></script>
+<script type="text/javascript" src="../js/jquery-lastest.js"></script>
 </body>
 </html>

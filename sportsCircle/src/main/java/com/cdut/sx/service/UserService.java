@@ -18,10 +18,7 @@ public class UserService {
 
     public ArrayList<User> queryAll() {
         // TODO Auto-generated method stub
-
-
         ArrayList<User> users = (ArrayList<User>) userdao.findAll();
-
         return users;
     }
 

@@ -59,13 +59,13 @@
         }
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
-            var first = "${pageContext.request.contextPath }/message-findArea.action?currPage=1&area=健身圈";
-            var last = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="totalPage"/>&area=健身圈";
-            var before = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage-1"/>&area=健身圈";
-            var next = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage+1"/>&area=健身圈";
-            document.querySelector(".banner-section").style.backgroundImage = "url(images/bgGym.jpg)";
+            var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=健身圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=健身圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=健身圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=健身圈";
+            document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgGym.jpg)";
             document.querySelector("#nar").innerHTML = "  健身圈";
-            document.getElementById("bg").src = "images/e2.png";
+            document.getElementById("bg").src = "../images/e2.png";
             document.getElementById("firstp").setAttribute("href", first);
             document.getElementById("nextp").setAttribute("href", next);
             document.getElementById("beforep").setAttribute("href", before);
@@ -73,11 +73,11 @@
         }
 
         if (area == "打球圈") {
-            var first = "${pageContext.request.contextPath }/message-findArea.action?currPage=1&area=打球圈";
-            var last = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="totalPage"/>&area=打球圈";
-            var before = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage-1"/>&area=打球圈";
-            var next = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage+1"/>&area=打球圈";
-            document.querySelector(".banner-section").style.backgroundImage = "url(images/bgBall.jpg)";
+            var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=打球圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=打球圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=打球圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=打球圈";
+            document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgBall.jpg)";
             document.querySelector("#nar").innerHTML = "  打球圈";
             document.getElementById("bg").src = "images/ball.png";
             document.getElementById("firstp").setAttribute("href", first);
@@ -86,10 +86,10 @@
             document.getElementById("lastp").setAttribute("href", last);
         }
         if (area == "跑步圈") {
-            var first = "${pageContext.request.contextPath }/message-findArea.action?currPage=1&area=跑步圈";
-            var last = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="totalPage"/>&area=跑步圈";
-            var before = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage-1"/>&area=跑步圈";
-            var next = "${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage+1"/>&area=跑步圈";
+            var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=跑步圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=跑步圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=跑步圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=跑步圈";
             document.getElementById("firstp").setAttribute("href", first);
             document.getElementById("nextp").setAttribute("href", next);
             document.getElementById("beforep").setAttribute("href", before);
@@ -121,7 +121,7 @@
                     class="icon-bar"></span>
             </button>
             <h1>
-                <a class="navbar-brand" href="message-findArea.action?area=${sessionScope.area }"><img
+                <a class="navbar-brand" href="/findArea?area=${sessionScope.area }"><img
                         src="../images/e.png" id="bg"/><font id="nar">跑步圈</font></a>
             </h1>
         </div>
@@ -130,25 +130,21 @@
                     class="nav navbar-nav navbar-right wow fadeInRight animated animated"
                     data-wow-delay="0.4s">
                 <li style="display:inline;"><a class="nav-in"
-                                               href='message-findArea.action?area=跑步圈'><span class="flip"
-                                                                                             data-letters="跑步圈">跑步圈</span></a>
+                                               href='/findArea?area=跑步圈'><span class="flip"
+                                                                               data-letters="跑步圈">跑步圈</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <li><a href="message-findArea.action?area=打球圈"><span class="nav-in"
-                                                                             data-letters="打球圈"
-                                                                             style="font-size:15px;color:#FFF">打球圈</span></a>
+                        <li><a href="/findArea?area=打球圈"><span class="nav-in"
+                                                               data-letters="打球圈"
+                                                               style="font-size:15px;color:#FFF">打球圈</span></a>
                         </li>
-                        <li><a href="message-findArea.action?area=健身圈"><span class="nav-in"
-                                                                             data-letters="健身圈"
-                                                                             style="font-size:15px;color:#FFF">健身圈</span></a>
-                        </li>
-                        <li><a href="http://118.25.222.77:8080/game/index.jsp" target="_blank"><span class="nav-in"
-                                                                                                     data-letters="健身圈"
-                                                                                                     style="font-size:15px;color:#FFF">游戏圈</span></a>
+                        <li><a href="/findArea?area=健身圈"><span class="nav-in"
+                                                               data-letters="健身圈"
+                                                               style="font-size:15px;color:#FFF">健身圈</span></a>
                         </li>
                     </ul>
                 </li>
-                <li><a class="nav-in" href="zhuce-findMyInfo.action"><span
+                <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
                 <%--<li><a class="nav-in" href="friends-friendList.action"><span
                         data-letters="我的好友">我的好友</span></a></li>--%>
@@ -310,7 +306,7 @@
     <br>
     <br>
 
-    <s:debug></s:debug>
+
     <s:iterator value="list" var="l">
     <table align="center" width="80%" border="0">
         <tr align="left">
@@ -325,7 +321,7 @@
             <td id="location"><p>约定地点：<s:property value="#l.location"/></p></td>
             <td id="lsex"><p>性别要求：<s:property value="#l.lsex"/></p></td>
             <td id="setAct"><p><a
-                    href="message-delete.action?messageid=<s:property value="#l.messageid"></s:property>"
+                    href="/deleteMessage?messageid=<s:property value="#l.messageid"></s:property>"
                     value="删除消息"></a></p></td>
         </tr>
         <tr align="left">
@@ -336,18 +332,18 @@
         <s:iterator value="#l.comments" var="c">
             <tr>
                 <td colspan="3"><p>用户:<a
-                        href="friends-makeFriend.action?friendsTo=<s:property value="#c.userId"/>"><s:property
+                        href="/makeFriend?friendsTo=<s:property value="#c.userId"/>"><s:property
                         value="#c.userId"/></a> 评论：
                     <s:property
                             value="#c.contents"/> 发布时间:<s:property value="#c.outTime"/>日</p></td>
                 <td colspan="1"><p><a
-                        href="comment-delete.action?commentid=<s:property value="#c.commentId"></s:property>"
+                        href="/commentDelete?commentid=<s:property value="#c.commentId"></s:property>"
                         value="删除评论"></a></p></td>
             </tr>
         </s:iterator>
 
     </table>
-    <form action="comment-save.action?currPage=<s:property value="currPage" />" name="commentForm">
+    <form action="/comment?currPage=<s:property value="currPage" />" name="commentForm">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
@@ -368,14 +364,14 @@
 					&nbsp;&nbsp; 每页显示 <s:property value="pageSize"/></p>
 			</span> &nbsp;&nbsp; <span> <p><s:if test="currPage!=1">
 						<a id="firstp"
-                           href="${pageContext.request.contextPath }/message-findArea.action?currPage=1&area=${sessionScope.area}">[首页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
                 <a id="beforep"
-                   href="${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage-1"/>&area=${sessionScope.area}">[上一页]</a>
+                   href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=${sessionScope.area}">[上一页]</a>
             </s:if> <s:if test="currPage!=totalPage">
 						<a id="nextp"
-                           href="${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="currPage+1"/>&area=${sessionScope.area}">[下一页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=${sessionScope.area}">[下一页]</a>
                 <a id="lastp"
-                   href="${pageContext.request.contextPath }/message-findArea.action?currPage=<s:property value="totalPage"/>&area=${sessionScope.area}">[尾页]</a>
+                   href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=${sessionScope.area}">[尾页]</a>
             </s:if>
 			</p>	</span></td>
         </tr>

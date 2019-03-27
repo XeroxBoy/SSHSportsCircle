@@ -22,7 +22,7 @@
     </script>
     <script type="text/javascript">
         function refresh(imgurl) {
-            imgurl.src = "validate.jsp" + "?id=" + Math.random();
+            imgurl.src = "views/validate.jsp" + "?id=" + Math.random();
         }
     </script>
     <%
