@@ -1,4 +1,6 @@
 ﻿<%@ page language="java" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -60,9 +62,9 @@
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=健身圈";
-            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=健身圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=健身圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=健身圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
             document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgGym.jpg)";
             document.querySelector("#nar").innerHTML = "  健身圈";
             document.getElementById("bg").src = "../images/e2.png";
@@ -74,9 +76,9 @@
 
         if (area == "打球圈") {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=打球圈";
-            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=打球圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=打球圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=打球圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
             document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgBall.jpg)";
             document.querySelector("#nar").innerHTML = "  打球圈";
             document.getElementById("bg").src = "images/ball.png";
@@ -87,9 +89,9 @@
         }
         if (area == "跑步圈") {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=跑步圈";
-            var last = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=跑步圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=跑步圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=跑步圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
             document.getElementById("firstp").setAttribute("href", first);
             document.getElementById("nextp").setAttribute("href", next);
             document.getElementById("beforep").setAttribute("href", before);
@@ -306,44 +308,44 @@
     <br>
     <br>
 
-
-    <s:iterator value="list" var="l">
+    <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1">
     <table align="center" width="80%" border="0">
         <tr align="left">
 
-            <td id="userid"><p>用户： <s:property value="#l.userId"/></p>
+            <td id="userid"><p>用户： ${l.userId}</p>
             </td>
-            <td id="messageid"><p>评论数：<s:property value="#l.comments.size()"/></p></td>
-            <td id="belongTo"><p>所属模块：<s:property value="#l.belongTo"/></p></td>
+            <td id="messageid"><p>评论数：${l.comments.size()}</p></td>
+            <td id="belongTo"><p>所属模块：${l.belongTo}</p></td>
         </tr>
+        e\
         <tr>
-            <td id="assignTime"><p>约定时间：<s:property value="#l.assignTime"/></p></td>
-            <td id="location"><p>约定地点：<s:property value="#l.location"/></p></td>
-            <td id="lsex"><p>性别要求：<s:property value="#l.lsex"/></p></td>
+            <td id="assignTime"><p>约定时间：${l.assignTime}</p></td>
+            <td id="location"><p>约定地点：${l.location}</p></td>
+            <td id="lsex"><p>性别要求：${l.lsex}</p></td>
             <td id="setAct"><p><a
-                    href="/deleteMessage?messageid=<s:property value="#l.messageid"></s:property>"
+                    href="/deleteMessage?messageid=${l.messageid}"
                     value="删除消息"></a></p></td>
         </tr>
         <tr align="left">
             <td id="content" colspan="3"
-                style="width: inherit;height: 100px;background-color: gray;">内容：<s:property
-                    value="#l.content"/></td>
+                style="width: inherit;height: 100px;background-color: gray;">内容：${l.content}>
+            </td>
         </tr>
-        <s:iterator value="#l.comments" var="c">
+        </c:forEach>
+        <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1">
+
             <tr>
                 <td colspan="3"><p>用户:<a
-                        href="/makeFriend?friendsTo=<s:property value="#c.userId"/>"><s:property
-                        value="#c.userId"/></a> 评论：
-                    <s:property
-                            value="#c.contents"/> 发布时间:<s:property value="#c.outTime"/>日</p></td>
+                        href="/makeFriend?friendsTo=${l.userId}"></a> 评论：
+                    value="#c.contents"/> 发布时间:${l.outTime}日</p></td>
                 <td colspan="1"><p><a
-                        href="/commentDelete?commentid=<s:property value="#c.commentId"></s:property>"
+                        href="/commentDelete?commentid=${l.commentId}"
                         value="删除评论"></a></p></td>
             </tr>
-        </s:iterator>
+
 
     </table>
-    <form action="/comment?currPage=<s:property value="currPage" />" name="commentForm">
+    <form action="/comment?currPage=${l.currPage}" name="commentForm">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
@@ -351,28 +353,27 @@
             type="hidden" name="userId" value="${sessionScope.name}"/>
         <input type="hidden" name="messagebelongTo"
                value=
-                <s:property value="#l.messageid"/>/>
+            ${l.messageid}/>
 
     </form>
-    </s:iterator>
+    </c:forEach>
 
     <table>
         <tr>
-            <td><span> <p>第 <s:property value="currPage"/> / <s:property
-                    value="totalPage"/> 页</p>
-			</span> &nbsp;&nbsp; <span> <p>总记录数: <s:property value="totalCount"/>
-					&nbsp;&nbsp; 每页显示 <s:property value="pageSize"/></p>
-			</span> &nbsp;&nbsp; <span> <p><s:if test="currPage!=1">
+            <td><span> <p>第 ${pageBean.currPage}/ ${pageBean.totalPage} 页</p>
+			</span> &nbsp;&nbsp; <span> <p>总记录数: ${pageBean.totalCount}
+					&nbsp;&nbsp; 每页显示 ${pageBean.pageSize}</p>
+			</span> &nbsp;&nbsp; <span> <p><c:if test="${pageBean.currPage eq 1}">
 						<a id="firstp"
                            href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
                 <a id="beforep"
-                   href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage-1"/>&area=${sessionScope.area}">[上一页]</a>
-            </s:if> <s:if test="currPage!=totalPage">
+                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.currPage-1}&area=${sessionScope.area}">[上一页]</a>
+            </c:if> <c:if test="${pageBean.currPage not eq pageBean.totalPage}">
 						<a id="nextp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="currPage+1"/>&area=${sessionScope.area}">[下一页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.currPage+1}&area=${sessionScope.area}">[下一页]</a>
                 <a id="lastp"
-                   href="${pageContext.request.contextPath }/findArea?currPage=<s:property value="totalPage"/>&area=${sessionScope.area}">[尾页]</a>
-            </s:if>
+                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.totalPage}&area=${sessionScope.area}">[尾页]</a>
+            </c:if>
 			</p>	</span></td>
         </tr>
     </table>
