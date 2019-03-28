@@ -312,23 +312,23 @@
     <table align="center" width="80%" border="0">
         <tr align="left">
 
-            <td id="userid"><p>用户： ${l.userId}</p>
+            <td id="userid"><p>用户： ${sessionScope.id}</p>
             </td>
-            <td id="messageid"><p>评论数：${l.comments.size()}</p></td>
-            <td id="belongTo"><p>所属模块：${l.belongTo}</p></td>
+            <td id="messageid"><p>评论数：${l.getComments.size()}</p></td>
+            <td id="belongTo"><p>所属模块：${sessionScope.area}</p></td>
         </tr>
         e\
         <tr>
-            <td id="assignTime"><p>约定时间：${l.assignTime}</p></td>
-            <td id="location"><p>约定地点：${l.location}</p></td>
-            <td id="lsex"><p>性别要求：${l.lsex}</p></td>
+            <td id="assignTime"><p>约定时间：${l.getAssignTime()}</p></td>
+            <td id="location"><p>约定地点：${l.getLocation()}</p></td>
+            <td id="lsex"><p>性别要求：${l.getLsex()}</p></td>
             <td id="setAct"><p><a
-                    href="/deleteMessage?messageid=${l.messageid}"
+                    href="/deleteMessage?messageid=${l.getMessageid()}"
                     value="删除消息"></a></p></td>
         </tr>
         <tr align="left">
             <td id="content" colspan="3"
-                style="width: inherit;height: 100px;background-color: gray;">内容：${l.content}>
+                style="width: inherit;height: 100px;background-color: gray;">内容：${l.getContent()}>
             </td>
         </tr>
         </c:forEach>
@@ -336,16 +336,16 @@
 
             <tr>
                 <td colspan="3"><p>用户:<a
-                        href="/makeFriend?friendsTo=${l.userId}"></a> 评论：
+                        href="/makeFriend?friendsTo=${l.getUserId()}"></a> 评论：
                     value="#c.contents"/> 发布时间:${l.outTime}日</p></td>
                 <td colspan="1"><p><a
-                        href="/commentDelete?commentid=${l.commentId}"
+                        href="/commentDelete?commentid=${l.getCommentId()}"
                         value="删除评论"></a></p></td>
             </tr>
 
 
     </table>
-    <form action="/comment?currPage=${l.currPage}" name="commentForm">
+    <form action="/comment?currPage=${l.getCurrPage()}" name="commentForm">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
@@ -353,26 +353,26 @@
             type="hidden" name="userId" value="${sessionScope.name}"/>
         <input type="hidden" name="messagebelongTo"
                value=
-            ${l.messageid}/>
+            ${l.getMessageid}/>
 
     </form>
     </c:forEach>
 
     <table>
         <tr>
-            <td><span> <p>第 ${pageBean.currPage}/ ${pageBean.totalPage} 页</p>
-			</span> &nbsp;&nbsp; <span> <p>总记录数: ${pageBean.totalCount}
-					&nbsp;&nbsp; 每页显示 ${pageBean.pageSize}</p>
-			</span> &nbsp;&nbsp; <span> <p><c:if test="${pageBean.currPage eq 1}">
+            <td><span> <p>第 ${pageBean.getCurrPage()}/ ${pageBean.getTotalPage()} 页</p>
+			</span> &nbsp;&nbsp; <span> <p>总记录数: ${pageBean.getTotalCount()}
+					&nbsp;&nbsp; 每页显示 ${pageBean.getPageSize()}</p>
+			</span> &nbsp;&nbsp; <span> <p><c:if test="${pageBean.getCurrPage() == 1}">
 						<a id="firstp"
                            href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
                 <a id="beforep"
-                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.currPage-1}&area=${sessionScope.area}">[上一页]</a>
-            </c:if> <c:if test="${pageBean.currPage not eq pageBean.totalPage}">
+                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getCurrPage()-1}&area=${sessionScope.area}">[上一页]</a>
+            </c:if> <c:if test="${pageBean.getCurrPage()!= pageBean.getTotalPage()}">
 						<a id="nextp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.currPage+1}&area=${sessionScope.area}">[下一页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getCurrPage()+1}&area=${sessionScope.area}">[下一页]</a>
                 <a id="lastp"
-                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.totalPage}&area=${sessionScope.area}">[尾页]</a>
+                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getTotalPage()}&area=${sessionScope.area}">[尾页]</a>
             </c:if>
 			</p>	</span></td>
         </tr>
