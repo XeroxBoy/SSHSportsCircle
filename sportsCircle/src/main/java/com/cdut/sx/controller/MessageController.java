@@ -1,5 +1,6 @@
 package com.cdut.sx.controller;
 
+import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.service.MessageService;
@@ -28,15 +29,16 @@ public class MessageController {
     @Autowired
     private MessageService dao;
     private Message message;
-
+    @Autowired
+    private Userdao userdao;
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
         this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
-
-        message.setUserId((String) session.getAttribute("name"));//给message所属人属性赋值
+        String name = (String) session.getAttribute("name");
+        message.setUserId(userdao.queryByName(name).get(0).getUserId());//给message所属人属性赋值
         dao.save(message);
         return new ModelAndView(ZHUYE);
     }
