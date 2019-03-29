@@ -27,7 +27,6 @@
     <h2>Register Your Account And come into our circle!</h2>
     <div class="content">
         <div id="form_wrapper" class="form_wrapper">
-            <s:fielderror/><!-- 错误信息 -->
             <form class="register active" action="/zhuce" method="post">
                 <h3>Register</h3>
                 <div class="column">

@@ -353,7 +353,7 @@
             type="hidden" name="userId" value="${sessionScope.name}"/>
         <input type="hidden" name="messagebelongTo"
                value=
-            ${l.getMessageid}/>
+            ${l.getBelongTo}/>
 
     </form>
     </c:forEach>

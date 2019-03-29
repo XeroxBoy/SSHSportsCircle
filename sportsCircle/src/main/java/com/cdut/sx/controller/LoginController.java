@@ -53,8 +53,8 @@ public class LoginController {
         String code = request.getParameter("code");//获取用户输入的验证码
         List<com.cdut.sx.pojo.User> user = userdao.queryByName(User.getUsername());//获取用户信息
         String reqPass = MD5.encodeMd5(User.getPassword());
-        ModelAndView mav = new ModelAndView("views/fitcircle");
-        ModelAndView errormav = new ModelAndView("views/Login");
+        ModelAndView mav = new ModelAndView("forward:/findArea");
+        ModelAndView errormav = new ModelAndView("redirect:views/Login");
         if (user.size() != 0) {
             User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
@@ -82,6 +82,7 @@ public class LoginController {
 
                 }
             }
+
             session.setAttribute("id", user1.getUserId());//把用户信息存到session 以供其他页面使用
             session.setAttribute("name", user1.getUsername());
             session.setAttribute("email", user1.getEmail());

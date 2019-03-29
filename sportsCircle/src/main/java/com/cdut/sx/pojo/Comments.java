@@ -9,16 +9,16 @@ import javax.persistence.*;
 @Table(name = "comments")
 public class Comments {
     @Id
-    @Column(name="commentId")
+    @Column(name = "comment_id")
     @GeneratedValue
     private int commentId;//评论的ID 主键
 
-    @JoinColumn(name="userId")
-    @ManyToOne(targetEntity = Comments.class)
-    private String userId;//发布人
-    @Column(name="outTime")
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Comments.class)
+    private int userId;//发布人
+    @Column(name = "out_time")
     private String outTime;//发布时间
-    @JoinColumn(name="messagebelongTo")
+    @JoinColumn(name = "messagebelong_to")
     @ManyToOne(targetEntity = Comments.class)
     private int messagebelongTo;//所属状态,外键
     @Column(name="contents")
@@ -29,7 +29,7 @@ public class Comments {
     public Comments() {
     }
 
-    public Comments(int commentId, String userId, String outTime,
+    public Comments(int commentId, int userId, String outTime,
                     int messagebelongTo, String contents) {
         super();
         this.commentId = commentId;
@@ -55,11 +55,11 @@ public class Comments {
         this.commentId = commentId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

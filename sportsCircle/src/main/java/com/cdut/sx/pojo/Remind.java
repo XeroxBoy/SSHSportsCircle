@@ -12,11 +12,11 @@ public class Remind {
     @Id
     @GeneratedValue
     private int remindId;//主键
-    @Column(name="userFrom")
+    @Column(name = "user_from")
     private String userFrom;//发送者
-    @Column(name="userTo")
+    @Column(name = "user_to")
     private String userTo;//接受者
-    @Column(name="messagebelongTo")
+    @Column(name = "messagebelong_to")
     private int messagebelongTo;//所属状态,外键
     @Column(name="active")
     private String active = "active";//是否向应约者显示此约定,dead,active 两种取值

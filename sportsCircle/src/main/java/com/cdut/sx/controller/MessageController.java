@@ -90,7 +90,6 @@ public class MessageController {
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
         mav.addObject(PAGE, pageBean);
         return mav;
-
     }
 
     /**

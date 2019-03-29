@@ -3,6 +3,7 @@ package com.cdut.sx.pojo;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,21 +20,21 @@ public class Message {
     private String lsex;//性别要求
     @Column(name="location")
     private String location;//约定地点
-    @Column(name="outDate")
+    @Column(name = "out_date")
     private Date outDate; //发布时间
     @Column(name="content")
     private String content;//内容
-    @Column(name="belongTo")
+    @Column(name = "belong_to")
     private String belongTo;//所属板块
-    @Column(name="assignTime")
+    @Column(name = "assign_time")
     private String assignTime;//约定时间
     @OneToMany
     private Set<Comments> comments = new HashSet<Comments>();//一状态有多条评论
     @OneToMany
     private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
-    @JoinColumn(name="userId")
-    @ManyToOne(targetEntity = Message.class)
-    private String userId;//所属用户的ID
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Message.class)
+    private int userId;//所属用户的ID
     @Column(name="active")
     private String active;//是否可查看 "active"和“dead” 两种取值
 
@@ -41,7 +42,10 @@ public class Message {
         super();
     }
 
-    public Message(String lsex, String location, String userId,
+    @OneToMany(mappedBy = "userId")
+    private Collection<Message> message;
+
+    public Message(String lsex, String location, int userId,
                    Date outDate, String content, String belongTo, String assignTime) {
         super();
 
@@ -53,22 +57,6 @@ public class Message {
         this.belongTo = belongTo;
         this.assignTime = assignTime;
         this.active = "active";
-    }
-
-    public Message(int messageid, String lsex, String location, Date outDate,
-                   String content, String belongTo, String assignTime,
-                   Set<Comments> comments, String userId, String active) {
-        super();
-        this.messageid = messageid;
-        this.lsex = lsex;
-        this.location = location;
-        this.outDate = outDate;
-        this.content = content;
-        this.belongTo = belongTo;
-        this.assignTime = assignTime;
-        this.comments = comments;
-        this.userId = userId;
-        this.active = active;
     }
 
     public Set<Remind> getReminds() {
@@ -134,12 +122,24 @@ public class Message {
         this.comments = comments;
     }
 
-    public String getUserId() {
-        return userId;
+    public Message(int messageid, String lsex, String location, Date outDate,
+                   String content, String belongTo, String assignTime,
+                   Set<Comments> comments, int userId, String active) {
+        super();
+        this.messageid = messageid;
+        this.lsex = lsex;
+        this.location = location;
+        this.outDate = outDate;
+        this.content = content;
+        this.belongTo = belongTo;
+        this.assignTime = assignTime;
+        this.comments = comments;
+        this.userId = userId;
+        this.active = active;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public int getUserId() {
+        return userId;
     }
 
     public String getLsex() {
@@ -166,5 +166,15 @@ public class Message {
         this.active = active;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
+    public Collection<Message> getMessage() {
+        return message;
+    }
+
+    public void setMessage(Collection<Message> message) {
+        this.message = message;
+    }
 }

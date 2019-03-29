@@ -16,29 +16,29 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name="userId")
+    @Column(name = "user_id")
     private int userId;//主键
     @Column(name="birthday")
     private Date birthday;//生日
-    @Column(name="userName")
+    @Column(name = "user_name")
     @NotBlank(message="{user.name.valid}")
     private String username; //主键
-    @Column(name="userPassword")
+    @Column(name = "user_password")
     @NotBlank(message="{user.password.valid}")
     private String password;
-    @Column(name="userEmail")
+    @Column(name = "user_email")
     private String email;
     @Column(name="sex")
     private String sex;
-    @Column(name="maxProdays")
+    @Column(name = "max_prodays")
     private int maxProdays = 0;
     @Column(name="exp")
     private int exp = 0;//经验
-    @Column(name="Prodays")
+    @Column(name = "prodays")
     private int Prodays = 0;//打卡天数
-    @Column(name="lastProday")
+    @Column(name = "last_proday")
     private Date lastProday = new Date();//上一次打卡的日期
-    @Column(name="Areabelongto")
+    @Column(name = "areabelongto")
     private String Areabelongto;//所属板块
     @OneToMany
     private Set<Message> messages = new HashSet<Message>();//一用户有多条状态

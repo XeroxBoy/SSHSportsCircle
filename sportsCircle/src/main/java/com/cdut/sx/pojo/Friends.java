@@ -12,9 +12,9 @@ public class Friends {
     @GeneratedValue
     @Column(name="idfriends")
     private int friendsId;//主键
-    @Column(name="friendsFrom")
+    @Column(name = "friends_from")
     private String friendsFrom;//好友1方
-    @Column(name="friendsTo")
+    @Column(name = "friends_to")
     private String friendsTo;//好友另一方
 
     public int getFriendsId() {
