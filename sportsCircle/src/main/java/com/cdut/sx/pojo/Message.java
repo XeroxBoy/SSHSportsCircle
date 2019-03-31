@@ -33,8 +33,8 @@ public class Message {
     @OneToMany
     private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Message.class)
-    private int userId;//所属用户的ID
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User userId;//所属用户的ID
     @Column(name="active")
     private String active;//是否可查看 "active"和“dead” 两种取值
 
@@ -45,7 +45,7 @@ public class Message {
     @OneToMany(mappedBy = "userId")
     private Collection<Message> message;
 
-    public Message(String lsex, String location, int userId,
+    public Message(String lsex, String location, User userId,
                    Date outDate, String content, String belongTo, String assignTime) {
         super();
 
@@ -124,7 +124,7 @@ public class Message {
 
     public Message(int messageid, String lsex, String location, Date outDate,
                    String content, String belongTo, String assignTime,
-                   Set<Comments> comments, int userId, String active) {
+                   Set<Comments> comments, User userId, String active) {
         super();
         this.messageid = messageid;
         this.lsex = lsex;
@@ -138,7 +138,7 @@ public class Message {
         this.active = active;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
@@ -166,7 +166,7 @@ public class Message {
         this.active = active;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

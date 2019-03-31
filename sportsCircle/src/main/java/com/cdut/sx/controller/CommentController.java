@@ -2,6 +2,7 @@ package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.Comments;
 import com.cdut.sx.service.CommentsService;
+import com.cdut.sx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,7 +26,8 @@ public class CommentController {
     private static final String ZHUYE = "views/fitcircle";
     @Autowired
     private CommentsService commentsdaoImp;
-
+    @Autowired
+    private UserService userdao;
     public int getCurrPage() {
         return currPage;
     }

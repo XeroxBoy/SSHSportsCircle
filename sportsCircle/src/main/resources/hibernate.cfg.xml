@@ -14,7 +14,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">daohaodegun</property>
         <property name="hibernate.connection.url">
-            jdbc:mysql://127.0.0.1:3306/web
+            jdbc:mysql://127.0.0.1:3306/web?serverTimezone=UTC
         </property>
 
         <!-- 定义方言 -->

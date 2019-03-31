@@ -38,7 +38,7 @@ public class MessageController {
             return new ModelAndView("views/error");
         message.setActive("active");
         String name = (String) session.getAttribute("name");
-        message.setUserId(userdao.queryByName(name).get(0).getUserId());//给message所属人属性赋值
+        message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
         dao.save(message);
         return new ModelAndView(ZHUYE);
     }
@@ -62,7 +62,7 @@ public class MessageController {
     @RequestMapping("/solve")
     public String solve(HttpServletRequest request) { //将message状态置为解决
         String messageId = request.getParameter("messageId");
-        message = dao.queryById(Integer.valueOf(messageId));
+        message = dao.queryById(Integer.parseInt(messageId));
         message.setActive("dead");
         return ZHUYE;
     }
@@ -80,7 +80,7 @@ public class MessageController {
             area = (String) session.getAttribute("area");
         else {//如果是点链接跳过来的话
             try {
-                area = new String(URLDecoder.decode(area, "utf-8"));//转码
+                area = URLDecoder.decode(area, "utf-8");//转码
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

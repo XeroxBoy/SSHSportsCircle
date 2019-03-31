@@ -12,15 +12,13 @@ public class Comments {
     @Column(name = "comment_id")
     @GeneratedValue
     private int commentId;//评论的ID 主键
-
-    @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Comments.class)
-    private int userId;//发布人
+    @Column(name = "user_id")
+    private String userId;//发布人
     @Column(name = "out_time")
     private String outTime;//发布时间
     @JoinColumn(name = "messagebelong_to")
-    @ManyToOne(targetEntity = Comments.class)
-    private int messagebelongTo;//所属状态,外键
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Message messagebelongTo;//所属状态,外键
     @Column(name="contents")
     private String contents;//内容
     @Column(name="active")
@@ -29,8 +27,8 @@ public class Comments {
     public Comments() {
     }
 
-    public Comments(int commentId, int userId, String outTime,
-                    int messagebelongTo, String contents) {
+    public Comments(int commentId, String userId, String outTime,
+                    Message messagebelongTo, String contents) {
         super();
         this.commentId = commentId;
         this.userId = userId;
@@ -55,11 +53,11 @@ public class Comments {
         this.commentId = commentId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -71,11 +69,11 @@ public class Comments {
         this.outTime = outTime;
     }
 
-    public int getMessagebelongTo() {
+    public Message getMessagebelongTo() {
         return messagebelongTo;
     }
 
-    public void setMessagebelongTo(int messagebelongTo) {
+    public void setMessagebelongTo(Message messagebelongTo) {
         this.messagebelongTo = messagebelongTo;
     }
 

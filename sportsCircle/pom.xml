@@ -56,11 +56,11 @@
         <!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
         <!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
-        <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>c3p0</groupId>-->
+        <!--<artifactId>c3p0</artifactId>-->
+        <!--<version>0.9.1.2</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -80,7 +80,6 @@
         <artifactId>tomcat-jsp-api</artifactId>
     </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -94,6 +93,7 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.4.1.Final</version>
         </dependency>
+
 
     </dependencies>
 

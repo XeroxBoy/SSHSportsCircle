@@ -14,12 +14,12 @@ import java.util.Set;
 @Table(name = "user")
 @Component("user")
 public class User {
-    @Id
-    @GeneratedValue
+
     @Column(name = "user_id")
     private int userId;//主键
     @Column(name="birthday")
     private Date birthday;//生日
+    @Id
     @Column(name = "user_name")
     @NotBlank(message="{user.name.valid}")
     private String username; //主键
