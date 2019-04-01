@@ -43,7 +43,7 @@ public class Message {
     }
 
     @OneToMany()
-    private Collection<Message> message;
+    private Collection<Message> messages;
 
     public Message(String lsex, String location, User userId,
                    Date outDate, String content, String belongTo, String assignTime) {
@@ -56,6 +56,20 @@ public class Message {
         this.belongTo = belongTo;
         this.assignTime = assignTime;
         this.active = "active";
+    }
+
+    public Message(String lsex, String location, Date outDate, String content, String belongTo, String assignTime, Set<Comments> comments, Set<Remind> reminds, User userId, String active, Collection<Message> messages) {
+        this.lsex = lsex;
+        this.location = location;
+        this.outDate = outDate;
+        this.content = content;
+        this.belongTo = belongTo;
+        this.assignTime = assignTime;
+        this.comments = comments;
+        this.reminds = reminds;
+        this.userId = userId;
+        this.active = active;
+        this.messages = messages;
     }
 
     public Set<Remind> getReminds() {
@@ -121,21 +135,21 @@ public class Message {
         this.comments = comments;
     }
 
-    public Message(int messageid, String lsex, String location, Date outDate,
-                   String content, String belongTo, String assignTime,
-                   Set<Comments> comments, User userId, String active) {
-        super();
-        this.messageid = messageid;
-        this.lsex = lsex;
-        this.location = location;
-        this.outDate = outDate;
-        this.content = content;
-        this.belongTo = belongTo;
-        this.assignTime = assignTime;
-        this.comments = comments;
-        this.userId = userId;
-        this.active = active;
-    }
+//    public Message(int messageid, String lsex, String location, Date outDate,
+//                   String content, String belongTo, String assignTime,
+//                   Set<Comments> comments, User userId, String active) {
+//        super();
+//        this.messageid = messageid;
+//        this.lsex = lsex;
+//        this.location = location;
+//        this.outDate = outDate;
+//        this.content = content;
+//        this.belongTo = belongTo;
+//        this.assignTime = assignTime;
+//        this.comments = comments;
+//        this.userId = userId;
+//        this.active = active;
+//    }
 
     public User getUserId() {
         return userId;
@@ -170,10 +184,10 @@ public class Message {
     }
 
     public Collection<Message> getMessage() {
-        return message;
+        return messages;
     }
 
     public void setMessage(Collection<Message> message) {
-        this.message = message;
+        this.messages = message;
     }
 }
