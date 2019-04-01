@@ -93,6 +93,13 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.4.1.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>mchange-commons-java</artifactId>
+            <version>0.2.11</version>
+        </dependency>
+
 
 
     </dependencies>

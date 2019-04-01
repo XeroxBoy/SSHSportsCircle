@@ -5,6 +5,7 @@ import com.cdut.sx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,10 +28,14 @@ public class DakaController {
         date1 = new Date(calendar.getTimeInMillis());
         return date1;
     }
+    @RequestMapping("/toDaka")
+    public ModelAndView toDaka(){
+        return new ModelAndView("views/daka");
+    }
     @RequestMapping("/daka")
-    public String daka(HttpSession session, HttpServletRequest request, HttpServletResponse resp) { //写判断函数 判断打卡天数
+    public ModelAndView daka(HttpSession session, HttpServletRequest request, HttpServletResponse resp) { //写判断函数 判断打卡天数
         String username = (String) session.getAttribute("name");
-
+        ModelAndView mav=new ModelAndView("views/daka");
         try {
             request.setCharacterEncoding("utf-8");
         } catch (UnsupportedEncodingException e1) {
@@ -56,7 +61,7 @@ public class DakaController {
         dao.save(user);
         session.setAttribute("lastProdays", user.getLastProday().getDate());//在session中更新上次打卡时间与连续打卡时间
         session.setAttribute("prodays", user.getProdays());
-        return "views/daka";
+        return mav;
     }
 
 }

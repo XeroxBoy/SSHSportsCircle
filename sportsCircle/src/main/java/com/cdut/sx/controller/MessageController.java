@@ -6,7 +6,10 @@ import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.service.MessageService;
 import com.cdut.sx.service.RemindService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,12 +34,11 @@ public class MessageController {
     private Integer currPage = 1;
     @Autowired
     private MessageService dao;
-    private Message message;
     @Autowired
     private Userdao userdao;
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
-        this.message = message; //验证状态是否合理
+       // this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
@@ -58,11 +63,15 @@ public class MessageController {
         mav.addObject(PAGE, pageBean);
         return mav;
     }
+    @RequestMapping("/date")
+    public ModelAndView date(){
+        return new ModelAndView("views/date");
+    }
 
     @RequestMapping("/solve")
     public String solve(HttpServletRequest request) { //将message状态置为解决
         String messageId = request.getParameter("messageId");
-        message = dao.queryById(Integer.parseInt(messageId));
+        Message message = dao.queryById(Integer.parseInt(messageId));
         message.setActive("dead");
         return ZHUYE;
     }
@@ -82,8 +91,7 @@ public class MessageController {
             try {
                 area = URLDecoder.decode(area, "utf-8");//转码
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Logger.getLogger("abc").info(e.getMessage());
             }
         }
         if (currPage == 0)
@@ -118,6 +126,12 @@ public class MessageController {
         }
         dao.save(messages);
         return new ModelAndView(ZHUYE);
+    }
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
 

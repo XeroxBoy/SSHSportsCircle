@@ -57,7 +57,7 @@
     <script> $(function () {
         var area = "${sessionScope.area }";//获取用户的爱好领域
         if (area == null || area == "") {
-            window.location.href = "Noauthority.jsp";
+            window.location.href = "/toError";
         }
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
@@ -148,12 +148,12 @@
                 </li>
                 <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
-                <%--<li><a class="nav-in" href="friends-friendList.action"><span
-                        data-letters="我的好友">我的好友</span></a></li>--%>
-                <li><a class="nav-in" href="date.jsp"><span data-letters="我要约啦">我要约啦</span></a></li>
-                <li><a class="nav-in" href="daka.jsp"><span
+                <li><a class="nav-in" href="/friendList"><span
+                        data-letters="我的好友">我的好友</span></a></li>
+                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
+                <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
-                <li><a class="nav-in" href="Login.jsp"><span
+                <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
             </ul>
@@ -308,44 +308,44 @@
     <br>
     <br>
 
-    <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1">
+    <c:forEach var="page" begin="1" end="${sessionScope.totalPage}" step="1" items="${PageBean}">
     <table align="center" width="80%" border="0">
         <tr align="left">
 
             <td id="userid"><p>用户： ${sessionScope.id}</p>
             </td>
-            <td id="messageid"><p>评论数：${l.getComments.size()}</p></td>
+            <td id="messageid"><p>评论数：${page.getComments.size()}</p></td>
             <td id="belongTo"><p>所属模块：${sessionScope.area}</p></td>
         </tr>
         e\
         <tr>
-            <td id="assignTime"><p>约定时间：${l.getAssignTime()}</p></td>
-            <td id="location"><p>约定地点：${l.getLocation()}</p></td>
-            <td id="lsex"><p>性别要求：${l.getLsex()}</p></td>
+            <td id="assignTime"><p>约定时间：${page.getAssignTime()}</p></td>
+            <td id="location"><p>约定地点：${page.getLocation()}</p></td>
+            <td id="lsex"><p>性别要求：${page.getLsex()}</p></td>
             <td id="setAct"><p><a
-                    href="/deleteMessage?messageid=${l.getMessageid()}"
+                    href="/deleteMessage?messageid=${page.getMessageid()}"
                     value="删除消息"></a></p></td>
         </tr>
         <tr align="left">
             <td id="content" colspan="3"
-                style="width: inherit;height: 100px;background-color: gray;">内容：${l.getContent()}>
+                style="width: inherit;height: 100px;background-color: gray;">内容：${page.getContent()}>
             </td>
         </tr>
-        </c:forEach>
-        <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1">
+
+        <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1" items="${page.getComments()}" >
 
             <tr>
                 <td colspan="3"><p>用户:<a
                         href="/makeFriend?friendsTo=${l.getUserId()}"></a> 评论：
-                    value="#c.contents"/> 发布时间:${l.outTime}日</p></td>
+                    value="#c.contents"/> 发布时间:${page.outTime}日</p></td>
                 <td colspan="1"><p><a
                         href="/commentDelete?commentid=${l.getCommentId()}"
                         value="删除评论"></a></p></td>
             </tr>
-
+        </c:forEach>
 
     </table>
-    <form action="/comment?currPage=${l.getCurrPage()}" name="commentForm">
+    <form action="/comment?currPage=${page.getCurrPage()}" name="commentForm">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
@@ -353,7 +353,7 @@
             type="hidden" name="userId" value="${sessionScope.name}"/>
         <input type="hidden" name="messagebelongTo"
                value=
-            ${l.getBelongTo}/>
+            ${page.getBelongTo()}/>
 
     </form>
     </c:forEach>

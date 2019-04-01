@@ -42,13 +42,12 @@ public class Message {
         super();
     }
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany()
     private Collection<Message> message;
 
     public Message(String lsex, String location, User userId,
                    Date outDate, String content, String belongTo, String assignTime) {
         super();
-
         this.lsex = lsex;
         this.location = location;
         this.userId = userId;

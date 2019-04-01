@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%
     String path = request.getContextPath();
@@ -107,7 +108,7 @@ function hideURLbar() {
     $(function () {
         var area = "${sessionScope.area }";//获取用户的爱好领域
         if (area == null || area == "") {
-            window.location.href = "Noauthority.jsp";
+            window.location.href = "/toError";
         }
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
@@ -174,10 +175,10 @@ function hideURLbar() {
 
                 <li><a class="nav-in" href="/friendList"><span
                         data-letters="我的好友">我的好友</span></a></li>
-                <li><a class="nav-in" href="date.jsp"><span data-letters="我要约啦">我要约啦</span></a></li>
-                <li><a class="nav-in" href="daka.jsp"><span
+                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
+                <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
-                <li><a class="nav-in" href="Login.jsp"><span
+                <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
             </ul>
@@ -194,12 +195,9 @@ function hideURLbar() {
 <br>
 <br>
 <br>
-<s:iterator value="friends" var="l">
-
-    <p>朋友id:<s:property value="#l.friendsTo"></s:property></p>
-
-</s:iterator>
-
+<c:forEach var="l" items="${friendsList}">
+    <p>朋友id:${l.friendsTo}</p>
+<</c:forEach>
 </body>
 
 </html>

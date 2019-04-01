@@ -59,7 +59,7 @@ public class LoginController {
             User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
                 return errormav; //查询失败 去失败页面
-            if (!code.equals((String) session.getAttribute("randstr"))) {//验证码数错了 不能用== 不然比较的是引用
+            if (!code.equals(String.valueOf(session.getAttribute("randstr")))) {//验证码数错了 不能用== 不然比较的是引用
                 return errormav;
             }
             if (remember != null)
@@ -82,7 +82,6 @@ public class LoginController {
 
                 }
             }
-
             session.setAttribute("id", user1.getUserId());//把用户信息存到session 以供其他页面使用
             session.setAttribute("name", user1.getUsername());
             session.setAttribute("email", user1.getEmail());
@@ -110,6 +109,14 @@ public class LoginController {
         cookie2.setPath("/");
         response.addCookie(cookie1);
         response.addCookie(cookie2);
+    }
+    @RequestMapping("/logout")
+    public ModelAndView logout(){
+        return new ModelAndView("views/Login");
+    }
+    @RequestMapping("/toError")
+    public ModelAndView error(){
+        return new ModelAndView("views/error");
     }
 }
 

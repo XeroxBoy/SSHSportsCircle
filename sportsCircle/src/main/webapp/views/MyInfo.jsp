@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -123,7 +125,7 @@
     $(function () {
         var area = "${sessionScope.area }";//获取用户的爱好领域
         if (area == null || area == "") {
-            window.location.href = "Noauthority.jsp";
+            window.location.href = "/toError";
         }
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
@@ -161,7 +163,7 @@
                     class="icon-bar"></span>
             </button>
             <h1>
-                <a class="navbar-brand" href="message-findArea.action?area=${sessionScope.area }"><img
+                <a class="navbar-brand" href="/findArea?area=${sessionScope.area }"><img
                         src="../images/e.png" id="bg"/><font id="nar">跑步圈</font></a>
             </h1>
         </div>
@@ -189,10 +191,10 @@
                         data-letters="我的好友">我的好友</span></a></li>
                 <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
-                <li><a class="nav-in" href="date.jsp"><span data-letters="我要约啦">我要约啦</span></a></li>
-                <li><a class="nav-in" href="daka.jsp"><span
+                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
+                <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
-                <li><a class="nav-in" href="Login.jsp"><span
+                <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
             </ul>
@@ -215,22 +217,22 @@
       role="form">
     <div class="input-group">
         <label>用户名: </label><input name="username" type="text" readonly="readonly"
-                                   value='<s:property value='username'/>' required/><br> <br>
-        <label>邮箱:</label><input type="email" value='<s:property value='email'/>' name="email" required>
-        <br> <br><label> 密码:</label> <input type="password" name="password" value='<s:property value="password" />'
+                                   value='${user.username}' required/><br> <br>
+        <label>邮箱:</label><input type="email" value='${user.email}' name="email" required>
+        <br> <br><label> 密码:</label> <input type="password" name="password" value='${user.password}'
                                             required/>
-        <br> <br><label> 性别:</label> <input type="text" list="sexdata" name="sex" value='<s:property value='sex'/>'
+        <br> <br><label> 性别:</label> <input type="text" list="sexdata" name="sex" value='${user.sex}'
                                             required/>
         <datalist id="sexdata">
             <option value="男"/>
             <option value="女"/>
         </datalist>
         <br> <br><label> 生日:</label><input type="date" id="birthday" min="1900/01/01" name="birthday"
-                                           value='<s:property value='birthday'/>' required/>
+                                           value='${user.birthday}' required/>
         <br>
 
         <br> <label>感兴趣的领域：
-        <select class="form-control" name="Areabelongto" value='<s:property value='areabelongto' />' required>
+        <select class="form-control" name="Areabelongto" value='${user.areabelongto}' required>
             <option value="跑步圈">跑步圈</option>
             <option value="健身圈">健身圈</option>
             <option value="打球圈">打球圈</option>
@@ -238,14 +240,14 @@
 
         <br> <br>
         <label>经验：</label><input name="exp" class="form-control"
-                                 type="text" readonly="readonly" value='<s:property value='exp'/>' required/> <br> <br>
+                                 type="text" readonly="readonly" value='${user.exp}' required/> <br> <br>
         <label>打卡天数：</label><input type="text" class="form-control"
-                                   name="prodays" readonly="readonly" value='<s:property value='prodays'/>'
+                                   name="prodays" readonly="readonly" value='${user.prodays}'
                                    required/><br> <br>
         <label>上次打卡时间：</label><input class="form-control" type="text" name="lastProday" readonly="readonly"
-                                     value='<s:property value='lastProday'/>' required/><br> <br>
+                                     value='${user.lastProday}' required/><br> <br>
         <label>最大持续打卡天数：</label><input name="maxProdays" type="text" readonly="readonly" class="form-control"
-                                       value='<s:property value='maxProdays'/>' required/><br> <input
+                                       value='${user.maxProdays}' required/><br> <input
                 type="submit" value="保存修改"/>
     </label>
     </div>

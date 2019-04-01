@@ -35,6 +35,6 @@
 
 <body onload="load()">
 <p>您还没有登录！</p>
-<a src="Login.jsp" id="content">页面将在3秒后跳转</a>
+<a src="views/Login.jsp" id="content">页面将在3秒后跳转</a>
 </body>
 </html>

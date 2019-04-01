@@ -71,7 +71,7 @@
                 <div class="bottom">
                     <div class="remember"><input type="checkbox" name="remember"/><span>记住我</span></div>
                     <input type="submit" value="登录"></input>
-                    <a href="zhuce.jsp">还没有账号？点此注册</a>
+                    <a href="/toZhuce">还没有账号？点此注册</a>
                     <!--	rel="register" class="linkform"-->
                     <div class="clear"></div>
                 </div>

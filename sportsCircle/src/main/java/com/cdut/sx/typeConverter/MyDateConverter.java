@@ -1,6 +1,10 @@
 package com.cdut.sx.typeConverter;
 
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.TypeConstraintException;
 import java.text.ParseException;
@@ -10,7 +14,12 @@ import java.util.regex.Pattern;
 
 
 public class MyDateConverter  {
-
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
     public Object convertValue(Object value, Class toType, HttpSession session) {
         // TODO Auto-generated method stub

@@ -55,7 +55,7 @@
     <script> $(function () {
         var area = "${sessionScope.area }";//获取用户的爱好领域
         if (area == null || area == "") {
-            window.location.href = "Noauthority.jsp";
+            window.location.href = "/toError";
         }
         if (area == "健身圈") //把背景图片和文字换成健身圈的
         {
@@ -137,10 +137,12 @@
                                             data-letters="我的好友">我的好友</span></a></li>--%>
                 <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
-                <li><a class="nav-in" href="date.jsp"><span data-letters="我要约啦">我要约啦</span></a></li>
-                <li><a class="nav-in" href="daka.jsp"><span
+                <li><a class="nav-in" href="/friendList"><span
+                        data-letters="我的好友">我的好友</span></a></li>
+                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
+                <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
-                <li><a class="nav-in" href="Login.jsp"><span
+                <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
             </ul>
@@ -148,9 +150,9 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
-<form action="/daka" method="post" class="form-inline" role="form">
+<form action="/message" method="post" class="form-inline" role="form">
     <div class="form-group">
-        <h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">发出你的邀请</h3>
+        <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">发出你的邀请</h3>
         <label for="content">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control"
                                                     style="vertical-align:top;position: relative;width:400px"
                                                     required></textarea><br><br>

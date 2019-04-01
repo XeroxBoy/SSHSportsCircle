@@ -30,11 +30,11 @@
     <!-- 配置 JPA 的 EntityManagerFactory -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
-        <property name="packagesToScan" value="com.cdut.sx.pojo"></property>
+        <property name="packagesToScan" value="com.cdut.sx.pojo"/>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
@@ -47,19 +47,19 @@
                 <prop key="hibernate.cache.use_query_cache">true</prop>
             </props>
         </property>
-        <property name="sharedCacheMode" value="ENABLE_SELECTIVE"></property>
+        <property name="sharedCacheMode" value="ENABLE_SELECTIVE"/>
     </bean>
 
     <!-- 配置事务 -->
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"></property>
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
     <!-- 配置支持基于注解的事务 -->
     <tx:annotation-driven/>
     <!-- 配置 SpringData -->
     <jpa:repositories base-package="com.cdut.sx"
-                      entity-manager-factory-ref="entityManagerFactory"></jpa:repositories>
+                      entity-manager-factory-ref="entityManagerFactory"/>
 
     <!--&lt;!&ndash; 事务的传播特性 &ndash;&gt;-->
     <!--<aop:config>-->
