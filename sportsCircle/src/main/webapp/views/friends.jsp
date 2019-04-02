@@ -195,9 +195,11 @@ function hideURLbar() {
 <br>
 <br>
 <br>
+
 <c:forEach var="l" items="${friendsList}">
-    <p>朋友id:${l.friendsTo}</p>
-<</c:forEach>
+<ul><p>朋友id:${l.friendsTo}</p>
+    <ul></ul>
+    </c:forEach>
 </body>
 
 </html>

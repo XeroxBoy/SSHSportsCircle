@@ -170,6 +170,7 @@ public class MessageService {
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
         List<Message> list = criteria.list();
+        for (Message i : list) System.out.println(i.getContent());
         trans.commit();
         return list;
 

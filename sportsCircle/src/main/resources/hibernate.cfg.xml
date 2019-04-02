@@ -9,7 +9,7 @@
     <session-factory>
         <!--定义数据库链接四要素  -->
         <property name="hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
+            com.mysql.cj.jdbc.Driver
         </property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">daohaodegun</property>

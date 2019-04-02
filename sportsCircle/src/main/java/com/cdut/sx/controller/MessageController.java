@@ -118,14 +118,14 @@ public class MessageController {
     }
 
     @RequestMapping("/deleteMessage")
-    public ModelAndView delete(HttpServletRequest request) {
+    public ModelAndView delete(HttpServletRequest request, HttpSession session) {
         int messageid = Integer.parseInt(request.getParameter("messageid"));
         Message messages = dao.queryById(messageid);
         if (messages != null) {
             messages.setActive("dead");
         }
         dao.save(messages);
-        return new ModelAndView(ZHUYE);
+        return new ModelAndView("forward:/findArea");
     }
     @InitBinder
     public void initBinder(WebDataBinder binder) {

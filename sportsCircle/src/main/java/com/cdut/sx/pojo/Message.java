@@ -3,7 +3,6 @@ package com.cdut.sx.pojo;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,8 +41,7 @@ public class Message {
         super();
     }
 
-    @OneToMany()
-    private Collection<Message> messages;
+
 
     public Message(String lsex, String location, User userId,
                    Date outDate, String content, String belongTo, String assignTime) {
@@ -58,7 +56,7 @@ public class Message {
         this.active = "active";
     }
 
-    public Message(String lsex, String location, Date outDate, String content, String belongTo, String assignTime, Set<Comments> comments, Set<Remind> reminds, User userId, String active, Collection<Message> messages) {
+    public Message(String lsex, String location, Date outDate, String content, String belongTo, String assignTime, Set<Comments> comments, Set<Remind> reminds, User userId, String active) {
         this.lsex = lsex;
         this.location = location;
         this.outDate = outDate;
@@ -69,7 +67,6 @@ public class Message {
         this.reminds = reminds;
         this.userId = userId;
         this.active = active;
-        this.messages = messages;
     }
 
     public Set<Remind> getReminds() {
@@ -183,11 +180,5 @@ public class Message {
         this.userId = userId;
     }
 
-    public Collection<Message> getMessage() {
-        return messages;
-    }
 
-    public void setMessage(Collection<Message> message) {
-        this.messages = message;
-    }
 }

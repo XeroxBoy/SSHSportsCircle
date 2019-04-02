@@ -312,12 +312,12 @@
     <table align="center" width="80%" border="0">
         <tr align="left">
 
-            <td id="userid"><p>用户： ${sessionScope.id}</p>
+            <td id="userid"><p>用户： ${sessionScope.name}</p>
             </td>
             <td id="messageid"><p>评论数：${page.getComments.size()}</p></td>
             <td id="belongTo"><p>所属模块：${sessionScope.area}</p></td>
         </tr>
-        e\
+
         <tr>
             <td id="assignTime"><p>约定时间：${page.getAssignTime()}</p></td>
             <td id="location"><p>约定地点：${page.getLocation()}</p></td>
