@@ -1,5 +1,6 @@
 package com.cdut.sx.pojo;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Proxy(lazy = false)
 @Entity
 @Table(name = "user")
 @Component("user")

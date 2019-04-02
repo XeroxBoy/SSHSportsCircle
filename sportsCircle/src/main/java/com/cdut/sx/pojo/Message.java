@@ -1,5 +1,6 @@
 package com.cdut.sx.pojo;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Proxy(lazy = false)
 @Entity
 @Component("message")
 @Table(name = "message")
@@ -27,8 +29,8 @@ public class Message {
     private String belongTo;//所属板块
     @Column(name = "assign_time")
     private String assignTime;//约定时间
-    @OneToMany
-    private Set<Comments> comments = new HashSet<Comments>();//一状态有多条评论
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Comments> comments = new HashSet<>();//一状态有多条评论
     @OneToMany
     private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
     @JoinColumn(name = "user_id")
@@ -40,8 +42,6 @@ public class Message {
     public Message() {
         super();
     }
-
-
 
     public Message(String lsex, String location, User userId,
                    Date outDate, String content, String belongTo, String assignTime) {
@@ -56,18 +56,6 @@ public class Message {
         this.active = "active";
     }
 
-    public Message(String lsex, String location, Date outDate, String content, String belongTo, String assignTime, Set<Comments> comments, Set<Remind> reminds, User userId, String active) {
-        this.lsex = lsex;
-        this.location = location;
-        this.outDate = outDate;
-        this.content = content;
-        this.belongTo = belongTo;
-        this.assignTime = assignTime;
-        this.comments = comments;
-        this.reminds = reminds;
-        this.userId = userId;
-        this.active = active;
-    }
 
     public Set<Remind> getReminds() {
         return reminds;
@@ -132,21 +120,6 @@ public class Message {
         this.comments = comments;
     }
 
-//    public Message(int messageid, String lsex, String location, Date outDate,
-//                   String content, String belongTo, String assignTime,
-//                   Set<Comments> comments, User userId, String active) {
-//        super();
-//        this.messageid = messageid;
-//        this.lsex = lsex;
-//        this.location = location;
-//        this.outDate = outDate;
-//        this.content = content;
-//        this.belongTo = belongTo;
-//        this.assignTime = assignTime;
-//        this.comments = comments;
-//        this.userId = userId;
-//        this.active = active;
-//    }
 
     public User getUserId() {
         return userId;

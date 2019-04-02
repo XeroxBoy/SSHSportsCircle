@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,7 +83,7 @@ public class MessageController {
      * @return
      */
     @RequestMapping("/findArea")
-    public ModelAndView findArea(HttpServletRequest request, HttpSession session) {
+    public ModelAndView findArea(HttpServletRequest request, HttpSession session, @RequestParam(name = "currPage", required = false) Integer Currpage) {
         ModelAndView mav = new ModelAndView(ZHUYE);
         String area = request.getParameter("area");//如果是点链接跳过来的话
         if (area == null)//如果是通过登录等方式跳过来的话
@@ -94,10 +95,14 @@ public class MessageController {
                 Logger.getLogger("abc").info(e.getMessage());
             }
         }
+        if (Currpage != null) currPage = Currpage;
+
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
+
+
         mav.addObject(PAGE, pageBean);
         return mav;
     }

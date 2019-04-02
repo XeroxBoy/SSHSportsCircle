@@ -308,71 +308,70 @@
     <br>
     <br>
 
-    <c:forEach var="page" begin="1" end="${sessionScope.totalPage}" step="1" items="${PageBean}">
+    <c:forEach var="page" begin="0" end="${sessionScope.totalPage }" step="1" items="${PageBean.list }">
     <table align="center" width="80%" border="0">
         <tr align="left">
-
-            <td id="userid"><p>用户： ${sessionScope.name}</p>
+            <td id="userid"><p>用户： ${sessionScope.name }</p>
             </td>
-            <td id="messageid"><p>评论数：${page.getComments.size()}</p></td>
-            <td id="belongTo"><p>所属模块：${sessionScope.area}</p></td>
+            <td id="messageid"><p>评论数：${page.comments.size() }</p></td>
+            <td id="belongTo"><p>所属模块：${sessionScope.area }</p></td>
         </tr>
 
         <tr>
-            <td id="assignTime"><p>约定时间：${page.getAssignTime()}</p></td>
-            <td id="location"><p>约定地点：${page.getLocation()}</p></td>
-            <td id="lsex"><p>性别要求：${page.getLsex()}</p></td>
+            <td id="assignTime"><p>约定时间：${page.assignTime}</p></td>
+            <td id="location"><p>约定地点：${page.location}</p></td>
+            <td id="lsex"><p>性别要求：${page.lsex}</p></td>
             <td id="setAct"><p><a
-                    href="/deleteMessage?messageid=${page.getMessageid()}"
+                    href="/deleteMessage?messageid=${page.messageid }"
                     value="删除消息"></a></p></td>
         </tr>
         <tr align="left">
             <td id="content" colspan="3"
-                style="width: inherit;height: 100px;background-color: gray;">内容：${page.getContent()}>
+                style="width: inherit;height: 100px;background-color: gray;">内容：${page.content}
             </td>
         </tr>
-
-        <c:forEach var="l" begin="1" end="${sessionScope.totalPage}" step="1" items="${page.getComments()}" >
-
+        <c:if test="${page.comments.size()!=0}">
+            <c:forEach var="l" begin="0" end="${page.comments.size()}" step="1" items="${page.comments }">
             <tr>
-                <td colspan="3"><p>用户:<a
-                        href="/makeFriend?friendsTo=${l.getUserId()}"></a> 评论：
-                    value="#c.contents"/> 发布时间:${page.outTime}日</p></td>
+                <td colspan="3"><p>用户:${sessionScope.name }<a
+                        href="/makeFriend?friendsTo=${l.userId}"></a> 评论：${l.contents }
+                    发布时间:${l.outTime}日</p></td>
                 <td colspan="1"><p><a
-                        href="/commentDelete?commentid=${l.getCommentId()}"
+                        href="/commentDelete?commentid=${l.commentId }"
                         value="删除评论"></a></p></td>
             </tr>
         </c:forEach>
-
+        </c:if>
     </table>
-    <form action="/comment?currPage=${page.getCurrPage()}" name="commentForm">
+    <form action="/comment" name="commentForm">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
         <input type="submit" class="btn btn-default" value="发表评论"/> <input
-            type="hidden" name="userId" value="${sessionScope.name}"/>
+            type="hidden" name="userId" value="${sessionScope.name }"/>
         <input type="hidden" name="messagebelongTo"
                value=
-            ${page.getBelongTo()}/>
-
+                       "${page.messageid }"/>
     </form>
     </c:forEach>
 
     <table>
         <tr>
-            <td><span> <p>第 ${pageBean.getCurrPage()}/ ${pageBean.getTotalPage()} 页</p>
-			</span> &nbsp;&nbsp; <span> <p>总记录数: ${pageBean.getTotalCount()}
-					&nbsp;&nbsp; 每页显示 ${pageBean.getPageSize()}</p>
-			</span> &nbsp;&nbsp; <span> <p><c:if test="${pageBean.getCurrPage() == 1}">
+            <td><span> <p>${PageBean.currPage }/ ${PageBean.totalPage } 页</p>
+			</span> &nbsp;&nbsp; <span> <p>总记录数: ${PageBean.totalCount }
+					&nbsp;&nbsp; 每页显示 ${PageBean.pageSize }</p>
+			</span> &nbsp;&nbsp; <span> <p>
 						<a id="firstp"
                            href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
+
+                <c:if test="${PageBean.currPage!=1 }">
                 <a id="beforep"
-                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getCurrPage()-1}&area=${sessionScope.area}">[上一页]</a>
-            </c:if> <c:if test="${pageBean.getCurrPage()!= pageBean.getTotalPage()}">
+                   href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage-1 }&area=${sessionScope.area }">[上一页]</a>
+                </c:if> <c:if test="${PageBean.currPage!= PageBean.totalPage }">
 						<a id="nextp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getCurrPage()+1}&area=${sessionScope.area}">[下一页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage+1 }&area=${sessionScope.area }">[下一页]</a>
                 <a id="lastp"
-                   href="${pageContext.request.contextPath }/findArea?currPage=${pageBean.getTotalPage()}&area=${sessionScope.area}">[尾页]</a>
+                   href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.totalPage }&area=${sessionScope.area }">[尾页]</a>
             </c:if>
 			</p>	</span></td>
         </tr>

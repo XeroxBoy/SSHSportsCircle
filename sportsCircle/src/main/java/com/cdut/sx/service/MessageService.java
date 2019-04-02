@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -42,8 +43,7 @@ public class MessageService {
     public Message queryById(int messageId) { //按message编号查message
         // TODO Auto-generated method stub
         Optional<Message> messages = messagedao.findById(messageId);
-        if (messages.get() != null) return messages.get();
-        return null;
+        return messages.orElse(null);
     }
 
     public void save(Message message) {
@@ -170,7 +170,7 @@ public class MessageService {
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
         List<Message> list = criteria.list();
-        for (Message i : list) System.out.println(i.getContent());
+        for (Message i : list) Logger.getLogger("abc").info(i.getContent());
         trans.commit();
         return list;
 

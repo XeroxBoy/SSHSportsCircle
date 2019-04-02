@@ -1,9 +1,11 @@
 package com.cdut.sx.pojo;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+@Proxy(lazy = false)
 @Entity
 @Component("friends")
 @Table(name = "friends")

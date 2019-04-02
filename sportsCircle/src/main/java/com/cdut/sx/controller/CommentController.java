@@ -23,7 +23,7 @@ public class CommentController {
 
     private int currPage;
     private static final String ERR = "views/error";
-    private static final String ZHUYE = "views/fitcircle";
+    private static final String ZHUYE = "redirect:/findArea";
     @Autowired
     private CommentsService commentsdaoImp;
     @Autowired
@@ -41,29 +41,28 @@ public class CommentController {
         if (comment == null) return new ModelAndView(ERR);
         comment.setActive("active");
         comment.setOutTime("" + new Date().getDate());
-        String content = "";
         String userId = "";
         try {
-            content = new String(comment.getContents().getBytes("iso-8859-1"), "utf-8");
             userId = new String(comment.getUserId().getBytes("iso-8859-1"), "utf-8");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }//转码
-        comment.setContents(content);
         comment.setUserId(userId);
+        comment.setActive("active");
+        comment.setOutTime(new Date().toString());
         commentsdaoImp.save(comment);
         return new ModelAndView(ZHUYE);
     }
 
     @RequestMapping("/commentDelete")
-    public String delete(HttpServletRequest request) {
+    public ModelAndView delete(HttpServletRequest request) {
         int commentid = Integer.parseInt(request.getParameter("commentId"));
         List<Comments> comment = commentsdaoImp.queryById(commentid);
-        if (comment == null || comment.isEmpty()) return ERR;
+        if (comment == null || comment.isEmpty()) return new ModelAndView("/error");
         comment.get(0).setActive("dead");
         commentsdaoImp.save(comment.get(0));
-        return ZHUYE;
+        return new ModelAndView(ZHUYE);
     }
 }
 

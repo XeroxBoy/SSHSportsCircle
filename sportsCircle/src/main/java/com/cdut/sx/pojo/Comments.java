@@ -1,9 +1,11 @@
 package com.cdut.sx.pojo;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+@Proxy(lazy = false)
 @Entity
 @Component("comments")
 @Table(name = "comments")
@@ -17,7 +19,7 @@ public class Comments {
     @Column(name = "out_time")
     private String outTime;//发布时间
     @JoinColumn(name = "messagebelong_to")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Message messagebelongTo;//所属状态,外键
     @Column(name="contents")
     private String contents;//内容
