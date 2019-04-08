@@ -63,8 +63,8 @@
         {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=健身圈";
             var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=健身圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=健身圈";
             document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgGym.jpg)";
             document.querySelector("#nar").innerHTML = "  健身圈";
             document.getElementById("bg").src = "../images/e2.png";
@@ -76,9 +76,9 @@
 
         if (area == "打球圈") {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=打球圈";
-            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=打球圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=打球圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=打球圈";
             document.querySelector(".banner-section").style.backgroundImage = "url(../images/bgBall.jpg)";
             document.querySelector("#nar").innerHTML = "  打球圈";
             document.getElementById("bg").src = "images/ball.png";
@@ -89,9 +89,9 @@
         }
         if (area == "跑步圈") {
             var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=跑步圈";
-            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=健身圈";
-            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage-1}&area=健身圈";
-            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+1}&area=健身圈";
+            var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=跑步圈";
+            var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=跑步圈";
+            var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=跑步圈";
             document.getElementById("firstp").setAttribute("href", first);
             document.getElementById("nextp").setAttribute("href", next);
             document.getElementById("beforep").setAttribute("href", before);
@@ -321,6 +321,7 @@
             <td id="assignTime"><p>约定时间：${page.assignTime}</p></td>
             <td id="location"><p>约定地点：${page.location}</p></td>
             <td id="lsex"><p>性别要求：${page.lsex}</p></td>
+            <td id="outDate">发布时间:${page.outDate.toLocaleString()}</td>
             <td id="setAct"><p><a
                     href="/deleteMessage?messageid=${page.messageid }"
                     value="删除消息"></a></p></td>
@@ -366,10 +367,10 @@
 
                 <c:if test="${PageBean.currPage!=1 }">
                 <a id="beforep"
-                   href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage-1 }&area=${sessionScope.area }">[上一页]</a>
+                   href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage }&area=${sessionScope.area }">[上一页]</a>
                 </c:if> <c:if test="${PageBean.currPage!= PageBean.totalPage }">
 						<a id="nextp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage+1 }&area=${sessionScope.area }">[下一页]</a>
+                           href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage+2 }&area=${sessionScope.area }">[下一页]</a>
                 <a id="lastp"
                    href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.totalPage }&area=${sessionScope.area }">[尾页]</a>
             </c:if>

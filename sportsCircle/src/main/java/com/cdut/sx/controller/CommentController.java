@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class CommentController {
     public ModelAndView save(@ModelAttribute Comments comment) {
         if (comment == null) return new ModelAndView(ERR);
         comment.setActive("active");
-        comment.setOutTime("" + new Date().getDate());
+        comment.setOutTime("" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
         String userId = "";
         try {
             userId = new String(comment.getUserId().getBytes("iso-8859-1"), "utf-8");
@@ -49,7 +50,6 @@ public class CommentController {
         }//转码
         comment.setUserId(userId);
         comment.setActive("active");
-        comment.setOutTime(new Date().toString());
         commentsdaoImp.save(comment);
         return new ModelAndView(ZHUYE);
     }
