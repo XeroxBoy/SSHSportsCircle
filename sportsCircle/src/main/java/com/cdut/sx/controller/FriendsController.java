@@ -44,7 +44,8 @@ public class FriendsController {
             mav.addObject("friendsList", friendList);
             return mav;
         } else {
-            return new ModelAndView("views/error");
+            mav.addObject("info", "您暂时还未结交好友");
+            return mav;
         }
     }
 

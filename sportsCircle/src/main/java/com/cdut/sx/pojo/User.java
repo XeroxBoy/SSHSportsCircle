@@ -43,10 +43,30 @@ public class User {
     private Date lastProday = new Date();//上一次打卡的日期
     @Column(name = "areabelongto")
     private String Areabelongto;//所属板块
+
+    //用户所属的圈子
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Circle.class)
+    private Set<Circle> circles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "userId")
+    private Set<Friends> friends = new HashSet<Friends>();//一个用户有很多py
+
+    public Set<Circle> getCircles() {
+        return circles;
+    }
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
     private Set<Message> messages = new HashSet<Message>();//一用户有多条状态
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "user")
-    private Set<Friends> friends = new HashSet<Friends>();//一个用户有很多py
+
+    public void setCircles(Set<Circle> circles) {
+        this.circles = circles;
+    }
+
+    public Set<Friends> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Friends> friends) {
+        this.friends = friends;
+    }
     public User() {
         super();
     }

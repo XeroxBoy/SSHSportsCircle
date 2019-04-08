@@ -25,8 +25,9 @@ public class Message {
     private Date outDate; //发布时间
     @Column(name="content")
     private String content;//内容
-    @Column(name = "belong_to")
-    private String belongTo;//所属板块
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "belong_to")
+    private Message belongTo;//所属板块
     @Column(name = "assign_time")
     private String assignTime;//约定时间
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Comments.class, mappedBy = "messageBelongTo")
@@ -44,7 +45,7 @@ public class Message {
     }
 
     public Message(String lsex, String location, User userId,
-                   Date outDate, String content, String belongTo, String assignTime) {
+                   Date outDate, String content, Message belongTo, String assignTime) {
         super();
         this.lsex = lsex;
         this.location = location;
@@ -96,11 +97,11 @@ public class Message {
         this.content = content;
     }
 
-    public String getBelongTo() {
+    public Message getBelongTo() {
         return belongTo;
     }
 
-    public void setBelongTo(String belongTo) {
+    public void setBelongTo(Message belongTo) {
         this.belongTo = belongTo;
     }
 

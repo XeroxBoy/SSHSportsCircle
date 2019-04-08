@@ -2,6 +2,7 @@ package com.cdut.sx.service;
 
 
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.Circle;
 import com.cdut.sx.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,12 @@ public class UserService {
         // TODO Auto-generated method stub
         ArrayList<User> users = (ArrayList<User>) userdao.findAll();
         return users;
+    }
+
+    public List<Circle> queryMyCircle(String username) {
+        List<User> user = userdao.queryByName(username);
+        List<Circle> circles = (List<Circle>) user.get(0).getCircles();
+        return circles;
     }
 
     public List<User> queryByName(String username) {

@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: AlexAnderIch
+  Date: 2019/4/8
+  Time: 17:40
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%
@@ -187,21 +194,7 @@ function hideURLbar() {
     </div>
 </nav>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-${info}
 
-
-<c:forEach var="l" items="${friendsList}">
-<ul><p>朋友id:${l.friendsTo}</p>
-    <ul></ul>
-    </c:forEach>
 </body>
 
 </html>

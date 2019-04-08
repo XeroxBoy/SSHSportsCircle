@@ -20,7 +20,7 @@ public class Friends {
     private String friendsTo;//好友另一方
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+    private User userId;
     public int getFriendsId() {
         return friendsId;
     }

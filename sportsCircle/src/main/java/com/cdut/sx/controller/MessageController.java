@@ -135,5 +135,13 @@ public class MessageController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+
+    /*
+     * TODO
+     * 推荐算法实现
+     * */
+    public void Recommend() {
+
+    }
 }
 
