@@ -20,9 +20,7 @@ public class CircleService {
     public void update(Circle message) {
         // TODO Auto-generated method stub
         circledao.save(message);
-
     }
-
 
     public void delete(Circle message) {
         // TODO Auto-generated method stub

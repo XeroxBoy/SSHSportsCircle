@@ -180,7 +180,10 @@ function hideURLbar() {
                         data-letters="每日打卡">每日打卡</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
-
+                <div> <form action="searchCircle" method="post">
+                    <li><input type="text" name="key" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的圈子..."></li>
+                    <li><button type="submit" class="btn btn-default" style="position:relative;top:-20px;left:10px;height: 35px;width: 75px;vertical-align: text-top">搜索</button> </li></form>
+                </div>
             </ul>
         </div>
         <!--/.nav-collapse -->

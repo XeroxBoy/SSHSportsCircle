@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 @Proxy(lazy = false)
 @Entity
 @Table(name = "user")
@@ -45,7 +44,7 @@ public class User {
     private String Areabelongto;//所属板块
 
     //用户所属的圈子
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Circle.class)
+    @ManyToMany(cascade = CascadeType.ALL,targetEntity = Circle.class)
     private Set<Circle> circles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "userId")
     private Set<Friends> friends = new HashSet<Friends>();//一个用户有很多py
