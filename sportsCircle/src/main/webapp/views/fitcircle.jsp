@@ -335,7 +335,7 @@
             <tr>
                 <td colspan="3"><p>用户:${sessionScope.name }<a
                         href="/makeFriend?friendsTo=${l.userId}"></a> 评论：${l.contents }
-                    发布时间:${l.outTime}日</p></td>
+                    发布时间:${l.outTime}</p></td>
                 <td colspan="1"><p><a
                         href="/commentDelete?commentid=${l.commentId }"
                         value="删除评论"></a></p></td>

@@ -43,9 +43,10 @@ public class User {
     private Date lastProday = new Date();//上一次打卡的日期
     @Column(name = "areabelongto")
     private String Areabelongto;//所属板块
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
     private Set<Message> messages = new HashSet<Message>();//一用户有多条状态
-
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "user")
+    private Set<Friends> friends = new HashSet<Friends>();//一个用户有很多py
     public User() {
         super();
     }

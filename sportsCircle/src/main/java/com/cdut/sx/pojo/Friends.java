@@ -18,7 +18,9 @@ public class Friends {
     private String friendsFrom;//好友1方
     @Column(name = "friends_to")
     private String friendsTo;//好友另一方
-
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
     public int getFriendsId() {
         return friendsId;
     }

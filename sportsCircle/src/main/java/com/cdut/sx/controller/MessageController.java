@@ -96,13 +96,10 @@ public class MessageController {
             }
         }
         if (Currpage != null) currPage = Currpage;
-
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
-
-
         mav.addObject(PAGE, pageBean);
         return mav;
     }

@@ -45,7 +45,6 @@ public class CommentController {
         try {
             userId = new String(comment.getUserId().getBytes("iso-8859-1"), "utf-8");
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }//转码
         comment.setUserId(userId);

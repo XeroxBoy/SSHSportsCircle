@@ -18,9 +18,9 @@ public class Comments {
     private String userId;//发布人
     @Column(name = "out_time")
     private String outTime;//发布时间
-    @JoinColumn(name = "messagebelong_to")
+    @JoinColumn(name = "message_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Message messagebelongTo;//所属状态,外键
+    private Message messageBelongTo;//所属状态,外键
     @Column(name="contents")
     private String contents;//内容
     @Column(name="active")
@@ -35,7 +35,7 @@ public class Comments {
         this.commentId = commentId;
         this.userId = userId;
         this.outTime = outTime;
-        this.messagebelongTo = messagebelongTo;
+        this.messageBelongTo = messagebelongTo;
         this.contents = contents;
         this.active = "active";
     }
@@ -43,7 +43,7 @@ public class Comments {
     @Override
     public String toString() {
         return "comments [userid=" + userId + ", outTime=" + outTime
-                + ", messagebelongTo=" + messagebelongTo + ", contents=" + contents
+                + ", messagebelongTo=" + messageBelongTo + ", contents=" + contents
                 + "]";
     }
 
@@ -72,11 +72,11 @@ public class Comments {
     }
 
     public Message getMessagebelongTo() {
-        return messagebelongTo;
+        return messageBelongTo;
     }
 
     public void setMessagebelongTo(Message messagebelongTo) {
-        this.messagebelongTo = messagebelongTo;
+        this.messageBelongTo = messagebelongTo;
     }
 
     public String getContents() {

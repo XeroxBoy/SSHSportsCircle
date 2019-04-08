@@ -29,7 +29,7 @@ public class Message {
     private String belongTo;//所属板块
     @Column(name = "assign_time")
     private String assignTime;//约定时间
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Comments.class, mappedBy = "messageBelongTo")
     private Set<Comments> comments = new HashSet<>();//一状态有多条评论
     @OneToMany
     private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
