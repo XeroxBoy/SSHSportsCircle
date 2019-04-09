@@ -178,6 +178,8 @@ function hideURLbar() {
                 <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
                 <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
+                <li><a class="nav-in" href="/toCircle"><span
+                        data-letters="圈子">圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 

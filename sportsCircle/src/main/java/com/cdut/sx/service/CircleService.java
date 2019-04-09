@@ -13,7 +13,6 @@ import java.util.List;
 public class CircleService {
     @Autowired
     private Circledao circledao;
-
     public List<Circle> search(String key) {
         List<Circle> circles = circledao.search(key);
         return circles;

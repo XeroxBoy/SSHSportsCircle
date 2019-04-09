@@ -178,6 +178,8 @@ function hideURLbar() {
                 <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
                 <li><a class="nav-in" href="/toDaka"><span
                         data-letters="每日打卡">每日打卡</span></a></li>
+                <li><a class="nav-in" href="/toCircle"><span
+                        data-letters="圈子">圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
                 <div> <form action="searchCircle" method="post">
@@ -189,9 +191,18 @@ function hideURLbar() {
         <!--/.nav-collapse -->
     </div>
 </nav>
-<form action="/circle" method="post" class="form-inline" role="form">
+<%--展示推荐的圈子/热帖--%>
 
+
+<form action="/circle" method="post" class="form-inline" role="form">
+    <div class="form-group">
+        <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
+        <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
+                                                  style="width: 302px; " required><br>
+        <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="创建圈子">
+    </div>
 </form>
+
 </body>
 
 </html>
