@@ -50,7 +50,8 @@ public class CircleController {
         List<User> users = userdao.queryByName(name);
         Circle circle = circledao.findCircle(circleName);
         circle.getCircleUsers().add(users.get(0));
-        circle.setUserCount(circle.getUserCount() + 1);
+        circle.
+                circle.setUserCount(circle.getUserCount() + 1);
         return new ModelAndView(CIRCLE_PAGE);
     }
 }
