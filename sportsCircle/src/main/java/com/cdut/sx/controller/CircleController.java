@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -25,7 +28,15 @@ public class CircleController {
         return new ModelAndView(CIRCLE_PAGE);
     }
     @RequestMapping("/circle")
-    public ModelAndView circle(@ModelAttribute Circle circle) {
+    public ModelAndView circle(@ModelAttribute Circle circle,@RequestParam("file") CommonsMultipartFile file,HttpSession session) {
+        try {
+            String filePath="images/"+circle.getCircleName() +".jpg";
+            File newFile=new File(filePath);
+            file.transferTo(newFile);//CommonsFile的上传方法
+            circle.setBgImgPath(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         circledao.save(circle);
         return new ModelAndView(CIRCLE_PAGE);
     }
@@ -50,8 +61,8 @@ public class CircleController {
         List<User> users = userdao.queryByName(name);
         Circle circle = circledao.findCircle(circleName);
         circle.getCircleUsers().add(users.get(0));
-        circle.
-                circle.setUserCount(circle.getUserCount() + 1);
+        circle.setUserCount(circle.getUserCount() + 1);
+        circledao.save(circle);
         return new ModelAndView(CIRCLE_PAGE);
     }
 }

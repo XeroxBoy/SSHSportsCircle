@@ -1,12 +1,18 @@
 package com.cdut.sx.filter;
 
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.websocket.Websocket;
 
 import javax.servlet.*;
+import javax.websocket.Session;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class startFilter implements Filter {
+
+
 
     public void init(FilterConfig fc) throws ServletException {
         this.startWebsocket();

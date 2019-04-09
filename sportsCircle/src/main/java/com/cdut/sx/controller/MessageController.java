@@ -1,6 +1,8 @@
 package com.cdut.sx.controller;
 
+import com.cdut.sx.dao.Circledao;
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.Circle;
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.service.MessageService;
@@ -37,12 +39,17 @@ public class MessageController {
     private MessageService dao;
     @Autowired
     private Userdao userdao;
+    @Autowired
+    private Circledao circledao;
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
        // this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
+        Circle messageBelongCircle = circledao.findByCircleName(message.getBelongTo().getCircleName());
+        messageBelongCircle.setMessageCount(messageBelongCircle.getMessageCount()+1);
+        circledao.save(messageBelongCircle);
         String name = (String) session.getAttribute("name");
         message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
         dao.save(message);
