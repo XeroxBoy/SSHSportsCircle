@@ -12,7 +12,7 @@ import java.util.Set;
 @Proxy(lazy = false)
 @Entity
 @Table(name = "circle")
-@Component("circle")
+@Component("Circle")
 public class Circle {
     @Id
     @GeneratedValue

@@ -13,16 +13,25 @@ import org.springframework.web.servlet.ModelAndView;
 public class CircleController {
     @Autowired
     CircleService circledao;
+    public final String CIRCLE_PAGE = "views/circle";
 
     @RequestMapping("/circle")
     public ModelAndView circle(@ModelAttribute Circle circle) {
         circledao.save(circle);
-        return new ModelAndView("views/circle");
+        return new ModelAndView(CIRCLE_PAGE);
     }
     @RequestMapping("/searchCircle")
     public ModelAndView search(@RequestParam("key")String key){
+        ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
+        mav.addObject("circles", circledao.search(key));
+        return mav;
+    }
 
-        return new ModelAndView("views/circle");
+    @RequestMapping("/deleteCircle")
+    public ModelAndView deleteCircle(@RequestParam("circle_name") String name) {
+        circledao.delete(circledao.findCircle(name));
+        ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
+        return mav;
     }
 }
 
