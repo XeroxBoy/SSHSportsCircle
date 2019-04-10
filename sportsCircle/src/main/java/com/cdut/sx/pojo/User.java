@@ -7,9 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 @Proxy(lazy = false)
 @Entity
 @Table(name = "user")
@@ -53,7 +52,7 @@ public class User {
         return circles;
     }
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
-    private Set<Message> messages = new HashSet<Message>();//一用户有多条状态
+    private List<Message> messages = new ArrayList<>();//一用户有多条状态
 
     public void setCircles(Set<Circle> circles) {
         this.circles = circles;
@@ -166,11 +165,11 @@ public class User {
         Areabelongto = areabelongto;
     }
 
-    public Set<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 

@@ -4,8 +4,8 @@ import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,20 +16,25 @@ import java.util.Set;
 public class Circle {
     @Id
     @GeneratedValue
+    @Column(name = "circle_id")
     private int circleId;
     //圈子总人数
+    @Column(name = "user_count")
     private int userCount;
     //圈子总帖数
+    @Column(name = "message_count")
     private int messageCount;
     //圈子名字
+    @Column(name = "circle_name")
     private String circleName;
     //圈子的帖子
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "belongTo")
-    private List<Message> circleMessages = new LinkedList<>();
+    private List<Message> circleMessages = new ArrayList<>();
     //圈子的用户
     @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class, mappedBy = "circles")
-    private Set<User> circleUsers = new HashSet<>();
+    private Set<User> circleUsers = new LinkedHashSet<>();
     //圈子的背景图片
+    @Column(name = "bg_img_path")
     private String bgImgPath;
 
     public int getCircleId() {
@@ -69,7 +74,7 @@ public class Circle {
     }
 
     public void setCircleMessages(List<Message> circleMessages) {
-        this.circleMessages = circleMessages;
+        this.circleMessages = (List<Message>) circleMessages;
     }
 
     public Set<User> getCircleUsers() {

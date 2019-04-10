@@ -4,9 +4,9 @@ import org.hibernate.annotations.Proxy;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Proxy(lazy = false)
 @Entity
@@ -31,9 +31,9 @@ public class Message {
     @Column(name = "assign_time")
     private String assignTime;//约定时间
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Comments.class, mappedBy = "messageBelongTo")
-    private Set<Comments> comments = new HashSet<>();//一状态有多条评论
+    private List<Comments> comments = new ArrayList<>();//一状态有多条评论
     @OneToMany
-    private Set<Remind> reminds = new HashSet<>();//一条状态有多个应约
+    private List<Remind> reminds = new ArrayList<>();//一条状态有多个应约
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private User userId;//所属用户的ID
@@ -58,11 +58,11 @@ public class Message {
     }
 
 
-    public Set<Remind> getReminds() {
+    public List<Remind> getReminds() {
         return reminds;
     }
 
-    public void setReminds(Set<Remind> reminds) {
+    public void setReminds(List<Remind> reminds) {
         this.reminds = reminds;
     }
 
@@ -113,11 +113,11 @@ public class Message {
         this.assignTime = assignTime;
     }
 
-    public Set<Comments> getComments() {
+    public List<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comments> comments) {
+    public void setComments(List<Comments> comments) {
         this.comments = comments;
     }
 
