@@ -46,17 +46,19 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL,targetEntity = Circle.class)
     private Set<Circle> circles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "userId")
-    private Set<Friends> friends = new HashSet<Friends>();//一个用户有很多py
-
-    public Set<Circle> getCircles() {
-        return circles;
-    }
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
-    private List<Message> messages = new ArrayList<>();//一用户有多条状态
+    private Set<Friends> friends = new HashSet<>();//一个用户有很多py
 
     public void setCircles(Set<Circle> circles) {
         this.circles = circles;
     }
+
+    public Set<Circle> getCircles() {
+        return circles;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
+    private List<Message> messages = new ArrayList<>();//一用户有多条状态
+
 
     public Set<Friends> getFriends() {
         return friends;

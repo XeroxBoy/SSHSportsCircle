@@ -17,8 +17,6 @@ public interface Messagedao extends JpaRepository<Message, Integer> {
     @Query(value = "select count(*) from message where user_id=:userId", nativeQuery = true)
     public int findMyCount(@Param("userId") String userId); //看我发了多少条记录
 
-    @Query(value = "select count(*) from message where belong_to=:area", nativeQuery = true)
-    public int findAreaCount(@Param("area") String area);//看每个圈子下面有多少状态
 
 
 }

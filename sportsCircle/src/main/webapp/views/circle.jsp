@@ -192,7 +192,7 @@ function hideURLbar() {
     </div>
 </nav>
 <%--展示推荐的圈子/热帖--%>
-
+<h3>还没有圈子？创建属于自己的圈子吧</h3>
 
 <form action="/circle" method="post" class="form-inline" role="form">
     <div class="form-group">

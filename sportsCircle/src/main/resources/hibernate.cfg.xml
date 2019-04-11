@@ -44,6 +44,7 @@
         <mapping class="com.cdut.sx.pojo.Comments"/>
         <mapping class="com.cdut.sx.pojo.Friends"/>
         <mapping class="com.cdut.sx.pojo.Remind"/>
+        <mapping class="com.cdut.sx.pojo.Circle"/>
     </session-factory>
 
 </hibernate-configuration>

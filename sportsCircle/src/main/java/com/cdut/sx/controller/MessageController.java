@@ -106,8 +106,13 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-        PageBean<Message> pageBean = dao.findByArea(currPage, area);
-        mav.addObject(PAGE, pageBean);
+        Circle circle = circledao.findByCircleName(area);
+        if (circle != null) {
+            PageBean<Message> pageBean = dao.findByArea(currPage, circle.getCircleName());
+            mav.addObject(PAGE, pageBean);
+        } else {
+            mav = new ModelAndView("views/circle");
+        }
         return mav;
     }
 

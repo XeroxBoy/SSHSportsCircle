@@ -16,8 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 public class ZhuceController {
@@ -69,7 +70,7 @@ public class ZhuceController {
     public ModelAndView modify(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/MyInfo");
         int userId = (Integer) session.getAttribute("id");
-        Set<Message> message = (Set<Message>) session.getAttribute("messages");
+        List<Message> message = (ArrayList<Message>) session.getAttribute("messages");
         User.setUserId(userId);
         User.setMessages(message);//不然user的message会被清空
         userdao.save(User);

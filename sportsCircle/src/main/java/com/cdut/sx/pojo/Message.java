@@ -25,9 +25,7 @@ public class Message {
     private Date outDate; //发布时间
     @Column(name="content")
     private String content;//内容
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "belong_to")
-    private Circle belongTo;//所属板块
+
     @Column(name = "assign_time")
     private String assignTime;//约定时间
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Comments.class, mappedBy = "messageBelongTo")
@@ -37,6 +35,9 @@ public class Message {
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private User userId;//所属用户的ID
+    @JoinColumn(name = "belong_to")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Circle belongTo;//所属板块
     @Column(name="active")
     private String active;//是否可查看 "active"和“dead” 两种取值
 

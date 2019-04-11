@@ -93,5 +93,17 @@ public class Circle {
         this.bgImgPath = bgImgPath;
     }
 
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "circleId=" + circleId +
+                ", userCount=" + userCount +
+                ", messageCount=" + messageCount +
+                ", circleName='" + circleName + '\'' +
+                ", circleMessages=" + circleMessages +
+                ", circleUsers=" + circleUsers +
+                ", bgImgPath='" + bgImgPath + '\'' +
+                '}';
+    }
 }
 

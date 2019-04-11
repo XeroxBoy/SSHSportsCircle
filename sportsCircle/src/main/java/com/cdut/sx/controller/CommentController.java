@@ -29,10 +29,10 @@ public class CommentController {
     private CommentsService commentsdaoImp;
     @Autowired
     private UserService userdao;
+
     public int getCurrPage() {
         return currPage;
     }
-
     public void setCurrPage(int currPage) {
         this.currPage = currPage;
     }

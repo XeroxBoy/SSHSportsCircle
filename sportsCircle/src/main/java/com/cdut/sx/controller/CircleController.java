@@ -21,6 +21,7 @@ import java.util.List;
 public class CircleController {
     @Autowired
     CircleService circledao;
+
     public final String CIRCLE_PAGE = "views/circle";
 
     @RequestMapping("/toCircle")

@@ -2,6 +2,7 @@ package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Messagedao;
 import com.cdut.sx.dao.Userdao;
+import com.cdut.sx.pojo.Circle;
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.utils.HibernateUtil;
@@ -153,7 +154,9 @@ public class MessageService {
 
     public long findAreaCount(String area)//看每个圈子下面有多少状态
     {
-        long sizes = messagedao.findAreaCount(area);
+        CircleService circledao = new CircleService();
+        Circle thisCircle = circledao.findCircle(area);
+        long sizes = thisCircle.getMessageCount();
         if (sizes > 0) {
             return sizes;
         }

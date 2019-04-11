@@ -2033,7 +2033,7 @@ h3.ghj {
 
     .banner-section {
         min-height: 375px;
-        background: url(../images/2.jpg) no-repeat -108px 0px;
+        background: url(../images/r1.jpg) no-repeat -108px 0px;
         background-size: cover;
     }
 
@@ -2410,3 +2410,4 @@ h3.ghj {
             top: 2em;
         }
     }
+}
