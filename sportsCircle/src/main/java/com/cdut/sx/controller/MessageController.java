@@ -41,14 +41,15 @@ public class MessageController {
     private Userdao userdao;
     @Autowired
     private Circledao circledao;
+
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
-       // this.message = message; //验证状态是否合理
+        // this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
         Circle messageBelongCircle = circledao.findByCircleName(message.getBelongTo().getCircleName());
-        messageBelongCircle.setMessageCount(messageBelongCircle.getMessageCount()+1);
+        messageBelongCircle.setMessageCount(messageBelongCircle.getMessageCount() + 1);
         circledao.save(messageBelongCircle);
         String name = (String) session.getAttribute("name");
         message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
@@ -71,8 +72,9 @@ public class MessageController {
         mav.addObject(PAGE, pageBean);
         return mav;
     }
+
     @RequestMapping("/date")
-    public ModelAndView date(){
+    public ModelAndView date() {
         return new ModelAndView("views/date");
     }
 
@@ -93,9 +95,10 @@ public class MessageController {
     public ModelAndView findArea(HttpServletRequest request, HttpSession session, @RequestParam(name = "currPage", required = false) Integer Currpage) {
         ModelAndView mav = new ModelAndView(ZHUYE);
         String area = request.getParameter("area");//如果是点链接跳过来的话
-        if (area == null)//如果是通过登录等方式跳过来的话
+
+        if (area == null) {//如果是通过登录等方式跳过来的话
             area = (String) session.getAttribute("area");
-        else {//如果是点链接跳过来的话
+        } else {//如果是点链接跳过来的话
             try {
                 area = URLDecoder.decode(area, "utf-8");//转码
             } catch (UnsupportedEncodingException e) {
@@ -106,13 +109,9 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-        Circle circle = circledao.findByCircleName(area);
-        if (circle != null) {
-            PageBean<Message> pageBean = dao.findByArea(currPage, circle.getCircleName());
-            mav.addObject(PAGE, pageBean);
-        } else {
-            mav = new ModelAndView("views/circle");
-        }
+        PageBean<Message> pageBean = dao.findByArea(currPage, area);
+        mav.addObject(PAGE, pageBean);
+
         return mav;
     }
 
@@ -141,6 +140,7 @@ public class MessageController {
         dao.save(messages);
         return new ModelAndView("forward:/findArea");
     }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -39,7 +39,7 @@ public class CircleController {
             e.printStackTrace();
         }
         circledao.save(circle);
-        return new ModelAndView(CIRCLE_PAGE);
+        return new ModelAndView("views/zhuce");
     }
     @RequestMapping("/searchCircle")
     public ModelAndView search(@RequestParam("key")String key){

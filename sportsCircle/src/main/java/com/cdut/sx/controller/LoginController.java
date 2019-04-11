@@ -51,7 +51,7 @@ public class LoginController {
         this.User = User; //验证方法 进行数据库操作
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码
-        List<com.cdut.sx.pojo.User> user = userdao.queryByName(User.getUsername());//获取用户信息
+        List<User> user = userdao.queryByName(User.getUsername());//获取用户信息
         String reqPass = MD5.encodeMd5(User.getPassword());
         ModelAndView mav = new ModelAndView("forward:/findArea");
         ModelAndView errormav = new ModelAndView("redirect:views/Login");

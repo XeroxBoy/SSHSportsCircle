@@ -63,11 +63,11 @@
                     <div>
                         <label>感兴趣的领域：</label>
                         <input type="text" list="areadata" name="Areabelongto" required/>
-                        <datalist id="areadata">
-                            <option value="跑步圈"/>
-                            <option value="健身圈"/>
-                            <option value="打球圈"/>
-                        </datalist>
+                        <%--<datalist id="areadata">--%>
+                        <%--<option value="跑步圈"/>--%>
+                        <%--<option value="健身圈"/>--%>
+                        <%--<option value="打球圈"/>--%>
+                        <%--</datalist>--%>
 
                     </div>
 

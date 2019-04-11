@@ -1,7 +1,9 @@
 package com.cdut.sx.controller;
 
+import com.cdut.sx.pojo.Circle;
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.User;
+import com.cdut.sx.service.CircleService;
 import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,21 @@ public class ZhuceController {
     @Autowired
     private User User;
 
+    @Autowired
+    private CircleService circledao;
     @RequestMapping("/zhuce")
     public ModelAndView zhuce(@Validated @ModelAttribute("user") User User) {
         ModelAndView mav = new ModelAndView("views/Login");
         ModelAndView errormav = new ModelAndView("views/error");
-        User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果
-        User.setPassword(MD5.encodeMd5(User.getPassword()));
+        String userArea = User.getAreabelongto();
+
         if (userdao.queryByName(User.getUsername()).isEmpty()) {
+            Circle userCircle = circledao.findCircle(userArea);
+            if (userCircle == null) { //如果没有 就去注册圈子 再来注册用户
+                return new ModelAndView("redirect:/toCircle");
+            }
+            User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果
+            User.setPassword(MD5.encodeMd5(User.getPassword()));
             userdao.save(User);
             return mav;
         }

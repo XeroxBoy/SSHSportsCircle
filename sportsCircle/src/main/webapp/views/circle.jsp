@@ -32,7 +32,25 @@ function hideURLbar() {
 <link href='../css/font1.css' rel='stylesheet' type='text/css'>
 <link href='../css/font2.css' rel='stylesheet' type='text/css'>
 <link href='../css/font3.css' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    .form-inline {
+        left: 35%;
+        top: 210px;
+        bottom: 40%;
+        height: 450px;
+        width: 400px;
+        position: relative;
+        background-image: url("../images/fbg.jpg");
+    }
 
+    body {
+        background-image: url("../images/datebg.jpg");
+    }
+
+    label {
+        /*  color:#FF5; */
+    }
+</style>
 <!--//web-fonts-->
 <script src="../js/responsiveslides.min.js"></script>
 
@@ -106,20 +124,8 @@ function hideURLbar() {
     });
 
     $(function () {
-        var area = "${sessionScope.area }";//获取用户的爱好领域
-        if (area == null || area == "") {
-            window.location.href = "/toError";
-        }
-        if (area == "健身圈") //把背景图片和文字换成健身圈的
-        {
-            document.querySelector("#nar").innerHTML = "  健身圈";
-            document.getElementById("bg").src = "../images/e2.png";
-        }
-
-        if (area == "打球圈") {
-            document.querySelector("#nar").innerHTML = "  打球圈";
-            document.getElementById("bg").src = "../images/ball.png";
-        }
+        document.querySelector("#nar").innerHTML = "  运动圈";
+        document.getElementById("bg").src = "../images/e2.png";
     });
 
 </script>
@@ -154,36 +160,11 @@ function hideURLbar() {
             <ul
                     class="nav navbar-nav navbar-right wow fadeInRight animated animated"
                     data-wow-delay="0.4s">
-                <li style="display:inline;"><a class="nav-in"
-                                               href='/findArea?area=跑步圈'><span class="flip"
-                                                                               data-letters="跑步圈">跑步圈</span></a>
-
-                    <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <li><a href="/findArea?area=打球圈"><span class="nav-in"
-                                                               data-letters="打球圈"
-                                                               style="font-size:15px;color:#FFF">打球圈</span></a>
-                        </li>
-                        <li><a href="/findArea?area=健身圈"><span class="nav-in"
-                                                               data-letters="健身圈"
-                                                               style="font-size:15px;color:#FFF">健身圈</span></a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li><a class="nav-in" href="/findMyInfo"><span
-                        data-letters="我的信息">我的信息</span></a></li>
-
-                <li><a class="nav-in" href="/friendList"><span
-                        data-letters="我的好友">我的好友</span></a></li>
-                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
-                <li><a class="nav-in" href="/toDaka"><span
-                        data-letters="每日打卡">每日打卡</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/logout"><span
-                        data-letters="注销">注销</span></a></li>
                 <div> <form action="searchCircle" method="post">
                     <li><input type="text" name="key" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的圈子..."></li>
+                    <br>
                     <li><button type="submit" class="btn btn-default" style="position:relative;top:-20px;left:10px;height: 35px;width: 75px;vertical-align: text-top">搜索</button> </li></form>
                 </div>
             </ul>
@@ -192,7 +173,7 @@ function hideURLbar() {
     </div>
 </nav>
 <%--展示推荐的圈子/热帖--%>
-<h3>还没有圈子？创建属于自己的圈子吧</h3>
+<h3 style="font-family: 'Arial';left:15% ;top:190px;position:relative;">还没有圈子？创建属于自己的圈子吧</h3>
 
 <form action="/circle" method="post" class="form-inline" role="form">
     <div class="form-group">
@@ -200,9 +181,7 @@ function hideURLbar() {
         <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
         <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
                                                   style="width: 302px; " required><br>
-        <label>选择该圈子的代表图片:</label><input type="file" name="file"/> <br><img src="images/${sessionScope.name}.jpg"
-                                                                            onerror="javascript:this.src='images/c1.jpg';alt='pic'"/><br>
-        <input value="上传" type="submit">
+        <label>选择该圈子的代表图片:</label><input type="file" name="file"/> <br><br>
         <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="创建圈子">
     </div>
 </form>

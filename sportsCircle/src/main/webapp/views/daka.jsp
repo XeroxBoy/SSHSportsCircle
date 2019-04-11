@@ -201,17 +201,17 @@
             if (area == null || area == "") {
                 window.location.href = "/toError";
             }
-            if (area == "健身圈") //把背景图片和文字换成健身圈的
-            {
-                document.querySelector("#nar").innerHTML = "  健身圈";
+            //把背景图片和文字换成健身圈的
+
+            document.querySelector("#nar").innerHTML = "  " + area;
                 document.getElementById("bg").src = "../images/e2.png";
-            }
 
-            if (area == "打球圈") {
-                document.querySelector("#nar").innerHTML = "  打球圈";
-                document.getElementById("bg").src = "../images/ball.png";
-
-            }
+            //
+            // if (area == "打球圈") {
+            //     document.querySelector("#nar").innerHTML = "  "+area;
+            //     document.getElementById("bg").src = "../images/ball.png";
+            //
+            // }
         });
     </script>
     <!--JS for animate-->
