@@ -165,7 +165,7 @@ public class MessageService {
     public long findAreaCount(String area)//看每个圈子下面有多少状态
     {
         List<Circle> thisCircle = circledao.findCircle(area);
-        if (thisCircle.get(0) == null) return 0;
+        if (thisCircle.isEmpty()) return 0;
         long sizes = thisCircle.get(0).getMessageCount();
 
         if (sizes > 0) {
@@ -197,7 +197,7 @@ public class MessageService {
         Transaction trans = session.beginTransaction();
         Criteria criteria = session.createCriteria(Message.class);
         List<Circle> circle = circledao.findCircle(area);
-        Criterion criterion = Expression.eq("belongTo", circle.get(0).getCircleId());
+        Criterion criterion = Expression.eq("belongTo.circleId", circle.get(0).getCircleId());
         Criterion criterion1 = Expression.eq("active", "active");
         criteria.add(criterion);
         criteria.add(criterion1);

@@ -14,6 +14,14 @@ import java.util.Set;
 @Table(name = "circle")
 @Component("Circle")
 public class Circle {
+    public Integer getCircleId() {
+        return circleId;
+    }
+
+    public void setCircleId(Integer circleId) {
+        this.circleId = circleId;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "circle_id")
@@ -35,13 +43,7 @@ public class Circle {
     private Set<User> circleUsers = new LinkedHashSet<>();
 
 
-    public int getCircleId() {
-        return circleId;
-    }
 
-    public void setCircleId(int circleId) {
-        this.circleId = circleId;
-    }
 
     public int getUserCount() {
         return userCount;

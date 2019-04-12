@@ -41,7 +41,7 @@
                 nav: true,
                 speed: 500,
                 namespace: "callbacks",
-                pager: true,
+                pager: true
             });
         });
         $(document).ready(function () {
@@ -60,20 +60,18 @@
             window.location.href = "/toError";
         }
         //把背景图片和文字换成XX圈的
-        var areaNum = Math.floor(Math.random() * 4);
+
         var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=" +${sessionScope.area };
         var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=" +${sessionScope.area };
         var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=" +${sessionScope.area };
         var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=" +${sessionScope.area };
-        document.querySelector(".banner-section").style.backgroundImage = "url(../images/" + String.valueOf(areaNum) + ".jpg)";
+        document.querySelector(".banner-section").style.backgroundImage = "url('../images/${sessionScope.bgNum }.jpg')";
         document.querySelector("#nar").innerHTML = "  " +${sessionScope.area };
             document.getElementById("bg").src = "../images/e2.png";
             document.getElementById("firstp").setAttribute("href", first);
             document.getElementById("nextp").setAttribute("href", next);
             document.getElementById("beforep").setAttribute("href", before);
             document.getElementById("lastp").setAttribute("href", last);
-
-
     });</script>
 
 
@@ -337,7 +335,7 @@
 
     <table>
         <tr>
-            <td><span> <p>${PageBean.currPage }/ ${PageBean.totalPage } 页</p>
+            <td><span> <p>${PageBean.currPage }/ ${PageBean.totalPage+1 } 页</p>
 			</span> &nbsp;&nbsp; <span> <p>总记录数: ${PageBean.totalCount }
 					&nbsp;&nbsp; 每页显示 ${PageBean.pageSize }</p>
 			</span> &nbsp;&nbsp; <span> <p>

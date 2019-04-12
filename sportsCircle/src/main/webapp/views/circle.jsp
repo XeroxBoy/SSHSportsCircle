@@ -67,24 +67,7 @@ function hideURLbar() {
         $("li").mouseleave(function () {
             $(this).children(".subnav").slideUp(500);
         });
-        /*   $(this).fileinput({
-         showUpload : false,
-         showRemove : false,
-         language : 'zh',
-         allowedPreviewTypes: ['image'],
-         allowedFileTypes: ['image'],
-         allowedFileExtensions:  ['jpg', 'png'],
-         maxFileSize : 20000,
 
-         }); */
-        /*    projectfileoptions : {
-         showUpload : false;
-         showRemove : false;
-         language : 'zh';
-         allowedPreviewTypes : [ 'image' ];
-         allowedFileExtensions : [ 'jpg', 'png', 'gif' ];
-         maxFileSize : 2000;
-         }; */
         $("#form2").on("click", function () {
             $("#form2").submit();
         });

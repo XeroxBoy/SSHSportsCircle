@@ -5,6 +5,7 @@ import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.pojo.Circle;
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
+import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.MessageService;
 import com.cdut.sx.service.RemindService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -74,8 +77,14 @@ public class MessageController {
     }
 
     @RequestMapping("/date")
-    public ModelAndView date() {
-        return new ModelAndView("views/date");
+    public ModelAndView date(HttpSession session) {
+        ModelAndView mav = new ModelAndView("views/date");
+        String username = (String) session.getAttribute("name");
+        List<User> users = userdao.queryByName(username);
+        User user = users.get(0);
+        Set<Circle> userCircles = user.getCircles();
+        mav.addObject("userCircles", userCircles);
+        return mav;
     }
 
     @RequestMapping("/solve")
@@ -109,7 +118,8 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-
+        String bgNum = new Double(Math.floor(Math.random() * 4)).intValue() + "";
+        session.setAttribute("bgNum", bgNum);
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
         if (pageBean != null)
             mav.addObject(PAGE, pageBean);

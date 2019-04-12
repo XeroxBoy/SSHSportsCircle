@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%
     String path = request.getContextPath();
@@ -184,13 +185,13 @@
             <option value="女">女</option>
         </select><br>
         <label for="belongTo">所属板块：</label>
+        <%--查询用户关注圈子并返回 将其显示为option的列表--%>
         <select class="form-control" name="belongTo" required>
-            <option value="跑步圈">跑步圈</option>
-            <option value="健身圈">健身圈</option>
-            <option value="打球圈">打球圈</option>
+            <c:forEach items="${userCircles }" var="l" step="1" begin="0" end="${userCircles.size() }">
+                <option value="${l.circleId}">${l.circleName}</option>
+            </c:forEach>
         </select><br>
         <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="发表状态">
-
     </div>
     <span id="tongzhi" style="color: #39b3d7;font-size:20px;left:-450px;bottom:300px;position:relative;"><br><strong
             id="news"></strong></span>
