@@ -39,7 +39,7 @@
                 nav: true,
                 speed: 500,
                 namespace: "callbacks",
-                pager: true,
+                pager: true
             });
         });
         $(document).ready(function () {
@@ -57,7 +57,6 @@
         if (area == null || area == "") {
             window.location.href = "/toError";
         }
-        //把背景图片和文字换成健身圈的
 
         document.querySelector("#nar").innerHTML = "  " + area;
         document.getElementById("bg").src = "../images/e2.png";
@@ -85,7 +84,7 @@
             height: 450px;
             width: 400px;
             position: relative;
-            background-image: url("../images/fbg.jpg");
+            /*background-image: url("../images/fbg.jpg");*/
         }
 
         body {

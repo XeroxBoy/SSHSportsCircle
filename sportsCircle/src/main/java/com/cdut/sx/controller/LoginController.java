@@ -91,7 +91,7 @@ public class LoginController {
             session.setAttribute("prodays", user1.getProdays());
             session.setAttribute("sex", user1.getSex());
             session.setAttribute("area", user1.getAreabelongto());
-            session.setAttribute("messages", user1.getMessages());//todo 改成json比较好
+//            session.setAttribute("messages", user1.getMessages());//todo 改成json比较好
             return mav;
         } else
             return errormav;

@@ -39,10 +39,10 @@ public class ZhuceController {
         String userArea = User.getAreabelongto();
 
         if (userdao.queryByName(User.getUsername()).isEmpty()) {
-            Circle userCircle = circledao.findCircle(userArea);
-            if (userCircle == null) { //如果没有 就去注册圈子 再来注册用户
-                return new ModelAndView("redirect:/toCircle");
-            }
+            if (circledao.findCircle(userArea).isEmpty() || circledao.findCircle(userArea) == null)
+                return new ModelAndView("forward:/toCircle");
+            Circle userCircle = circledao.findCircle(userArea).get(0);
+            userCircle.setUserCount(userCircle.getUserCount() + 1);
             User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果
             User.setPassword(MD5.encodeMd5(User.getPassword()));
             userdao.save(User);

@@ -28,7 +28,8 @@ public class MessageService {
     Userdao userdao;
     @Autowired
     Messagedao messagedao;
-
+    @Autowired
+    CircleService circledao;
     // 查询所有message
     public ArrayList<Message> queryAll() {
         // TODO Auto-generated method stub
@@ -101,6 +102,7 @@ public class MessageService {
         criteria.setMaxResults(pagesize);// 最大记录数
         List<Message> list = criteria.list();
         trans.commit();
+        session.close();
         return list;
         // TODO Auto-generated method stub
 
@@ -108,8 +110,11 @@ public class MessageService {
 
     public long findCount() {
         // TODO Auto-generated method stub
+        Session session = HibernateUtil.getSession();
+        Transaction trans = session.beginTransaction();
         long sizes = messagedao.count();
-
+        trans.commit();
+        session.close();
         if (sizes > 0) {
             return sizes;
         }
@@ -129,7 +134,6 @@ public class MessageService {
         // 封装总记录数
         int totalCount = (int) this.findMyCount(userId);
         pageBean.setTotalCount(totalCount);
-        trans.commit();
         // 封装总页数
         double tc = totalCount;
         Double num = Math.ceil(tc / pagesize);
@@ -138,6 +142,8 @@ public class MessageService {
         int begin = (currPage - 1) * pagesize;
         List<Message> list = this.findByPage(begin, pagesize, userId);
         pageBean.setList(list);
+        trans.commit();
+        session.close();
         return pageBean;
 
     }
@@ -145,7 +151,11 @@ public class MessageService {
 
     public long findMyCount(String userId) {//看我发了多少条记录
         // TODO Auto-generated method stub
+        Session session = HibernateUtil.getSession();
+        Transaction trans = session.beginTransaction();
         long sizes = messagedao.findMyCount(userId);
+        trans.commit();
+        session.close();
         if (sizes > 0) {
             return sizes;
         }
@@ -154,9 +164,10 @@ public class MessageService {
 
     public long findAreaCount(String area)//看每个圈子下面有多少状态
     {
-        CircleService circledao = new CircleService();
-        Circle thisCircle = circledao.findCircle(area);
-        long sizes = thisCircle.getMessageCount();
+        List<Circle> thisCircle = circledao.findCircle(area);
+        if (thisCircle.get(0) == null) return 0;
+        long sizes = thisCircle.get(0).getMessageCount();
+
         if (sizes > 0) {
             return sizes;
         }
@@ -175,6 +186,7 @@ public class MessageService {
         List<Message> list = criteria.list();
         for (Message i : list) Logger.getLogger("abc").info(i.getContent());
         trans.commit();
+        session.close();
         return list;
 
     }
@@ -184,7 +196,8 @@ public class MessageService {
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         Criteria criteria = session.createCriteria(Message.class);
-        Criterion criterion = Expression.eq("belongTo", area);
+        List<Circle> circle = circledao.findCircle(area);
+        Criterion criterion = Expression.eq("belongTo", circle.get(0).getCircleId());
         Criterion criterion1 = Expression.eq("active", "active");
         criteria.add(criterion);
         criteria.add(criterion1);
@@ -192,14 +205,14 @@ public class MessageService {
         criteria.setMaxResults(pagesize);// 最大记录数
         List<Message> list = criteria.list();
         trans.commit();
+        session.close();
         return list;
 
     }
 
     public PageBean<Message> findByArea(Integer currPage, String area) {
         // TODO 自动生成的方法存根
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
+
         PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
@@ -209,7 +222,6 @@ public class MessageService {
         // 封装总记录数
         int totalCount = (int) this.findAreaCount(area);
         pageBean.setTotalCount(totalCount);
-        trans.commit();
         // 封装总页数
         double tc = totalCount;
         Double num = Math.ceil(tc / pagesize);
@@ -218,6 +230,7 @@ public class MessageService {
         int begin = (currPage - 1) * pagesize;
         List<Message> list = this.findByPageArea(begin, pagesize, area);
         pageBean.setList(list);
+
         return pageBean;
     }
 

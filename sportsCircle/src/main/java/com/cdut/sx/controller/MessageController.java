@@ -48,7 +48,7 @@ public class MessageController {
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
-        Circle messageBelongCircle = circledao.findByCircleName(message.getBelongTo().getCircleName());
+        Circle messageBelongCircle = circledao.findByCircleName(message.getBelongTo().getCircleName()).get(0);
         messageBelongCircle.setMessageCount(messageBelongCircle.getMessageCount() + 1);
         circledao.save(messageBelongCircle);
         String name = (String) session.getAttribute("name");
@@ -109,9 +109,10 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-        PageBean<Message> pageBean = dao.findByArea(currPage, area);
-        mav.addObject(PAGE, pageBean);
 
+        PageBean<Message> pageBean = dao.findByArea(currPage, area);
+        if (pageBean != null)
+            mav.addObject(PAGE, pageBean);
         return mav;
     }
 

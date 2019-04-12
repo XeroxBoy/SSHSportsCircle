@@ -32,8 +32,10 @@ public class CircleService {
         circledao.delete(message);
     }
 
-    public Circle findCircle(String name) {
-        return circledao.findByCircleName(name);
+    public List<Circle> findCircle(String name) {
+        List<Circle> circle;
+        circle = circledao.findByCircleName(name);
+        return circle;
     }
 }
 

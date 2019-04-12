@@ -181,7 +181,7 @@ function hideURLbar() {
         <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
         <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
                                                   style="width: 302px; " required><br>
-        <label>选择该圈子的代表图片:</label><input type="file" name="file"/> <br><br>
+        <br><br>
         <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="创建圈子">
     </div>
 </form>

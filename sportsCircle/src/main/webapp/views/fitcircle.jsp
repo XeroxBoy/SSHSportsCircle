@@ -60,12 +60,12 @@
             window.location.href = "/toError";
         }
         //把背景图片和文字换成XX圈的
-
+        var areaNum = Math.floor(Math.random() * 4);
         var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=" +${sessionScope.area };
         var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=" +${sessionScope.area };
         var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=" +${sessionScope.area };
         var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=" +${sessionScope.area };
-        document.querySelector(".banner-section").style.backgroundImage = "url(../images/" + "${sessionScope.area }" + ".jpg)";
+        document.querySelector(".banner-section").style.backgroundImage = "url(../images/" + String.valueOf(areaNum) + ".jpg)";
         document.querySelector("#nar").innerHTML = "  " +${sessionScope.area };
             document.getElementById("bg").src = "../images/e2.png";
             document.getElementById("firstp").setAttribute("href", first);
@@ -74,29 +74,6 @@
             document.getElementById("lastp").setAttribute("href", last);
 
 
-        <%--if (area == "打球圈") {--%>
-        <%--var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=打球圈";--%>
-        <%--var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=打球圈";--%>
-        <%--var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=打球圈";--%>
-        <%--var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=打球圈";--%>
-        <%--document.querySelector(".banner-section").style.backgroundImage = "url(../images/打球圈.jpg)";--%>
-        <%--document.querySelector("#nar").innerHTML = "  "+${sessionScope.area };--%>
-        <%--document.getElementById("bg").src = "images/ball.png";--%>
-        <%--document.getElementById("firstp").setAttribute("href", first);--%>
-        <%--document.getElementById("nextp").setAttribute("href", next);--%>
-        <%--document.getElementById("beforep").setAttribute("href", before);--%>
-        <%--document.getElementById("lastp").setAttribute("href", last);--%>
-        <%--}--%>
-        <%--if (area == "跑步圈") {--%>
-        <%--var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=跑步圈";--%>
-        <%--var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=跑步圈";--%>
-        <%--var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=跑步圈";--%>
-        <%--var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=跑步圈";--%>
-        <%--document.getElementById("firstp").setAttribute("href", first);--%>
-        <%--document.getElementById("nextp").setAttribute("href", next);--%>
-        <%--document.getElementById("beforep").setAttribute("href", before);--%>
-        <%--document.getElementById("lastp").setAttribute("href", last);--%>
-        <%--}--%>
     });</script>
 
 

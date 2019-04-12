@@ -9,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -29,15 +26,8 @@ public class CircleController {
         return new ModelAndView(CIRCLE_PAGE);
     }
     @RequestMapping("/circle")
-    public ModelAndView circle(@ModelAttribute Circle circle,@RequestParam("file") CommonsMultipartFile file,HttpSession session) {
-        try {
-            String filePath="images/"+circle.getCircleName() +".jpg";
-            File newFile=new File(filePath);
-            file.transferTo(newFile);//CommonsFile的上传方法
-            circle.setBgImgPath(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ModelAndView circle(@ModelAttribute Circle circle) {
+
         circledao.save(circle);
         return new ModelAndView("views/zhuce");
     }
@@ -50,9 +40,8 @@ public class CircleController {
 
     @RequestMapping("/deleteCircle")
     public ModelAndView deleteCircle(@RequestParam("circle_name") String name) {
-        circledao.delete(circledao.findCircle(name));
-        ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
-        return mav;
+        circledao.delete(circledao.findCircle(name).get(0));
+        return new ModelAndView(CIRCLE_PAGE);
     }
 
     @RequestMapping("/follow")
@@ -60,7 +49,7 @@ public class CircleController {
         String name = (String) session.getAttribute("name");
         UserService userdao = new UserService();
         List<User> users = userdao.queryByName(name);
-        Circle circle = circledao.findCircle(circleName);
+        Circle circle = circledao.findCircle(circleName).get(0);
         circle.getCircleUsers().add(users.get(0));
         circle.setUserCount(circle.getUserCount() + 1);
         circledao.save(circle);

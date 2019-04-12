@@ -17,6 +17,4 @@ public interface Messagedao extends JpaRepository<Message, Integer> {
     @Query(value = "select count(*) from message where user_id=:userId", nativeQuery = true)
     public int findMyCount(@Param("userId") String userId); //看我发了多少条记录
 
-
-
 }

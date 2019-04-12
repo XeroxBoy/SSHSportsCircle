@@ -33,9 +33,7 @@ public class Circle {
     //圈子的用户
     @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class, mappedBy = "circles")
     private Set<User> circleUsers = new LinkedHashSet<>();
-    //圈子的背景图片
-    @Column(name = "bg_img_path")
-    private String bgImgPath;
+
 
     public int getCircleId() {
         return circleId;
@@ -85,13 +83,7 @@ public class Circle {
         this.circleUsers = circleUsers;
     }
 
-    public String getBgImgPath() {
-        return bgImgPath;
-    }
 
-    public void setBgImgPath(String bgImgPath) {
-        this.bgImgPath = bgImgPath;
-    }
 
     @Override
     public String toString() {
@@ -101,8 +93,7 @@ public class Circle {
                 ", messageCount=" + messageCount +
                 ", circleName='" + circleName + '\'' +
                 ", circleMessages=" + circleMessages +
-                ", circleUsers=" + circleUsers +
-                ", bgImgPath='" + bgImgPath + '\'' +
+                ", circleUsers=" + circleUsers + '\'' +
                 '}';
     }
 }
