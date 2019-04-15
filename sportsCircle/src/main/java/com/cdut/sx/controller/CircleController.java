@@ -25,10 +25,18 @@ public class CircleController {
 
     @RequestMapping("/toCircle")
     public ModelAndView toCircle() {
-        return new ModelAndView(CIRCLE_PAGE);
+        ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
+        mav.addObject("circles", circledao.findAllCircles());
+        return mav;
     }
+
+    @RequestMapping("/createCircle")
+    public ModelAndView createCircle() {
+        return new ModelAndView("views/createCircle");
+    }
+
     @RequestMapping("/circle")
-    public ModelAndView circle(@ModelAttribute Circle circle, HttpSession session) {
+    public ModelAndView circle(@ModelAttribute Circle circle) {
         circledao.save(circle);
         return new ModelAndView("views/zhuce");
     }
@@ -42,7 +50,7 @@ public class CircleController {
     @RequestMapping("/deleteCircle")
     public ModelAndView deleteCircle(@RequestParam("circle_name") String name) {
         circledao.delete(circledao.findCircle(name).get(0));
-        return new ModelAndView(CIRCLE_PAGE);
+        return new ModelAndView("forward:/toCircle");
     }
 
     @RequestMapping("/follow")
@@ -54,7 +62,7 @@ public class CircleController {
         circle.getCircleUsers().add(users.get(0));
         circle.setUserCount(circle.getUserCount() + 1);
         circledao.save(circle);
-        return new ModelAndView(CIRCLE_PAGE);
+        return new ModelAndView("forward:/toCircle");
     }
 }
 

@@ -41,7 +41,7 @@ public class ZhuceController {
 
         if (userdao.queryByName(User.getUsername()).isEmpty()) {
             if (circledao.findCircle(userArea).isEmpty() || circledao.findCircle(userArea) == null)
-                return new ModelAndView("forward:/toCircle");
+                return new ModelAndView("forward:/createCircle");
             Circle userCircle = circledao.findCircle(userArea).get(0);
             userCircle.setUserCount(userCircle.getUserCount() + 1);
             User.setLastProday(new Date("2000/01/01"));//防止出现不符合现实的打卡结果

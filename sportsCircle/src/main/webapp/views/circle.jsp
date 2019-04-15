@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2019/4/15
+  Time: 20:16
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%
@@ -6,120 +13,96 @@
 %>
 <!DOCTYPE HTML>
 <html>
+<head>
+    <title>发出你的邀请</title>
+    <!---css--->
+    <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
+    <!---css--->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
 
-<link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
-<link href="../css/style01.css" rel='stylesheet' type='text/css'/>
-<link href='../css/fileinput.css' rel='stylesheet' type='text/css'>
-
-<!---css--->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="keywords" content=""/>
-<script type="application/x-javascript"> addEventListener("load", function () {
-    setTimeout(hideURLbar, 0);
-}, false);
-
-function hideURLbar() {
-    window.scrollTo(0, 1);
-} </script>
-<!---js--->
-<script src="../js/jquery-latest.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/fileinput.js"></script>
-<script src="../js/fileinput-zh.js"></script>
-<!---js--->
-<!--web-fonts-->
-<link href='../css/font1.css' rel='stylesheet' type='text/css'>
-<link href='../css/font2.css' rel='stylesheet' type='text/css'>
-<link href='../css/font3.css' rel='stylesheet' type='text/css'>
-<style type="text/css">
-    .form-inline {
-        left: 35%;
-        top: 210px;
-        bottom: 40%;
-        height: 450px;
-        width: 400px;
-        position: relative;
-        background-image: url("../images/fbg.jpg");
-    }
-
-    body {
-        background-image: url("../images/datebg.jpg");
-    }
-
-    label {
-        /*  color:#FF5; */
-    }
-</style>
-<!--//web-fonts-->
-<script src="../js/responsiveslides.min.js"></script>
-
-<!--JS for animate-->
-<link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="../js/wow.min.js"></script>
-<script>
-    new WOW().init();
-    $(document).ready(function () {
-        $(".nav-in").mouseover(function () {
-            $(this).next(".subnav").slideDown(500);
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!---js--->
+    <script src="../js/jquery-latest.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/websocket.js"></script>
+    <!---js--->
+    <!--web-fonts-->
+    <link href='../css/font1.css' rel='stylesheet' type='text/css'>
+    <link href='../css/font2.css' rel='stylesheet' type='text/css'>
+    <link href='../css/font3.css' rel='stylesheet' type='text/css'>
+    <!--//web-fonts-->
+    <script src="../js/responsiveslides.min.js"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true
+            });
         });
+        $(document).ready(function () {
+            $(".nav-in").mouseover(function () {
+                $(this).next(".subnav").slideDown(500);
+            });
 
-        $("li").mouseleave(function () {
-            $(this).children(".subnav").slideUp(500);
+            $("li").mouseleave(function () {
+                $(this).children(".subnav").slideUp(500);
+            });
         });
+    </script>
+    <script> $(function () {
+        var area = "${sessionScope.area }";//获取用户的爱好领域
+        if (area == null || area == "") {
+            window.location.href = "/toError";
+        }
 
-        $("#form2").on("click", function () {
-            $("#form2").submit();
-        });
-// 文件上传框
-        $('input[class=projectfile]').each(function () {
-            var imageurl = $(this).attr("value");
-
-            if (imageurl) {
-                var op = $.extend({
-                    initialPreview: [ // 预览图片的设置
-                        "<img src='" + imageurl + "' class='file-preview-image'>",]
-                }, {
-                    showUpload: false,
-                    showRemove: false,
-                    language: 'zh',
-                    allowedPreviewTypes: ['image'],
-                    allowedFileTypes: ['image'],
-                    allowedFileExtensions: ['jpg', 'png', 'gif'],
-                    maxFileSize: 20000,
-
-                });
-
-                $(this).fileinput(op);
-            } else {
-                $(this).fileinput({
-                    showUpload: false,
-                    showRemove: false,
-                    language: 'zh',
-                    allowedPreviewTypes: ['image'],
-                    allowedFileTypes: ['image'],
-                    allowedFileExtensions: ['jpg', 'png', 'gif'],
-                    maxFileSize: 20000,
-
-                });
-            }
-        });
-    });
-
-    $(function () {
-        document.querySelector("#nar").innerHTML = "  运动圈";
+        document.querySelector("#nar").innerHTML = "  " + area;
         document.getElementById("bg").src = "../images/e2.png";
-    });
 
-</script>
-<!--JS for animate-->
-<link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="../js/wow.min.js"></script>
-<script>
-    new WOW().init();
-</script>
-<!--//end-animate-->
+        //
+        // if (area == "打球圈") {
+        //     document.querySelector("#nar").innerHTML = "  "+area;
+        //     document.getElementById("bg").src = "../images/ball.png";
+        //
+        // }
+    });</script>
 
+    <!--JS for animate-->
+    <link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="../js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <style type="text/css">
+        .form-inline {
+            left: 35%;
+            top: 150px;
+            bottom: 40%;
+            height: 450px;
+            width: 400px;
+            position: relative;
+            /*background-image: url("../images/fbg.jpg");*/
+        }
+
+        body {
+            background-image: url("../images/datebg.jpg");
+        }
+
+        label {
+            /*  color:#FF5; */
+        }
+    </style>
 </head>
 <body>
 <!---header--->
@@ -143,32 +126,46 @@ function hideURLbar() {
             <ul
                     class="nav navbar-nav navbar-right wow fadeInRight animated animated"
                     data-wow-delay="0.4s">
+                <li style="display:inline;"><a class="nav-in"
+                                               href='/findArea?area=${sessionScope.area }'><span class="flip"
+                                                                                                 data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
+
+                    <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
+                        <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}">
+                            <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
+                                                                                     data-letters="${circle.getCircleName()}"
+                                                                                     style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </li>
+                <%--
+                                    <li><a class="nav-in" href="friends-friendList.action"><span
+                                            data-letters="我的好友">我的好友</span></a></li>--%>
+                <li><a class="nav-in" href="/findMyInfo"><span
+                        data-letters="我的信息">我的信息</span></a></li>
+                <li><a class="nav-in" href="/friendList"><span
+                        data-letters="我的好友">我的好友</span></a></li>
+                <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
+                <li><a class="nav-in" href="/toDaka"><span
+                        data-letters="每日打卡">每日打卡</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <div> <form action="searchCircle" method="post">
-                    <li><input type="text" name="key" style="position:relative;top:-10px;height: 35px;width: 180px;" placeholder="请输入您要搜索的圈子..."></li>
-                    <br>
-                    <li><button type="submit" class="btn btn-default" style="position:relative;top:-20px;left:10px;height: 35px;width: 75px;vertical-align: text-top">搜索</button> </li></form>
-                </div>
+                <li><a class="nav-in" href="/logout"><span
+                        data-letters="注销">注销</span></a></li>
+
             </ul>
         </div>
         <!--/.nav-collapse -->
     </div>
 </nav>
-<%--展示推荐的圈子/热帖--%>
-<h3 style="font-family: 'Arial';left:15% ;top:190px;position:relative;">还没有圈子？创建属于自己的圈子吧</h3>
-
-<form action="/circle" method="post" class="form-inline" role="form">
-    <div class="form-group">
-        <%--TODO--%>
-        <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
-        <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
-                                                  style="width: 302px; " required><br>
-        <br><br>
-        <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="创建圈子">
-    </div>
-</form>
-
+<ul>
+    <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}" step="1">
+        <li>
+            <h4>${circle.circleName}</h4>
+            <a style="right: 30%" href="/follow?circleName=${circle.circleName}" }>关注此圈子</a>
+        </li>
+    </c:forEach>
+</ul>
 </body>
-
 </html>

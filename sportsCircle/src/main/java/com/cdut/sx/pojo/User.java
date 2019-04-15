@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Proxy(lazy = false)
 @Entity
@@ -44,27 +46,26 @@ public class User {
 
     //用户所属的圈子
     @ManyToMany(cascade = CascadeType.ALL,targetEntity = Circle.class)
-    private Set<Circle> circles = new HashSet<>();
+    private List<Circle> circles = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "userId")
-    private Set<Friends> friends = new HashSet<>();//一个用户有很多py
+    private List<Friends> friends = new ArrayList<>();//一个用户有很多py
 
-    public void setCircles(Set<Circle> circles) {
-        this.circles = circles;
+    public List<Circle> getCircles() {
+        return circles;
     }
 
-    public Set<Circle> getCircles() {
-        return circles;
+    public void setCircles(List<Circle> circles) {
+        this.circles = circles;
     }
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
     private List<Message> messages = new ArrayList<>();//一用户有多条状态
 
-
-    public Set<Friends> getFriends() {
+    public List<Friends> getFriends() {
         return friends;
     }
 
-    public void setFriends(Set<Friends> friends) {
+    public void setFriends(List<Friends> friends) {
         this.friends = friends;
     }
     public User() {

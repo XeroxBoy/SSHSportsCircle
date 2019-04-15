@@ -25,7 +25,6 @@ import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -82,7 +81,7 @@ public class MessageController {
         String username = (String) session.getAttribute("name");
         List<User> users = userdao.queryByName(username);
         User user = users.get(0);
-        Set<Circle> userCircles = user.getCircles();
+        List<Circle> userCircles = user.getCircles();
         mav.addObject("userCircles", userCircles);
         return mav;
     }
@@ -118,8 +117,8 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-        String bgNum = new Double(Math.floor(Math.random() * 4)).intValue() + "";
-        session.setAttribute("bgNum", bgNum);
+//        String bgNum = new Double(Math.floor(Math.random() * 4)).intValue() + "";
+//        session.setAttribute("bgNum", bgNum);
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
         if (pageBean != null)
             mav.addObject(PAGE, pageBean);

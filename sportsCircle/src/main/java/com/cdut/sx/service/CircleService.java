@@ -38,5 +38,9 @@ public class CircleService {
         circle = circledao.findByCircleName(name);
         return circle;
     }
+
+    public List<Circle> findAllCircles() {
+        return circledao.findAll();
+    }
 }
 

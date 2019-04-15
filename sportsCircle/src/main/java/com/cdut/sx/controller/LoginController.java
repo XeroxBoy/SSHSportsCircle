@@ -55,7 +55,7 @@ public class LoginController {
         String reqPass = MD5.encodeMd5(User.getPassword());
         ModelAndView mav = new ModelAndView("forward:/findArea");
         ModelAndView errormav = new ModelAndView("redirect:views/Login");
-        if (user.size() != 0) {
+        if (!user.isEmpty()) {
             User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
                 return errormav; //查询失败 去失败页面
