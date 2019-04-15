@@ -37,8 +37,6 @@ public class ZhuceController {
         ModelAndView mav = new ModelAndView("views/Login");
         ModelAndView errormav = new ModelAndView("views/error");
         String userArea = User.getAreabelongto();
-
-
         if (userdao.queryByName(User.getUsername()).isEmpty()) {
             if (circledao.findCircle(userArea).isEmpty() || circledao.findCircle(userArea) == null)
                 return new ModelAndView("forward:/createCircle");
@@ -55,8 +53,6 @@ public class ZhuceController {
 
     /**
      * 找到当前用户的信息
-     *
-     *
      */
     @RequestMapping("/findMyInfo")
     public ModelAndView findMyInfo(HttpSession session) {

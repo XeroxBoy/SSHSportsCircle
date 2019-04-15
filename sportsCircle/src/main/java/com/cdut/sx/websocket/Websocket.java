@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 public class Websocket extends WebSocketServer {
     private static Thread t = new Thread();
     private static int onlineCount = 0;
