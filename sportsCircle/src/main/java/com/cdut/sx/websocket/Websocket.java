@@ -8,8 +8,8 @@ import org.java_websocket.server.WebSocketServer;
 import javax.websocket.Session;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
-import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Websocket extends WebSocketServer {
@@ -52,14 +52,12 @@ public class Websocket extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         // TODO Auto-generated method stub
         WebsocketService.addUser(message, conn);
-        while (!WebsocketService.isEmpty()) {//所有用户退出之前
-            t = new Thread();
-            WebsocketService.sendMessage("系统时间：" + new Date());
-            try {
-                t.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        String userFrom = message.split(" ")[0];
+        String userTo = message.split(" ")[1];
+        Set<User> users = clients.keySet();
+        for (User user : users) {
+            if (user.getUsername().equals(userTo)) {
+                WebsocketService.sendMessage(message, userTo);
             }
         }
     }

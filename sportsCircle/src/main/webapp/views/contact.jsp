@@ -34,6 +34,7 @@ function hideURLbar() {
 <script src="../js/bootstrap.js"></script>
 <script src="../js/fileinput.js"></script>
 <script src="../js/fileinput-zh.js"></script>
+<script src="../js/websocket.js"></script>
 <!---js--->
 <!--web-fonts-->
 <link href='../css/font1.css' rel='stylesheet' type='text/css'>
@@ -176,7 +177,18 @@ function hideURLbar() {
         <!--/.nav-collapse -->
     </div>
 </nav>
+<div style="width:600px;height:240px;
+overflow-y:auto;border:1px solid #333;" id="show"></div>
+<table>
+    <thead><h3 id="otherUser">与${sessionScope.otherUserName}对话</h3></thead>
+    <tbody>
+    <ul id="chatter">
 
+    </ul>
+    </tbody>
+</table>
+<input type="text" size="80" id="msg" name="msg" placeholder="输入聊天内容"/>
+<input type="button" value="发送" id="sender" name="sender"/>
 
 </body>
 

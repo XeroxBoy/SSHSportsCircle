@@ -41,6 +41,17 @@ public class WebsocketService {
         }
     }
 
+    public static void sendMessage(String message, String username) {
+        Set<WebSocket> keySet = userconnections.keySet(); //获取目前用户的socket
+        Set<Map.Entry<WebSocket, String>> messageEntry = userconnections.entrySet();
+        for (Map.Entry<WebSocket, String> connection : messageEntry) {
+            if (connection.getValue().equals(username)) {
+                connection.getKey().send(message);
+            }
+        }
+    }
+
+
     public static boolean isEmpty() {
         return userconnections.size() == 0;
     }
