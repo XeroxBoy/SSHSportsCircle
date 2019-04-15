@@ -18,6 +18,8 @@ import java.util.List;
 public class CircleController {
     @Autowired
     CircleService circledao;
+    @Autowired
+    UserService userService;
 
     public final String CIRCLE_PAGE = "views/circle";
 
@@ -26,8 +28,7 @@ public class CircleController {
         return new ModelAndView(CIRCLE_PAGE);
     }
     @RequestMapping("/circle")
-    public ModelAndView circle(@ModelAttribute Circle circle) {
-
+    public ModelAndView circle(@ModelAttribute Circle circle, HttpSession session) {
         circledao.save(circle);
         return new ModelAndView("views/zhuce");
     }

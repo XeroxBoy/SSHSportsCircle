@@ -154,18 +154,16 @@
                     class="nav navbar-nav navbar-right wow fadeInRight animated animated"
                     data-wow-delay="0.4s">
                 <li style="display:inline;"><a class="nav-in"
-                                               href='/findArea?area=跑步圈'><span class="flip"
-                                                                               data-letters="跑步圈">跑步圈</span></a>
+                                               href='/findArea?area=${sessionScope.area }'><span class="flip"
+                                                                                                 data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <li><a href="/findArea?area=打球圈"><span class="nav-in"
-                                                               data-letters="打球圈"
-                                                               style="font-size:15px;color:#FFF">打球圈</span></a>
-                        </li>
-                        <li><a href="/findArea?area=健身圈"><span class="nav-in"
-                                                               data-letters="健身圈"
-                                                               style="font-size:15px;color:#FFF">健身圈</span></a>
-                        </li>
+                        <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}">
+                            <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
+                                                                                     data-letters="${circle.getCircleName()}"
+                                                                                     style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </li>
 

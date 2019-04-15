@@ -38,6 +38,7 @@ public class ZhuceController {
         ModelAndView errormav = new ModelAndView("views/error");
         String userArea = User.getAreabelongto();
 
+
         if (userdao.queryByName(User.getUsername()).isEmpty()) {
             if (circledao.findCircle(userArea).isEmpty() || circledao.findCircle(userArea) == null)
                 return new ModelAndView("forward:/toCircle");

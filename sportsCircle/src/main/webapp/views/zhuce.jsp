@@ -75,7 +75,7 @@
 
                 <div class="bottom">
                     <input type="submit" value="注册"/>
-                    <a href="/start">已有账号？点此登录</a>
+                    <a href="/">已有账号？点此登录</a>
                     <div class="clear"></div>
                 </div>
             </form>
