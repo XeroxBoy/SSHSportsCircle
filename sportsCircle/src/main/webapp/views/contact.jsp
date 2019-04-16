@@ -150,7 +150,7 @@ function hideURLbar() {
                                                                                                  data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}">
+                        <c:forEach items="${sessionScope.myCircles  }" var="circle" begin="0" end="${circles.size()}">
                             <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
                                                                                      data-letters="${circle.getCircleName()}"
                                                                                      style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>
@@ -169,6 +169,8 @@ function hideURLbar() {
                         data-letters="每日打卡">每日打卡</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
+                <li><a class="nav-in" href="/createCircle"><span
+                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 

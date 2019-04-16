@@ -91,7 +91,7 @@ public class LoginController {
             session.setAttribute("prodays", user1.getProdays());
             session.setAttribute("sex", user1.getSex());
             session.setAttribute("area", user1.getAreabelongto());
-            session.setAttribute("circles", user1.getCircles());
+            session.setAttribute("myCircles", user1.getCircles());
             return mav;
         } else
             return errormav;

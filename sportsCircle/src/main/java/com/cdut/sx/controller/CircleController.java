@@ -19,7 +19,7 @@ public class CircleController {
     @Autowired
     CircleService circledao;
     @Autowired
-    UserService userService;
+    UserService userdao;
 
     public final String CIRCLE_PAGE = "views/circle";
 
@@ -40,8 +40,9 @@ public class CircleController {
         circledao.save(circle);
         return new ModelAndView("views/zhuce");
     }
+
     @RequestMapping("/searchCircle")
-    public ModelAndView search(@RequestParam("key")String key){
+    public ModelAndView search(@RequestParam("key") String key) {
         ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
         mav.addObject("circles", circledao.search(key));
         return mav;
@@ -56,12 +57,16 @@ public class CircleController {
     @RequestMapping("/follow")
     public ModelAndView followCircle(HttpSession session, @RequestParam("circleName") String circleName) {
         String name = (String) session.getAttribute("name");
-        UserService userdao = new UserService();
         List<User> users = userdao.queryByName(name);
         Circle circle = circledao.findCircle(circleName).get(0);
-        circle.getCircleUsers().add(users.get(0));
-        circle.setUserCount(circle.getUserCount() + 1);
-        circledao.save(circle);
+        if (!users.get(0).getCircles().contains(circle)) {
+            circle.getCircleUsers().add(users.get(0));
+            users.get(0).getCircles().add(circle);
+            circle.setUserCount(circle.getUserCount() + 1);
+            circledao.save(circle);
+            userdao.save(users.get(0));
+        }
+        session.setAttribute("myCircles", users.get(0).getCircles());
         return new ModelAndView("forward:/toCircle");
     }
 }

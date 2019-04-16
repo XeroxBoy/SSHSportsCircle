@@ -134,10 +134,13 @@ function hideURLbar() {
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <h1>
-                <a class="navbar-brand" href="/findArea?area=${sessionScope.area }"><img
-                        src="../images/e.png" id="bg"/><font id="nar">跑步圈</font></a>
-            </h1>
+            <c:if test="${sessionScope.area} != '' && ${sessionScope.area } != null">
+                <h1>
+
+                    <a class="navbar-brand" href="/findArea?area=${sessionScope.area }"><img
+                            src="../images/e.png" id="bg"/><font id="nar">${sessionScope.area }</font></a>
+                </h1>
+            </c:if>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul

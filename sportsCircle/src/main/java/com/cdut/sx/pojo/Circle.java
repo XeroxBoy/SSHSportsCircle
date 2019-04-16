@@ -42,7 +42,6 @@ public class Circle {
 
 
 
-
     public int getUserCount() {
         return userCount;
     }

@@ -83,7 +83,6 @@
     <script>
         new WOW().init();
     </script>
-    <!--//end-animate-->
     <style type="text/css">
         .form-inline {
             left: 35%;
@@ -92,7 +91,6 @@
             height: 450px;
             width: 400px;
             position: relative;
-            /*background-image: url("../images/fbg.jpg");*/
         }
 
         body {
@@ -100,7 +98,6 @@
         }
 
         label {
-            /*  color:#FF5; */
         }
     </style>
 </head>
@@ -131,7 +128,7 @@
                                                                                                  data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}">
+                        <c:forEach items="${sessionScope.myCircles }" var="circle" begin="0" end="${circles.size()}">
                             <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
                                                                                      data-letters="${circle.getCircleName()}"
                                                                                      style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>
@@ -139,9 +136,6 @@
                         </c:forEach>
                     </ul>
                 </li>
-                <%--
-                                    <li><a class="nav-in" href="friends-friendList.action"><span
-                                            data-letters="我的好友">我的好友</span></a></li>--%>
                 <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
                 <li><a class="nav-in" href="/friendList"><span
@@ -151,6 +145,8 @@
                         data-letters="每日打卡">每日打卡</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
+                <li><a class="nav-in" href="/createCircle"><span
+                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -159,22 +155,25 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
+<div id="circle" style="top:15%;left:15%;position: absolute">
 <ul>
     <c:forEach items="${circles }" var="circle" begin="0" end="${circles.size()}" step="1">
         <li>
-            <h4>${circle.circleName}</h4>
-            <a style="right: 30%" href="/follow?circleName=${circle.circleName}" }>关注此圈子</a>
+            <form action="/follow">
+                <input type="hidden" value="${circle.circleName}" name="circleName"/>
+                <h4>${circle.circleName}</h4>
+                <button type="submit" class="btn btn-info" style="right: 30%">关注此圈子</button>
+            </form>
         </li>
     </c:forEach>
 </ul>
+</div>
 
-
-<h3 style="font-family: 'Arial';left:15% ;top:190px;position:relative;">还没有圈子？创建属于自己的圈子吧</h3>
+<h3 style="font-family: 'Arial';left:5% ;top:15%;position:relative;">还没有圈子？创建属于自己的圈子吧</h3>
 
 <form action="/circle" method="post" class="form-inline" role="form">
     <div class="form-group">
-        <%--TODO--%>
-        <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
+        <h3 style="font-family: 'Arial';left:25% ;top:15%;position:relative;">创建你的圈子</h3>
         <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
                                                   style="width: 302px; " required><br>
         <br><br>
