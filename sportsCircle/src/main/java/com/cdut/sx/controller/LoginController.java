@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.cdut.sx.utils.Sendmail.sendMail;
+
 @Controller
 public class LoginController {
     @Autowired
@@ -37,6 +39,34 @@ public class LoginController {
         return "views/Login";
     }
 
+    static int n = 0;
+
+
+    public void setCookie(HttpServletResponse response) {
+        Cookie cookie1 = new Cookie("zh", User.getUsername());
+
+        Cookie cookie2 = new Cookie("mm", User.getPassword());
+
+        cookie1.setMaxAge(60 * 60 * 24);//保存一天
+        cookie2.setMaxAge(60 * 60 * 24);
+        cookie1.setPath("/");//保存路径，不设这个保存不好
+        cookie2.setPath("/");
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout() {
+        return new ModelAndView("views/Login");
+    }
+
+    @RequestMapping("/toError")
+    public ModelAndView error() {
+        return new ModelAndView("views/error");
+    }
+
+
+
     /**
      * @param User
      * @param session
@@ -48,6 +78,7 @@ public class LoginController {
     @RequestMapping("/login")
     public ModelAndView user(@Validated @ModelAttribute User User, HttpSession session,
                              HttpServletRequest request, HttpServletResponse response) {
+        sendMail();
         this.User = User; //验证方法 进行数据库操作
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码
@@ -98,25 +129,5 @@ public class LoginController {
     }
 
 
-    public void setCookie(HttpServletResponse response) {
-        Cookie cookie1 = new Cookie("zh", User.getUsername());
-
-        Cookie cookie2 = new Cookie("mm", User.getPassword());
-
-        cookie1.setMaxAge(60 * 60 * 24);//保存一天
-        cookie2.setMaxAge(60 * 60 * 24);
-        cookie1.setPath("/");//保存路径，不设这个保存不好
-        cookie2.setPath("/");
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
-    }
-    @RequestMapping("/logout")
-    public ModelAndView logout(){
-        return new ModelAndView("views/Login");
-    }
-    @RequestMapping("/toError")
-    public ModelAndView error(){
-        return new ModelAndView("views/error");
-    }
 }
 

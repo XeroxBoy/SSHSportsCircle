@@ -1,82 +1,59 @@
-package com.cdut.sx.utils;/*
-package utils;
+package com.cdut.sx.utils;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Transport;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
-
-import com.sun.mail.util.MailSSLSocketFactory;
+import static com.cdut.sx.utils.MailUtils.createSimpleMail;
 
 public class Sendmail {
+    public static int n = 1;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			pushMessage("827312773@qq.com","哦哦");
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	  public static void pushMessage(String userEmail,String content) throws AddressException, MessagingException {  
-          Properties prop = new Properties();  
-         
-         String smtpHostName = "smtp." + userEmail.split("@")[1];//用split方法截取 XX.COM
-        if(smtpHostName.indexOf("qq")!=-1){//qq要特殊处理
-        	//smtpHostName="smtp.exmail.qq.com";
-        	  MailSSLSocketFactory sf = null;
-			try {
-				sf = new MailSSLSocketFactory();
-			} catch (GeneralSecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	    sf.setTrustAllHosts(true);
-        //	 prop.setProperty("mail.smtp.socketFactory.class", "javax.NET.ssl.SSLSocketFactory"); 
-        	 prop.setProperty("mail.smtp.ssl.enable", "true");
-        	    prop.put("mail.smtp.ssl.socketFactory", sf);
-        	 prop.setProperty("mail.smtp.port", "465"); 
-        	 prop.setProperty("mail.smtp.socketFactory.port", "465"); 
-        	 
-        
+    public static void sendMail() {
+        System.out.println("开始发送");
+        Properties prop = new Properties();
+        prop.setProperty("mail.host", "smtp.163.com");
+        prop.setProperty("mail.transport.protocol", "smtp");
+        prop.setProperty("mail.smtp.auth", "true");
+        //使用JavaMail发送邮件的5个步骤
+        //1、创建session
+        javax.mail.Session session = javax.mail.Session.getInstance(prop);
+        //开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
+        session.setDebug(true);
+        //2、通过session得到transport对象
+        Transport ts = null;
+        try {
+            ts = session.getTransport();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
         }
- 
-          prop.setProperty("mail.transport.protocol", "smtp");//定义邮件发送协议  
-          prop.setProperty("mail.smtp.host", smtpHostName);//声明邮件服务器地址  
-          prop.setProperty("mail.smtp.auth", "true");//发送权限，为true时表示允许发送  
-*/
-/*          prop.setProperty("mail.debug", "true");//设置为true时，调试的时候可以在控制台显示信息
- *//*
+        //3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给smtp服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。
+        try {
+            ts.connect("sb827312773@163.com", "daohaodegun87549");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        //4、创建邮件
+        javax.mail.Message message = null;
+        try {
+            message = createSimpleMail(session, n);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //5、发送邮件
+        try {
+            ts.sendMessage(message, message.getAllRecipients());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        try {
+            ts.close();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
-            
-          Session session = Session.getInstance(prop);//相当于建立了一条通信路线  
-          session.setDebug(true);
-          Message msg = new MimeMessage(session);  
-          msg.setFrom(new InternetAddress("1024300613@qq.com"));//发件者邮箱  
-          msg.setRecipient(RecipientType.TO, new InternetAddress(userEmail));//收件邮箱  
-          msg.setSubject("这是1024300613@qq.com发送给"+userEmail+"的邮件XXXXXXXXXX");  
-          msg.setText(content);  
-            
-          Transport tran = session.getTransport();  
-          tran.connect("1024300613@qq.com", "sdiisnygeopsbaia");//Q号，密码
-          tran.sendMessage(msg,msg.getAllRecipients());  
-            
-        
-        
-  }  
+
+
 }
-*/
