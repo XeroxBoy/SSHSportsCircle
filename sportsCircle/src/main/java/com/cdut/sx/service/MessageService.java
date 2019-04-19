@@ -207,12 +207,10 @@ public class MessageService {
         trans.commit();
         session.close();
         return list;
-
     }
 
     public PageBean<Message> findByArea(Integer currPage, String area) {
         // TODO 自动生成的方法存根
-
         PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);

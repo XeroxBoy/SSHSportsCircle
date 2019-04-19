@@ -18,8 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.cdut.sx.utils.Sendmail.sendMail;
-
 @Controller
 public class LoginController {
     @Autowired
@@ -78,7 +76,6 @@ public class LoginController {
     @RequestMapping("/login")
     public ModelAndView user(@Validated @ModelAttribute User User, HttpSession session,
                              HttpServletRequest request, HttpServletResponse response) {
-        sendMail();
         this.User = User; //验证方法 进行数据库操作
         String remember = request.getParameter("remember");//是否勾选记住账号密码
         String code = request.getParameter("code");//获取用户输入的验证码

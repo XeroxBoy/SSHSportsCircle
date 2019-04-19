@@ -8,10 +8,9 @@ import java.util.Properties;
 import static com.cdut.sx.utils.MailUtils.createSimpleMail;
 
 public class Sendmail {
-    public static int n = 1;
 
-    public static void sendMail() {
-        System.out.println("开始发送");
+    public static void sendMail(int n) {
+        System.out.println("开始发送邮件");
         Properties prop = new Properties();
         prop.setProperty("mail.host", "smtp.163.com");
         prop.setProperty("mail.transport.protocol", "smtp");
@@ -53,7 +52,4 @@ public class Sendmail {
             e.printStackTrace();
         }
     }
-
-
-
 }

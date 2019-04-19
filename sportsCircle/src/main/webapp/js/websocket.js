@@ -1,4 +1,8 @@
-var ws = new WebSocket("ws://localhost:8888");
+if (typeof (WebSocket) == "undefined") {
+    console.log("您的浏览器不支持WebSocket");
+} else {
+    console.log("您的浏览器支持WebSocket");
+    var ws = new WebSocket("ws://localhost:8888/websocket");
 
 SendMsg = function () {
     var message = document.getElementById("msg");

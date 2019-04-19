@@ -1,18 +1,16 @@
 package com.cdut.sx.websocket;
 
 import com.cdut.sx.pojo.User;
-import org.java_websocket.WebSocket;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.server.WebSocketServer;
 
-import javax.websocket.Session;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Websocket extends WebSocketServer {
+@ServerEndpoint("/websocket")
+public class Websocket {
     private static Thread t = new Thread();
     private static int onlineCount = 0;
 
@@ -24,32 +22,27 @@ public class Websocket extends WebSocketServer {
 
     private static int id = 0;
 
-    public Websocket(int port) throws UnknownHostException {
-        super(new InetSocketAddress(port));
-        // TODO Auto-generated constructor stub
-    }
 
-    @Override
-    public void onClose(WebSocket conn, int message, String reason, boolean remote) {
+    @OnClose
+    public void onClose(Session conn, int message, String reason, boolean remote) throws IOException {
         // TODO Auto-generated method stub
         WebsocketService.removeUser(conn);
-        WebsocketService.sendMessage("用户下线了");
-
+        WebsocketService.sendMessagetoAll("用户下线了");
     }
 
-    @Override
-    public void onError(WebSocket arg0, Exception arg1) {
+    @OnError
+    public void onError(Session arg0, Exception arg1) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
+
     public void onStart() {
 
     }
 
-    @Override
-    public void onMessage(WebSocket conn, String message) {
+    @OnMessage
+    public void onMessage(Session conn, String message) throws IOException {
         // TODO Auto-generated method stub
         WebsocketService.addUser(message, conn);
         String userFrom = message.split(" ")[0];
@@ -63,8 +56,8 @@ public class Websocket extends WebSocketServer {
     }
 
 
-    @Override
-    public void onOpen(WebSocket arg0, ClientHandshake arg1) {
+    @OnOpen
+    public void onOpen() {
         // TODO Auto-generated method stub
 
     }

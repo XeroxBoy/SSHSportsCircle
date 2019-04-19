@@ -17,9 +17,9 @@ public class MailUtils {
         //指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
         message.setRecipient(Message.RecipientType.TO, new InternetAddress("1121062986@qq.com"));
         //邮件的标题
-        message.setSubject("运动圈今日第" + n++ + "次启动");
+        message.setSubject("运动圈今日第" + n + "次启动");
         //邮件的文本内容
-        message.setContent("第" + (n - 1) + "次求你不要学了", "text/html;charset=UTF-8");
+        message.setContent("第" + n + "次求你不要学了", "text/html;charset=UTF-8");
         //返回创建好的邮件对象
         return message;
     }

@@ -33,7 +33,6 @@ public class CircleService {
     }
 
     public List<Circle> findCircle(String name) {
-
         List<Circle> circle;
         circle = circledao.findByCircleName(name);
         return circle;
