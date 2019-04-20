@@ -4,6 +4,7 @@ import com.cdut.sx.pojo.Friends;
 import com.cdut.sx.service.FriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,6 +48,12 @@ public class FriendsController {
             mav.addObject("info", "您暂时还未结交好友");
             return mav;
         }
+    }
+
+    @RequestMapping(value = "/tochat/{friendsName}")
+    public ModelAndView toChatWithFriends(@PathVariable("friendsName") String friendsName, HttpSession session) {
+        session.setAttribute("otherUserName", friendsName);
+        return new ModelAndView("views/contact");
     }
 
 }

@@ -61,20 +61,4 @@
     <jpa:repositories base-package="com.cdut.sx"
                       entity-manager-factory-ref="entityManagerFactory"/>
 
-    <!--&lt;!&ndash; 事务的传播特性 &ndash;&gt;-->
-    <!--<aop:config>-->
-    <!--<aop:advisor pointcut="execution(* com.cdut.sx.*.*.*.*(..))" advice-ref="txAdvice" />-->
-    <!--</aop:config>-->
-    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-    <!--<tx:attributes>-->
-    <!--<tx:method name="save*" propagation="REQUIRED" />-->
-    <!--<tx:method name="add*" propagation="REQUIRED" />-->
-    <!--<tx:method name="find*" read-only="true" propagation="REQUIRED" />-->
-    <!--<tx:method name="get*" read-only="true" propagation="REQUIRED" />-->
-    <!--<tx:method name="update*" propagation="REQUIRED" />-->
-    <!--<tx:method name="delete*" propagation="REQUIRED" />-->
-    <!--<tx:method name="del*" propagation="REQUIRED" />-->
-    <!--<tx:method name="*"  read-only="true" />-->
-    <!--</tx:attributes>-->
-    <!--</tx:advice>-->
 </beans>
