@@ -11,9 +11,9 @@ import java.util.List;
 @Transactional
 public interface Circledao extends JpaRepository<Circle, Integer> {
     @Query(value="select from circle where circle_name like CONCAT('%',:key,'%')",nativeQuery = true)
-    public List<Circle> search(@Param("key") String key);
+    List<Circle> search(@Param("key") String key);
 
     @Query(value = "select u from Circle u where u.circleName = :name")
-    public List<Circle> findByCircleName(@Param("name") String name);
+    List<Circle> findByCircleName(@Param("name") String name);
 }
 
