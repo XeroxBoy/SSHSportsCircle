@@ -163,6 +163,7 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
+${info}
 <div style="left:20%;top:20%;position: absolute">
     <label for="show"></label>
     <div style="width:600px;height:240px;

@@ -9,11 +9,5 @@ public class WebSocketConfig {
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }
-//    @Override
-//    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//        registry.addHandler(handler(), "/webSocket");
-//        registry.addHandler(handler(), "/webSocket/socketJs").withSockJS();
-//    }
-
 }
 

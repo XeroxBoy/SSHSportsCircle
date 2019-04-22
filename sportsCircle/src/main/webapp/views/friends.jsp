@@ -191,6 +191,17 @@ ${info}
     </li>
     </c:forEach>
 </ul>
+<ul>
+    <c:forEach var="user" items="${users}">
+        <li>
+            <form action="/makeFriend" method="get">
+                <input type="hidden" value="${user.username}" name="friendsTo"/>
+                <h4>${user.username}</h4>
+                <button type="submit" class="btn btn-info" style="right: 30%">结交为好友</button>
+            </form>
+        </li>
+    </c:forEach>
+</ul>
 </body>
 
 </html>
