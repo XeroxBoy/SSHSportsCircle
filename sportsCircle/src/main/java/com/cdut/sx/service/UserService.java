@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -17,10 +16,9 @@ public class UserService {
     @Autowired
     private Userdao userdao;
 
-    public ArrayList<User> queryAll() {
+    public List<User> findAllUsers() {
         // TODO Auto-generated method stub
-        ArrayList<User> users = (ArrayList<User>) userdao.findAll();
-        return users;
+        return userdao.findAll();
     }
 
     public List<Circle> queryMyCircle(String username) {

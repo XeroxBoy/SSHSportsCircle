@@ -12,5 +12,4 @@ import java.util.List;
 public interface Userdao extends JpaRepository<User, Integer> {
     @Query(value = "select u from User u where u.username=?1")
     List<User> queryByName(String username);//根据ID查用户
-
 }

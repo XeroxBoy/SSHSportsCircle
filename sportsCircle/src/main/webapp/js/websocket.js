@@ -2,7 +2,7 @@ if (typeof (WebSocket) == "undefined") {
     console.log("您的浏览器不支持WebSocket");
 } else {
     console.log("您的浏览器支持WebSocket");
-    var ws = new WebSocket("ws://localhost:8080/websocket/" + username);
+    var ws = new WebSocket("ws://localhost:8888/websocket/" + username);
     var chatter = document.getElementById("chatter");
 
 SendMsg = function () {

@@ -6,94 +6,58 @@
 %>
 <!DOCTYPE HTML>
 <html>
+<head>
+    <title>发出你的邀请</title>
+    <!---css--->
+    <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
+    <!---css--->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
 
-<link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
-<link href="../css/style01.css" rel='stylesheet' type='text/css'/>
-<link href='../css/fileinput.css' rel='stylesheet' type='text/css'>
-
-<!---css--->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="keywords" content=""/>
-<script type="application/x-javascript"> addEventListener("load", function () {
-    setTimeout(hideURLbar, 0);
-}, false);
-
-function hideURLbar() {
-    window.scrollTo(0, 1);
-} </script>
-<!---js--->
-<script src="../js/jquery-latest.js"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/fileinput.js"></script>
-<script src="../js/fileinput-zh.js"></script>
-<!---js--->
-<!--web-fonts-->
-<link href='../css/font1.css' rel='stylesheet' type='text/css'>
-<link href='../css/font2.css' rel='stylesheet' type='text/css'>
-<link href='../css/font3.css' rel='stylesheet' type='text/css'>
-
-<!--//web-fonts-->
-<script src="../js/responsiveslides.min.js"></script>
-
-<!--JS for animate-->
-<link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="../js/wow.min.js"></script>
-<script>
-    new WOW().init();
-    $(document).ready(function () {
-        $(".nav-in").mouseover(function () {
-            $(this).next(".subnav").slideDown(500);
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!---js--->
+    <script src="../js/jquery-latest.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/websocket.js"></script>
+    <!---js--->
+    <!--web-fonts-->
+    <link href='../css/font1.css' rel='stylesheet' type='text/css'>
+    <link href='../css/font2.css' rel='stylesheet' type='text/css'>
+    <link href='../css/font3.css' rel='stylesheet' type='text/css'>
+    <!--//web-fonts-->
+    <script src="../js/responsiveslides.min.js"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true
+            });
         });
+        $(document).ready(function () {
+            $(".nav-in").mouseover(function () {
+                $(this).next(".subnav").slideDown(500);
+            });
 
-        $("li").mouseleave(function () {
-            $(this).children(".subnav").slideUp(500);
+            $("li").mouseleave(function () {
+                $(this).children(".subnav").slideUp(500);
+            });
         });
-
-        $("#form2").on("click", function () {
-            $("#form2").submit();
-        });
-// 文件上传框
-        $('input[class=projectfile]').each(function () {
-            var imageurl = $(this).attr("value");
-
-            if (imageurl) {
-                var op = $.extend({
-                    initialPreview: [ // 预览图片的设置
-                        "<img src='" + imageurl + "' class='file-preview-image'>",]
-                }, {
-                    showUpload: false,
-                    showRemove: false,
-                    language: 'zh',
-                    allowedPreviewTypes: ['image'],
-                    allowedFileTypes: ['image'],
-                    allowedFileExtensions: ['jpg', 'png', 'gif'],
-                    maxFileSize: 20000,
-
-                });
-
-                $(this).fileinput(op);
-            } else {
-                $(this).fileinput({
-                    showUpload: false,
-                    showRemove: false,
-                    language: 'zh',
-                    allowedPreviewTypes: ['image'],
-                    allowedFileTypes: ['image'],
-                    allowedFileExtensions: ['jpg', 'png', 'gif'],
-                    maxFileSize: 20000,
-
-                });
-            }
-        });
-    });
-
-    $(function () {
+    </script>
+    <script> $(function () {
         var area = "${sessionScope.area }";//获取用户的爱好领域
         if (area == null || area == "") {
             window.location.href = "/toError";
         }
-        //把背景图片和文字换成健身圈的
 
         document.querySelector("#nar").innerHTML = "  " + area;
         document.getElementById("bg").src = "../images/e2.png";
@@ -104,17 +68,34 @@ function hideURLbar() {
         //     document.getElementById("bg").src = "../images/ball.png";
         //
         // }
-    });
+    });</script>
 
-</script>
-<!--JS for animate-->
-<link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="../js/wow.min.js"></script>
-<script>
-    new WOW().init();
-</script>
-<!--//end-animate-->
+    <!--JS for animate-->
+    <link href="../css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="../js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <style type="text/css">
+        .form-inline {
+            left: 35%;
+            top: 150px;
+            bottom: 40%;
+            height: 450px;
+            width: 400px;
+            position: relative;
+            /*background-image: url("../images/fbg.jpg");*/
+        }
 
+        body {
+            background-image: url("../images/datebg.jpg");
+        }
+
+        label {
+            /*  color:#FF5; */
+        }
+    </style>
 </head>
 <body>
 <!---header--->
@@ -151,10 +132,11 @@ function hideURLbar() {
                         </c:forEach>
                     </ul>
                 </li>
-
+                <%--
+                                    <li><a class="nav-in" href="friends-friendList.action"><span
+                                            data-letters="我的好友">我的好友</span></a></li>--%>
                 <li><a class="nav-in" href="/findMyInfo"><span
                         data-letters="我的信息">我的信息</span></a></li>
-
                 <li><a class="nav-in" href="/friendList"><span
                         data-letters="我的好友">我的好友</span></a></li>
                 <li><a class="nav-in" href="/date"><span data-letters="我要约啦">我要约啦</span></a></li>
@@ -186,20 +168,22 @@ function hideURLbar() {
 ${info}
 
 <ul>
-<c:forEach var="l" items="${friendsList}">
-    <li>朋友id:${l.friendsTo} <a href="/tochat/${l.friendsTo}">与${l.friendsTo}>聊天</a>
+    <c:forEach var="l" items="${friendsList}">
+        <li><p>朋友id:${l.friendsTo} <a href="/tochat/${l.friendsTo}">与${l.friendsTo}聊天</a></p>
     </li>
     </c:forEach>
 </ul>
 <ul>
     <c:forEach var="user" items="${users}">
-        <li>
-            <form action="/makeFriend" method="get">
-                <input type="hidden" value="${user.username}" name="friendsTo"/>
-                <h4>${user.username}</h4>
-                <button type="submit" class="btn btn-info" style="right: 30%">结交为好友</button>
-            </form>
-        </li>
+        <c:if test="${user.username != sessionScope.name}">
+            <li>
+                <form action="/makeFriend" method="get">
+                    <input type="hidden" value="${user.username}" name="friendsTo"/>
+                    <h4>${user.username}</h4>
+                    <button type="submit" class="btn btn-info" style="right: 30%">结交为好友</button>
+                </form>
+            </li>
+        </c:if>
     </c:forEach>
 </ul>
 </body>

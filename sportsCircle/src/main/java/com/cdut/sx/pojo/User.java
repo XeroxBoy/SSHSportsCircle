@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,24 +68,6 @@ public class User {
     }
     public User() {
         super();
-    }
-
-
-    public User(String birthday, String username, String password, String email,
-                String sex, String areabelongto) {  //无打卡天数
-        super();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        try {
-            this.birthday = (Date) sdf.parse(birthday);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.sex = sex;
-        this.Areabelongto = areabelongto;
     }
 
     public User(String username, String password) {

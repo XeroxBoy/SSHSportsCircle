@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -22,15 +21,16 @@ public class FriendsController {
     private Friends friends;
     @Autowired
     private FriendsService dao;
+    @Autowired
+    private UserService userdao;
+
+
     private Integer currPage = 1;
 
     static ModelAndView getModelAndView(String username, ModelAndView mav, FriendsService dao) {
         ArrayList<Friends> friendList = dao.queryMyFriends(username);
-        UserService userdao = new UserService();
-        ArrayList<User> users = userdao.queryAll();
         if (friendList != null && !friendList.isEmpty()) {
             mav.addObject("friendsList", friendList);
-            mav.addObject("usersList", users);
             return mav;
         } else {
             mav.addObject("info", "您暂时还未结交好友");
@@ -39,7 +39,7 @@ public class FriendsController {
     }
 
     @RequestMapping("/makeFriend")
-    public ModelAndView makeFriend(HttpSession session, HttpServletRequest request, @RequestParam(value = "friendsTo")
+    public ModelAndView makeFriend(HttpSession session, @RequestParam(value = "friendsTo")
             String friendsTo) {
         String username = (String) session.getAttribute("name");
         if (!username.equals(friendsTo))//不和自己交朋友
@@ -49,13 +49,15 @@ public class FriendsController {
             newFriend.setFriendsFrom(username);
             dao.save(newFriend);
         }
-        return new ModelAndView("views/friends");
+        return new ModelAndView("forward:/friendList");
     }
 
     @RequestMapping("/friendList")
     public ModelAndView friendList(HttpSession session) {
         String username = (String) session.getAttribute("name");
         ModelAndView mav = new ModelAndView("views/friends");
+        ArrayList<User> users = (ArrayList<User>) userdao.findAllUsers();
+        mav.addObject("users", users);
         if (currPage == 0)
             currPage = 1;
         return getModelAndView(username, mav, dao);
