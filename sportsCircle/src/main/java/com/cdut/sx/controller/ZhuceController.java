@@ -1,7 +1,6 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.Circle;
-import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.CircleService;
 import com.cdut.sx.service.UserService;
@@ -16,11 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class ZhuceController {
@@ -52,39 +48,7 @@ public class ZhuceController {
     }
 
 
-    /**
-     * 找到当前用户的信息
-     */
-    @RequestMapping("/findMyInfo")
-    public ModelAndView findMyInfo(HttpSession session) {
-        ModelAndView mav = new ModelAndView("views/MyInfo");
-        ModelAndView errormav = new ModelAndView("views/error");
-        String userName = (String) session.getAttribute("name");
-        if (userdao.queryByName(userName).size() == 1) {
-            User user = userdao.queryByName(userName).get(0);
-            this.User = user;
-            mav.addObject("user", User);
-            return mav;
-        } else {
-            return errormav;// 暂不处理
-        }
 
-    }
-
-    /**
-     * 用于修改用户信息
-     */
-    @RequestMapping("/modify")
-    public ModelAndView modify(HttpSession session) {
-        ModelAndView mav = new ModelAndView("views/MyInfo");
-        int userId = (Integer) session.getAttribute("id");
-        List<Message> message = (ArrayList<Message>) session.getAttribute("messages");
-        User.setUserId(userId);
-        User.setMessages(message);//不然user的message会被清空
-        userdao.save(User);
-        mav.addObject("user", User);
-        return mav;
-    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

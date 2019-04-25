@@ -1,5 +1,6 @@
 package com.cdut.sx.controller;
 
+import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
@@ -14,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -125,6 +127,38 @@ public class LoginController {
             return errormav;
     }
 
+    /**
+     * 找到当前用户的信息
+     */
+    @RequestMapping("/findMyInfo")
+    public ModelAndView findMyInfo(HttpSession session) {
+        ModelAndView mav = new ModelAndView("views/MyInfo");
+        ModelAndView errormav = new ModelAndView("views/error");
+        String userName = (String) session.getAttribute("name");
+        if (userdao.queryByName(userName).size() == 1) {
+            User user = userdao.queryByName(userName).get(0);
+            this.User = user;
+            mav.addObject("user", User);
+            return mav;
+        } else {
+            return errormav;// 暂不处理
+        }
 
+    }
+
+    /**
+     * 用于修改用户信息
+     */
+    @RequestMapping("/modify")
+    public ModelAndView modify(HttpSession session) {
+        ModelAndView mav = new ModelAndView("views/MyInfo");
+        int userId = (Integer) session.getAttribute("id");
+        List<Message> message = (ArrayList<Message>) session.getAttribute("messages");
+        User.setUserId(userId);
+        User.setMessages(message);//不然user的message会被清空
+        userdao.save(User);
+        mav.addObject("user", User);
+        return mav;
+    }
 }
 

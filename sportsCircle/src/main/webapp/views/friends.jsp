@@ -11,6 +11,7 @@
     <!---css--->
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/fuckyou.css" rel='stylesheet' type='text/css'/>
     <!---css--->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -146,6 +147,8 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
+                <li><a class="nav-in" href="/createCircle"><span
+                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -165,20 +168,22 @@
 <br>
 ${info}
 
-<ul>
+<ul class="friends-box">
     <c:forEach var="l" items="${friendsList}">
-        <li><p>朋友id:${l.friendsTo} <a href="/tochat/${l.friendsTo}">与${l.friendsTo}聊天</a></p>
-    </li>
+        <li class="friends-box-item">
+            <h4 style="color: #28ff1f;">朋友id:${l.friendsTo}</h4>
+            <a href="/tochat/${l.friendsTo}"><p style="color: #28ff1f;">与${l.friendsTo}聊天</p></a>
+        </li>
     </c:forEach>
 </ul>
-<ul>
+<ul class="friends-box">
     <c:forEach var="user" items="${users}">
         <c:if test="${user.username != sessionScope.name}">
-            <li>
+            <li class="friends-box-item">
                 <form action="/makeFriend" method="get">
                     <input type="hidden" value="${user.username}" name="friendsTo"/>
-                    <h4>${user.username}</h4>
-                    <button type="submit" class="btn btn-info" style="right: 30%">结交为好友</button>
+                    <h4 style="color: #28ff1f;">${user.username}</h4>
+                    <button type="submit" class="btn btn-info" style="right: 30%;color: green">结交为好友</button>
                 </form>
             </li>
         </c:if>

@@ -56,7 +56,7 @@ public class MessageController {
         String name = (String) session.getAttribute("name");
         message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
         dao.save(message);
-        return new ModelAndView(ZHUYE);
+        return new ModelAndView("forward:/findArea");
     }
 
     public Integer getCurrPage() {

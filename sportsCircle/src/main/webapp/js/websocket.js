@@ -16,7 +16,8 @@ SendMsg = function () {
     message.value = "";
 };
 //打开Socket 
-ws.onopen = function (event) {
+    ws.onopen = function () {
+        console.log("websocket已打开");
 // 监听消息
     ws.onmessage = function (msg) {
         var oneMessage = document.createElement("li");
@@ -27,7 +28,7 @@ ws.onopen = function (event) {
 // 监听Socket的关闭
     ws.onclose = function (msg) {
         document.getElementById("sender").onclick = null;
-        console.log('连接中断');
+        console.log('连接中断' + msg);
     };
 
 };

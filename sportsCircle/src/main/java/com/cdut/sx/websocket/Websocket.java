@@ -1,24 +1,24 @@
 package com.cdut.sx.websocket;
 
 import com.cdut.sx.pojo.User;
+import com.cdut.sx.utils.GetHttpSessionConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
-@ServerEndpoint("/websocket/{id}")
+@ServerEndpoint(value = "/websocket/{id}", configurator = GetHttpSessionConfigurator.class)
 @Component
 public class Websocket {
     private static int onlineCount = 0;
-
-    private static Map<User, Websocket> clients = new ConcurrentHashMap<User, Websocket>();
-
+    private static Map<User, Websocket> clients = new HashMap<>();
+    private WebsocketService websocketService = new WebsocketService();
     private static ApplicationContext applicationContext;
 
     public static void setApplicationContext(ApplicationContext applicationContext) {
@@ -27,15 +27,18 @@ public class Websocket {
 
     @OnClose
     public void onClose(Session conn) throws IOException {
-        // TODO Auto-generated method stub
-        WebsocketService.removeUser(conn);
-        WebsocketService.sendMessagetoAll("用户下线了");
+        websocketService.removeUser(conn);
+        subOnlineCount();
+        websocketService.sendMessagetoAll("有一连接关闭！当前在线人数为" + getOnlineCount());
+
     }
 
     @OnError
     public void onError(Throwable error) throws IOException {
-        // TODO Auto-generated method stub
-        WebsocketService.sendMessagetoAll("用户: 跪了" + error.getMessage());
+        System.out.println(error.getMessage());
+//        websocketService.removeUser(conn);
+        subOnlineCount();
+//        websocketService.sendMessagetoAll("用户: 跪了" + error.getMessage());
     }
 
 
@@ -45,25 +48,24 @@ public class Websocket {
 
     @OnMessage
     public void onMessage(Session conn, String message, @PathParam("id") String id) throws IOException {
-        // TODO Auto-generated method stub
 //        WebsocketService.addUser(username, conn);
 //        String userFrom = message.split(" ")[0];
         String userTo = message.split(" ")[0];
-        Set<User> users = clients.keySet();
-        for (User user : users) {
-            if (user.getUsername().equals(userTo)) {
-                WebsocketService.sendMessage(message.split(" ")[2], userTo);
-            }
-        }
+        websocketService.sendMessage(message.split(" ")[2], userTo);
     }
 
 
     @OnOpen
-    public void onOpen(Session conn, @PathParam("id") String username) {
-        WebsocketService.addUser(username, conn);
-        // TODO Auto-generated method stub
+    public void onOpen(Session conn, @PathParam("id") String username, EndpointConfig config) {
+        HttpSession session = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+        websocketService.addUser((String) session.getAttribute("name"), conn);
+
+        System.out.println("服务器端websocket已打开" + username);
         try {
-            WebsocketService.sendMessagetoAll("已开启");
+            websocketService.sendMessage("你好", "godv");
+            websocketService.sendMessagetoAll("已开启");
+            addOnlineCount();
+            websocketService.sendMessagetoAll(username + "加入！当前在线人数为" + getOnlineCount());
         } catch (IOException e) {
             e.printStackTrace();
         }

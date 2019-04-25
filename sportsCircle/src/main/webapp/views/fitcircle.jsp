@@ -287,7 +287,7 @@
     <br>
     <br>
 
-    <c:forEach var="page" begin="0" end="${sessionScope.totalPage }" step="1" items="${PageBean.list }">
+    <c:forEach var="page" begin="0" end="${PageBean.list.size() }" step="1" items="${PageBean.list }">
     <div class="fitcircle-comment fuck-layout">
         <div class="fitcircle-comment-meta">
             <span>用户： ${sessionScope.name }</span>
