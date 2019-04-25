@@ -1,0 +1,99 @@
+/* fitcircle样式 */
+.fuck-layout {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.form-submit {
+    float: right;
+    margin-top: 10px;
+}
+
+.fitcircle-pagination {
+    text-align: right;
+}
+
+.pagination-extra {
+    padding-left: 20px;
+}
+
+.pagination-link {
+    padding: 0 5px;
+}
+
+.fitcircle-comment-meta {
+    display: flex;
+    margin: 10px 0;
+}
+
+.fitcircle-comment-meta > span {
+    flex: 0 0 230px;
+}
+
+.fitcircle-comment-meta-special {
+    display: flex;
+    align-content: center;
+}
+
+.fitcircle-comment-meta-special > span {
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.fitcircle-comment-meta-special > p {
+    word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    .fuck-layout {
+        padding: 24px;
+    }
+}
+
+/* concat样式 */
+.contact-window {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.message-box {
+    min-height: 400px;
+    overflow-y: auto;
+}
+
+.chat-user {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.chat-message {
+    display: flex;
+}
+
+.chat-message > input:first-child {
+    padding-left: 20px;
+    border-radius: 0;
+}
+
+.chat-message > input:last-child {
+    border-radius: 0;
+}
+
+/* MyInfo */
+.form-item {
+    margin: 15px 0;
+    max-width: 400px;
+}
+
+.form-item > label {
+    width: 150px;
+}
+
+.form-item-fix {
+    display: inline-block;
+    width: auto;
+}

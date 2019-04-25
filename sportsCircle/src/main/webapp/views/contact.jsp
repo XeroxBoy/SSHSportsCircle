@@ -20,6 +20,7 @@
     <!---css--->
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/meihua.css" rel='stylesheet' type='text/css'/>
     <!---css--->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -153,8 +154,6 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/createCircle"><span
-                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -164,23 +163,18 @@
     </div>
 </nav>
 ${info}
-<div style="left:20%;top:20%;position: absolute">
+<div class="contact-window">
     <label for="show"></label>
-    <div style="width:600px;height:240px;
-overflow-y:auto;border:1px solid #333;overflow:scroll;overflow-x:hidden;"
-         class="form-control" id="show">
+    <div class="form-control message-box" id="show">
         <ul id="chatter">
 
         </ul>
     </div>
-    <table>
-        <thead><h3 id="otherUser">与${sessionScope.otherUserName}对话</h3></thead>
-        <tbody>
-
-        </tbody>
-    </table>
-    <input type="text" size="80" id="msg" name="msg" placeholder="输入聊天内容"/>
-    <input type="button" class="btn btn-info" value="发送" id="sender" name="sender"/>
+    <h3 id="otherUser" class="chat-user">与${sessionScope.otherUserName}对话</h3>
+    <div class="chat-message">
+        <input type="text" size="80" id="msg" name="msg" placeholder="输入聊天内容"/>
+        <input type="button" class="btn btn-info" value="发送" id="sender" name="sender"/>
+    </div>
 </div>
 </body>
 </html>

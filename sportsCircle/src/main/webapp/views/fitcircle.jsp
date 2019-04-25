@@ -12,6 +12,8 @@
     <!---css--->
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/meihua.css" rel='stylesheet' type='text/css'/>
+
     <!---css--->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -67,11 +69,11 @@
         var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=" +${sessionScope.area };
         document.querySelector(".banner-section").style.backgroundImage = "url('../images/${sessionScope.bgNum }.jpg')";
         document.querySelector("#nar").innerHTML = "  " +${sessionScope.area };
-            document.getElementById("bg").src = "../images/e2.png";
-            document.getElementById("firstp").setAttribute("href", first);
-            document.getElementById("nextp").setAttribute("href", next);
-            document.getElementById("beforep").setAttribute("href", before);
-            document.getElementById("lastp").setAttribute("href", last);
+        document.getElementById("bg").src = "../images/e2.png";
+        document.getElementById("firstp").setAttribute("href", first);
+        document.getElementById("nextp").setAttribute("href", next);
+        document.getElementById("beforep").setAttribute("href", before);
+        document.getElementById("lastp").setAttribute("href", last);
     });</script>
 
 
@@ -130,8 +132,6 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/createCircle"><span
-                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -288,46 +288,41 @@
     <br>
 
     <c:forEach var="page" begin="0" end="${sessionScope.totalPage }" step="1" items="${PageBean.list }">
-    <table align="center" width="80%" border="0">
-        <tr align="left">
-            <td id="userid"><p>用户： ${sessionScope.name }</p>
-            </td>
-            <td id="messageid"><p>评论数：${page.comments.size() }</p></td>
-            <td id="belongTo"><p>所属模块：${sessionScope.area }</p></td>
-        </tr>
-
-        <tr>
-            <td id="assignTime"><p>约定时间：${page.assignTime}</p></td>
-            <td id="location"><p>约定地点：${page.location}</p></td>
-            <td id="lsex"><p>性别要求：${page.lsex}</p></td>
-            <td id="outDate">发布时间:${page.outDate.toLocaleString()}</td>
-            <td id="setAct"><p><a
-                    href="/deleteMessage?messageid=${page.messageid }"
-                    value="删除消息"></a></p></td>
-        </tr>
-        <tr align="left">
-            <td id="content" colspan="3"
-                style="width: inherit;height: 100px;background-color: gray;">内容：${page.content}
-            </td>
-        </tr>
+    <div class="fitcircle-comment fuck-layout">
+        <div class="fitcircle-comment-meta">
+            <span>用户： ${sessionScope.name }</span>
+            <span>评论数：${page.comments.size() }</span>
+            <span>所属模块：${sessionScope.area }</span>
+        </div>
+        <div class="fitcircle-comment-meta">
+            <span>约定时间：${page.assignTime}</span>
+            <span>约定地点：${page.location}</span>
+            <span>性别要求：${page.lsex}</span>
+            <span>发布时间:${page.outDate.toLocaleString()}</span>
+        </div>
+        <!--<a href="/deleteMessage?messageid=${page.messageid }" value="删除消息"></a>-->
+        <div class="fitcircle-comment-meta-special">
+            <span>内容：</span>
+            <p class="content">${page.content}</p>
+        </div>
         <c:if test="${page.comments.size()!=0}">
             <c:forEach var="l" begin="0" end="${page.comments.size()}" step="1" items="${page.comments }">
-            <tr>
-                <td colspan="3"><p>用户:${sessionScope.name }<a
-                        href="/makeFriend?friendsTo=${l.userId}"></a> 评论：${l.contents }
-                    发布时间:${l.outTime}</p></td>
-                <td colspan="1"><p><a
-                        href="/commentDelete?commentid=${l.commentId }"
-                        value="删除评论"></a></p></td>
-            </tr>
-        </c:forEach>
+                <div class="fitcircle-comment-meta">
+                    <span>用户:${sessionScope.name }</span>
+                    <span>评论：${l.contents }</span>
+                    <span>发布时间:${l.outTime}</span>
+                </div>
+                <!--<a href="/makeFriend?friendsTo=${l.userId}"></a>-->
+                <!--<a href="/commentDelete?commentid=${l.commentId }" value="删除评论"></a>-->
+                </tr>
+            </c:forEach>
         </c:if>
-    </table>
-    <form action="/comment" name="commentForm">
+    </div>
+    <form action="/comment" name="commentForm" class="fuck-layout">
         <label for="contents">我要评论:</label>
         <textarea name="contents" cols="30" rows="5" class="form-control"
                   required></textarea>
-        <input type="submit" class="btn btn-default" value="发表评论"/> <input
+        <input type="submit" class="btn btn-default form-submit" value="发表评论"/> <input
             type="hidden" name="userId" value="${sessionScope.name }"/>
         <input type="hidden" name="messagebelongTo"
                value=
@@ -335,27 +330,24 @@
     </form>
     </c:forEach>
 
-    <table>
-        <tr>
-            <td><span> <p>${PageBean.currPage }/ ${PageBean.totalPage+1 } 页</p>
-			</span> &nbsp;&nbsp; <span> <p>总记录数: ${PageBean.totalCount }
-					&nbsp;&nbsp; 每页显示 ${PageBean.pageSize }</p>
-			</span> &nbsp;&nbsp; <span> <p>
-						<a id="firstp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
-
-                <c:if test="${PageBean.currPage!=1 }">
-                <a id="beforep"
+    <div class="fuck-layout fitcircle-pagination">
+        <p>${PageBean.currPage }/ ${PageBean.totalPage+1 } 页</p>
+        <p>总记录数: ${PageBean.totalCount } <span class="pagination-extra">每页显示 ${PageBean.pageSize }</span></p>
+        <p>
+            <a class="pagination-link" id="firstp"
+               href="${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area}">[首页]</a>
+            <c:if test="${PageBean.currPage!=1 }">
+                <a class="pagination-link" id="beforep"
                    href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage }&area=${sessionScope.area }">[上一页]</a>
-                </c:if> <c:if test="${PageBean.currPage!= PageBean.totalPage }">
-						<a id="nextp"
-                           href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage+2 }&area=${sessionScope.area }">[下一页]</a>
-                <a id="lastp"
+            </c:if>
+            <c:if test="${PageBean.currPage!= PageBean.totalPage }">
+                <a class="pagination-link" id="nextp"
+                   href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.currPage+2 }&area=${sessionScope.area }">[下一页]</a>
+                <a class="pagination-link" id="lastp"
                    href="${pageContext.request.contextPath }/findArea?currPage=${PageBean.totalPage }&area=${sessionScope.area }">[尾页]</a>
             </c:if>
-			</p>	</span></td>
-        </tr>
-    </table>
+        </p>
+    </div>
 
     <!-- content -->
     <!---footer--->
@@ -365,8 +357,8 @@
                 <div class="col-md-3 footer-grid wow fadeInRight animated animated"
                      data-wow-delay="0.4s">
                     <h4>与我们联系</h4>
-                    <p>电话：110</p>
-                    <a href="mailto:niubi@qq.com"> niubi@qq.com</a>
+                    <p>电话：13688056393</p>
+                    <a href="mailto:827312773@qq.com"> 827312773@qq.com</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

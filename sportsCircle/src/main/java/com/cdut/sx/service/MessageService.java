@@ -77,7 +77,7 @@ public class MessageService {
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
-        int pagesize = 1;
+        int pagesize = 5;
         pageBean.setPageSize(pagesize);
         // 封装总记录数
         int totalCount = (int) this.findCount();
@@ -129,7 +129,7 @@ public class MessageService {
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
-        int pagesize = 1;
+        int pagesize = 5;
         pageBean.setPageSize(pagesize);
         // 封装总记录数
         int totalCount = (int) this.findMyCount(userId);
@@ -215,7 +215,7 @@ public class MessageService {
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
-        int pagesize = 2;
+        int pagesize = 5;
         pageBean.setPageSize(pagesize);
         // 封装总记录数
         int totalCount = (int) this.findAreaCount(area);

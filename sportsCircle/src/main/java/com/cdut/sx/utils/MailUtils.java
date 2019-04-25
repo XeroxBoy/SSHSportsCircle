@@ -19,7 +19,7 @@ public class MailUtils {
         //邮件的标题
         message.setSubject("运动圈今日第" + n + "次启动");
         //邮件的文本内容
-        message.setContent("第" + n + "次求你不要学了", "text/html;charset=UTF-8");
+        message.setContent("你学你🐎呢", "text/html;charset=UTF-8");
         //返回创建好的邮件对象
         return message;
     }

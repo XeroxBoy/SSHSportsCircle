@@ -32,6 +32,7 @@ public class ZhuceController {
 
     @Autowired
     private CircleService circledao;
+
     @RequestMapping("/zhuce")
     public ModelAndView zhuce(@Validated @ModelAttribute("user") User User) {
         ModelAndView mav = new ModelAndView("views/Login");
@@ -84,12 +85,14 @@ public class ZhuceController {
         mav.addObject("user", User);
         return mav;
     }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+
     @RequestMapping("/toZhuce")
     public ModelAndView toZhuce(){
         return new ModelAndView("views/zhuce");

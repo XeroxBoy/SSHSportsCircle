@@ -26,6 +26,7 @@
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
     <link href='../css/fileinput.css' rel='stylesheet' type='text/css'>
+    <link href="../css/meihua.css" rel='stylesheet' type='text/css'/>
 
     <!---css--->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -178,8 +179,6 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/createCircle"><span
-                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -199,44 +198,49 @@
 <br>
 
 <%-- <s:debug /> --%>
-<form id="form1" style="margin-left: 10px;margin-right: 10px" action="/modify" method="post"
-      role="form">
-    <div class="input-group">
-        <label>用户名: </label><input name="username" type="text" readonly="readonly"
-                                   value='${user.username}' required/><br> <br>
+<form class="fuck-layout myinfo-form" id="form1" style="margin-left: 10px;margin-right: 10px" action="/modify"
+      method="post" role="form">
+    <div class="form-item">
+        <label>用户名: </label><input name="username" type="text" readonly="readonly" value='${user.username}' required/>
+    </div>
+    <div class="form-item">
         <label>邮箱:</label><input type="email" value='${user.email}' name="email" required>
-        <br> <br><label> 密码:</label> <input type="password" name="password" value='${user.password}'
-                                            required/>
-        <br> <br><label> 性别:</label> <input type="text" list="sexdata" name="sex" value='${user.sex}'
-                                            required/>
+    </div>
+    <div class="form-item">
+        <label>密码:</label><input type="password" name="password" value='${user.password}' required/>
+    </div>
+    <div class="form-item">
+        <label>性别:</label><input type="text" list="sexdata" name="sex" value='${user.sex}' required/>
         <datalist id="sexdata">
             <option value="男"/>
             <option value="女"/>
         </datalist>
-        <br> <br><label> 生日:</label><input type="date" id="birthday" min="1900/01/01" name="birthday"
-                                           value='${user.birthday}' required/>
-        <br>
-
-        <br> <label>感兴趣的领域：
-        <select class="form-control" name="Areabelongto" value='${user.areabelongto}' required>
+    </div>
+    <div class="form-item">
+        <label>生日:</label><input type="date" id="birthday" min="1900/01/01" name="birthday" value='${user.birthday}'
+                                 required/>
+    </div>
+    <div class="form-item">
+        <label>感兴趣的领域：</label>
+        <select class="form-control form-item-fix" name="Areabelongto" value='${user.areabelongto}' required>
             <option value="跑步圈">跑步圈</option>
             <option value="健身圈">健身圈</option>
             <option value="打球圈">打球圈</option>
         </select>
-
-        <br> <br>
-        <label>经验：</label><input name="exp" class="form-control"
-                                 type="text" readonly="readonly" value='${user.exp}' required/> <br> <br>
-        <label>打卡天数：</label><input type="text" class="form-control"
-                                   name="prodays" readonly="readonly" value='${user.prodays}'
-                                   required/><br> <br>
-        <label>上次打卡时间：</label><input class="form-control" type="text" name="lastProday" readonly="readonly"
-                                     value='${user.lastProday}' required/><br> <br>
-        <label>最大持续打卡天数：</label><input name="maxProdays" type="text" readonly="readonly" class="form-control"
-                                       value='${user.maxProdays}' required/><br> <input
-                type="submit" value="保存修改"/>
-    </label>
     </div>
+    <div class="form-item">
+        <label>经验</label><span>${user.exp}</span>
+    </div>
+    <div class="form-item">
+        <label>打卡天数</label><span>${user.prodays}</span>
+    </div>
+    <div class="form-item">
+        <label>上次打卡时间</label><span>${user.lastProday}</span>
+    </div>
+    <div class="form-item">
+        <label>最大持续打卡天数：</label><span>${user.maxProdays}</span>
+    </div>
+    <input type="submit" value="保存修改"/>
 </form>
 
 <table>

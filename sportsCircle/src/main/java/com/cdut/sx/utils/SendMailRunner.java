@@ -11,13 +11,13 @@ public class SendMailRunner implements CommandLineRunner {
     private Websocket ws;
     @Override
     public void run(String... args) throws Exception {
-//        int n = 1;
+        int n = 1;
 //        Sendmail.sendMail(n);
 //        while (true) {
 //            Thread.sleep(100000);
 //            Sendmail.sendMail(++n);
 //        }
+//    }
     }
-
 }
 

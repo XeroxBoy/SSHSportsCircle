@@ -146,8 +146,6 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/createCircle"><span
-                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 

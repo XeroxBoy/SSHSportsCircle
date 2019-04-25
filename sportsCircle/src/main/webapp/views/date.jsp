@@ -146,8 +146,6 @@
                         data-letters="聊天">聊天</span></a></li>
                 <li><a class="nav-in" href="/toCircle"><span
                         data-letters="圈子">圈子</span></a></li>
-                <li><a class="nav-in" href="/createCircle"><span
-                        data-letters="创建圈子">创建圈子</span></a></li>
                 <li><a class="nav-in" href="/logout"><span
                         data-letters="注销">注销</span></a></li>
 
@@ -190,7 +188,8 @@
         <label for="belongTo">所属板块：</label>
         <%--查询用户关注圈子并返回 将其显示为option的列表--%>
         <select class="form-control" name="belongTo" required>
-            <c:forEach items="${userCircles }" var="l" step="1" begin="0" end="${userCircles.size() }">
+            <c:forEach items="${sessionScope.myCircles }" var="l" step="1" begin="0"
+                       end="${sessionScope.myCircles.size() }">
                 <option value="${l.circleId}">${l.circleName}</option>
             </c:forEach>
         </select><br>

@@ -22,7 +22,6 @@ public class DakaController {
     private static Date getBeforeDate(Date date) { //获取当前天数的前一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date date1;
         date1 = new Date(calendar.getTimeInMillis());

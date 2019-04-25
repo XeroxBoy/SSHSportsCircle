@@ -4,7 +4,6 @@ if (typeof (WebSocket) == "undefined") {
     console.log("您的浏览器支持WebSocket");
     var ws = new WebSocket("ws://localhost:8888/websocket/" + username);
     var chatter = document.getElementById("chatter");
-
 SendMsg = function () {
     var message = document.getElementById("msg");
     // var messageTo = document.getElementById("otherUser");
