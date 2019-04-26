@@ -27,10 +27,10 @@ public class Websocket {
 
     @OnClose
     public void onClose(Session conn) throws IOException {
+        System.out.println("进入服务端关闭函数");
+        websocketService.sendMessagetoAll("有一连接关闭！当前在线人数为" + (getOnlineCount() - 1));
         websocketService.removeUser(conn);
         subOnlineCount();
-        websocketService.sendMessagetoAll("有一连接关闭！当前在线人数为" + getOnlineCount());
-
     }
 
     @OnError
@@ -41,10 +41,6 @@ public class Websocket {
 //        websocketService.sendMessagetoAll("用户: 跪了" + error.getMessage());
     }
 
-
-    public void onStart() {
-
-    }
 
     @OnMessage
     public void onMessage(Session conn, String message, @PathParam("id") String id) throws IOException {

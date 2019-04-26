@@ -63,12 +63,12 @@
         }
         //把背景图片和文字换成XX圈的
 
-        var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=" +${sessionScope.area };
-        var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=" +${sessionScope.area };
-        var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=" +${sessionScope.area };
-        var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=" +${sessionScope.area };
-        document.querySelector(".banner-section").style.backgroundImage = "url('../images/${sessionScope.bgNum }.jpg')";
-        document.querySelector("#nar").innerHTML = "  " +${sessionScope.area };
+        var first = "${pageContext.request.contextPath }/findArea?currPage=1&area=${sessionScope.area }";
+        var last = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.totalPage}&area=${sessionScope.area }";
+        var before = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage}&area=${sessionScope.area }";
+        var next = "${pageContext.request.contextPath }/findArea?currPage=${sessionScope.currPage+2}&area=${sessionScope.area }";
+        //document.querySelector(".banner-section").style.backgroundImage = "url('../images/${sessionScope.bgNum }.jpg')";
+        document.querySelector("#nar").innerHTML = "${sessionScope.area }";
         document.getElementById("bg").src = "../images/e2.png";
         document.getElementById("firstp").setAttribute("href", first);
         document.getElementById("nextp").setAttribute("href", next);

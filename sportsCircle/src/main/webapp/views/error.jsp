@@ -25,7 +25,7 @@
 
         function load() {
             if (cnt < 0) {
-                window.location.href = "http://localhost:8080";
+                window.location.href = "http://localhost:8888";
                 window.event.returnValue = false;
             } else {
                 document.getElementById("content").innerHTML = "页面<font color=red>" + cnt + "</font>秒后跳转";
