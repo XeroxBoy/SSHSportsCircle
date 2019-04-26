@@ -44,10 +44,13 @@ public class Websocket {
 
     @OnMessage
     public void onMessage(Session conn, String message, @PathParam("id") String id) throws IOException {
-//        WebsocketService.addUser(username, conn);
-//        String userFrom = message.split(" ")[0];
-        String userTo = message.split(" ")[0];
-        websocketService.sendMessage(message.split(" ")[2], userTo);
+        String otherUser = message.split(" ")[0];
+        String realMsg = message.split(" ")[1];
+        if (websocketService.testIfUserExists(otherUser).equals(true)) {
+            websocketService.sendMessage(realMsg, otherUser);
+        } else {
+            websocketService.sendMessagetoAll(realMsg);
+        }
     }
 
 

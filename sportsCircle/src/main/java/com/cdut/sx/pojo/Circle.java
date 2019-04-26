@@ -82,8 +82,6 @@ public class Circle {
         this.circleUsers = circleUsers;
     }
 
-
-
     @Override
     public String toString() {
         return "Circle{" +

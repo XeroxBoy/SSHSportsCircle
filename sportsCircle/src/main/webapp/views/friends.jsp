@@ -11,7 +11,7 @@
     <!---css--->
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
-    <link href="../css/fuckyou.css" rel='stylesheet' type='text/css'/>
+    <link href="../css/meihua.css" rel='stylesheet' type='text/css'/>
     <!---css--->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -26,7 +26,7 @@
     <!---js--->
     <script src="../js/jquery-latest.js"></script>
     <script src="../js/bootstrap.js"></script>
-    <script src="../js/websocket.js"></script>
+    <%--<script src="../js/websocket.js"></script>--%>
     <!---js--->
     <!--web-fonts-->
     <link href='../css/font1.css' rel='stylesheet' type='text/css'>

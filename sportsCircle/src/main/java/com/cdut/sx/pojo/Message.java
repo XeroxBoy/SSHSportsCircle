@@ -30,8 +30,7 @@ public class Message {
     private String assignTime;//约定时间
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Comments.class, mappedBy = "messageBelongTo")
     private List<Comments> comments = new ArrayList<>();//一状态有多条评论
-    @OneToMany
-    private List<Remind> reminds = new ArrayList<>();//一条状态有多个应约
+
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private User userId;//所属用户的ID
@@ -59,13 +58,7 @@ public class Message {
     }
 
 
-    public List<Remind> getReminds() {
-        return reminds;
-    }
 
-    public void setReminds(List<Remind> reminds) {
-        this.reminds = reminds;
-    }
 
     public int getMessageid() {
         return messageid;

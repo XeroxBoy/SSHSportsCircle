@@ -285,8 +285,8 @@
 
 <form action="/daka" style="width:320px;height:130px;left:12%;top:-120px;position:relative">
     <h3 style="color: #2A4;">运动完了 说点话发泄下吧！</h3>
-    <textarea name="message" cols="20" class="form-control" rows="4"></textarea>
-    <input type="submit" value="点我打卡" class="btn btn-default ">
+    <textarea name="message" cols="20" class="form-control" rows="4" id="faxie"></textarea>
+    <input type="submit" value="点我打卡" class="btn btn-default " id="dakaer">
 </form>
 <p style="color: #39b3d7;font-size:20px;" class="total">
     您已连续签到:${sessionScope.prodays }天</p>

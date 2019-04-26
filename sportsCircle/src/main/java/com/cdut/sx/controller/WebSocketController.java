@@ -19,6 +19,7 @@ public class WebSocketController {
     public ModelAndView contact(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/contact");
         String username = (String) session.getAttribute("name");
+        session.setAttribute("otherUserName", "所有用户");
         return FriendsController.getModelAndView(username, mav, dao);
     }
 

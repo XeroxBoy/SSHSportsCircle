@@ -35,18 +35,31 @@ public class WebsocketService {
         }
     }
 
+    Boolean testIfUserExists(String username) {
+        Set<Map.Entry<Session, String>> entrySet = userconnections.entrySet();
+
+        for (Map.Entry<Session, String> key : entrySet) {
+            if (username.equals(key.getValue())) {
+                return true;
+            }
+        }
+        return false;
+
+
+    }
+
     // 向所有的用户发送消息
     void sendMessagetoAll(String message) throws IOException {
         Set<Session> keySet = userconnections.keySet(); //获取目前用户的socket
-            for (Session conn : keySet) {
-                String user = userconnections.get(conn);
-                if (user != null && conn.isOpen()) {
-                    System.out.println("开始向其中" + userconnections.get(conn) + "用户发送信息" + conn.getId());
+        for (Session conn : keySet) {
+            String user = userconnections.get(conn);
+            if (user != null && conn.isOpen()) {
+                System.out.println("开始向其中" + userconnections.get(conn) + "用户发送信息" + conn.getId());
 //                    conn.getBasicRemote().sendText(message);
-                    synchronized (conn) {
-                        conn.getBasicRemote().sendText(userconnections.get(conn) + ": " + message);
-                    }
+                synchronized (conn) {
+                    conn.getBasicRemote().sendText(userconnections.get(conn) + ": " + message);
                 }
+            }
 
         }
     }

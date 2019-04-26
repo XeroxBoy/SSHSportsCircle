@@ -7,7 +7,6 @@ import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.MessageService;
-import com.cdut.sx.service.RemindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -34,8 +33,7 @@ import java.util.logging.Logger;
 public class MessageController {
     private static final String PAGE = "PageBean";
     private static final String ZHUYE = "views/fitcircle";
-    @Autowired
-    RemindService reminddao;
+ 
     private Integer currPage = 1;
     @Autowired
     private MessageService dao;
@@ -46,7 +44,6 @@ public class MessageController {
 
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
-        // this.message = message; //验证状态是否合理
         if (message == null || session.getAttribute("name") == null)//未登录
             return new ModelAndView("views/error");
         message.setActive("active");
@@ -96,8 +93,6 @@ public class MessageController {
 
     /**
      * 查找不同领域（打球圈,健身圈，跑步圈，……）
-     *
-     * @return
      */
     @RequestMapping("/findArea")
     public ModelAndView findArea(HttpServletRequest request, HttpSession session, @RequestParam(name = "currPage", required = false) Integer Currpage) {
@@ -126,8 +121,6 @@ public class MessageController {
 
     /**
      * 查找我的发出的messages
-     *
-     * @return
      */
     @RequestMapping("/findMine")
     public ModelAndView findMine(HttpSession session) {

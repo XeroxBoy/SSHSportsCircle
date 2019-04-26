@@ -109,7 +109,6 @@ public class MessageService {
     }
 
     public long findCount() {
-        // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         long sizes = messagedao.count();
@@ -122,7 +121,6 @@ public class MessageService {
     }
 
     public PageBean<Message> findMineByPage(Integer currPage, String userId) {
-        // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         PageBean<Message> pageBean = new PageBean<Message>();
@@ -175,7 +173,6 @@ public class MessageService {
     }
 
     public List<Message> findByPage(int begin, int pagesize, String userId) {//找出这个人发过的状态
-        // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         Criteria criteria = session.createCriteria(Message.class);
@@ -192,7 +189,6 @@ public class MessageService {
     }
 
     public List<Message> findByPageArea(int begin, int pagesize, String area) {//跟据页数和圈子筛选
-        // TODO Auto-generated method stub
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
         Criteria criteria = session.createCriteria(Message.class);
@@ -210,7 +206,6 @@ public class MessageService {
     }
 
     public PageBean<Message> findByArea(Integer currPage, String area) {
-        // TODO 自动生成的方法存根
         PageBean<Message> pageBean = new PageBean<Message>();
         // 封装当前页数
         pageBean.setCurrPage(currPage);
