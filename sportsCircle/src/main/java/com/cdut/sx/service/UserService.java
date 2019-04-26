@@ -23,7 +23,7 @@ public class UserService {
 
     public List<Circle> queryMyCircle(String username) {
         List<User> user = userdao.queryByName(username);
-        List<Circle> circles = (List<Circle>) user.get(0).getCircles();
+        List<Circle> circles = user.get(0).getCircles();
         return circles;
     }
 

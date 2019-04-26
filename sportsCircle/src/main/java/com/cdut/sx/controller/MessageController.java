@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 public class MessageController {
     private static final String PAGE = "PageBean";
     private static final String ZHUYE = "views/fitcircle";
- 
+
     private Integer currPage = 1;
     @Autowired
     private MessageService dao;
@@ -114,6 +114,9 @@ public class MessageController {
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
 
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
+        for (Message message : pageBean.getList()) {
+            System.out.println(message.getContent());
+        }
         if (pageBean != null)
             mav.addObject(PAGE, pageBean);
         return mav;

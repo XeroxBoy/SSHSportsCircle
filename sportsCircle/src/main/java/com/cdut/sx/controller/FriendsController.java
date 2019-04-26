@@ -42,6 +42,10 @@ public class FriendsController {
     public ModelAndView makeFriend(HttpSession session, @RequestParam(value = "friendsTo")
             String friendsTo) {
         String username = (String) session.getAttribute("name");
+        ArrayList<Friends> friends = dao.queryMyFriends(username);
+        for (Friends friend : friends) {
+            if (friend.getFriendsTo().equals(friendsTo)) return new ModelAndView("forward:/friendList");
+        }
         if (!username.equals(friendsTo))//不和自己交朋友
         {
             Friends newFriend = new Friends();

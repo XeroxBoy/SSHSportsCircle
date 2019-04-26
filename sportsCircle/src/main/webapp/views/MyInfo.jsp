@@ -159,7 +159,8 @@
                                                                                                  data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <c:forEach items="${sessionScope.myCircles  }" var="circle" begin="0" end="${circles.size()}">
+                        <c:forEach items="${sessionScope.myCircles  }" var="circle" begin="0"
+                                   end="${sessionScope.myCircles.size()}">
                             <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
                                                                                      data-letters="${circle.getCircleName()}"
                                                                                      style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>

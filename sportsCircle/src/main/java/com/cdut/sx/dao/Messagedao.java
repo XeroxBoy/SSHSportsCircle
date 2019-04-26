@@ -12,9 +12,9 @@ import java.util.List;
 public interface Messagedao extends JpaRepository<Message, Integer> {
 
     @Query(value = "select from message where user_id=:userId", nativeQuery = true)
-    public List<Message> findByUser(@Param("userId") String userId);
+    List<Message> findByUser(@Param("userId") String userId);
 
     @Query(value = "select count(*) from message where user_id=:userId", nativeQuery = true)
-    public int findMyCount(@Param("userId") String userId); //看我发了多少条记录
+    int findMyCount(@Param("userId") String userId); //看我发了多少条记录
 
 }

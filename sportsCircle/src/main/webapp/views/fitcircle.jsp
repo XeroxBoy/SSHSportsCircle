@@ -113,7 +113,8 @@
                                                                                                  data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <c:forEach items="${sessionScope.myCircles  }" var="circle" begin="0" end="${circles.size()}">
+                        <c:forEach items="${sessionScope.myCircles  }" var="circle" begin="0"
+                                   end="${sessionScope.myCircles.size()}">
                             <li><a href="/findArea?area=${circle.circleName }"><span class="nav-in"
                                                                                      data-letters="${circle.getCircleName()}"
                                                                                      style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>
@@ -287,7 +288,7 @@
     <br>
     <br>
 
-    <c:forEach var="page" begin="0" end="${PageBean.list.size() }" step="1" items="${PageBean.list }">
+    <c:forEach var="page" begin="0" end="${PageBean.list.size()}" step="1" items="${PageBean.list }">
     <div class="fitcircle-comment fuck-layout">
         <div class="fitcircle-comment-meta">
             <span>用户： ${sessionScope.name }</span>
@@ -300,7 +301,7 @@
             <span>性别要求：${page.lsex}</span>
             <span>发布时间:${page.outDate.toLocaleString()}</span>
         </div>
-        <!--<a href="/deleteMessage?messageid=${page.messageid }" value="删除消息"></a>-->
+        <a href="/deleteMessage?messageid=${page.messageid }" value="删除消息"></a>
         <div class="fitcircle-comment-meta-special">
             <span>内容：</span>
             <p class="content">${page.content}</p>
@@ -313,7 +314,7 @@
                     <span>发布时间:${l.outTime}</span>
                 </div>
                 <!--<a href="/makeFriend?friendsTo=${l.userId}"></a>-->
-                <!--<a href="/commentDelete?commentid=${l.commentId }" value="删除评论"></a>-->
+                <a href="/commentDelete?commentid=${l.commentId }" value="删除评论"></a>
                 </tr>
             </c:forEach>
         </c:if>
@@ -331,7 +332,7 @@
     </c:forEach>
 
     <div class="fuck-layout fitcircle-pagination">
-        <p>${PageBean.currPage }/ ${PageBean.totalPage+1 } 页</p>
+        <p>${PageBean.currPage }/ ${PageBean.totalPage } 页</p>
         <p>总记录数: ${PageBean.totalCount } <span class="pagination-extra">每页显示 ${PageBean.pageSize }</span></p>
         <p>
             <a class="pagination-link" id="firstp"

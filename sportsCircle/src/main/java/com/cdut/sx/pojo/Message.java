@@ -58,8 +58,6 @@ public class Message {
     }
 
 
-
-
     public int getMessageid() {
         return messageid;
     }

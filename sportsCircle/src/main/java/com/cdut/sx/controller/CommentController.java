@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,11 +43,7 @@ public class CommentController {
         comment.setActive("active");
         comment.setOutTime("" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
         String userId = "";
-        try {
-            userId = new String(comment.getUserId().getBytes("iso-8859-1"), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }//转码
+        userId = new String(comment.getUserId().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         comment.setUserId(userId);
         comment.setActive("active");
         commentsdaoImp.save(comment);

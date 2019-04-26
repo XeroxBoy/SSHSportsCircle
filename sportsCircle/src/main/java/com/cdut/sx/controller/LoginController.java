@@ -31,7 +31,7 @@ public class LoginController {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        date = (Date) calendar.getTime();
+        date = calendar.getTime();
         return date;
     }
     @RequestMapping("/")
@@ -94,7 +94,6 @@ public class LoginController {
             }
             if (remember != null)
                 this.setCookie(response);//把用户信息保存到COOKIE中
-
             int date = user1.getLastProday().getDate();//获取上次打卡的日期
             Date beforeday = getNextDay(new Date());//获取昨天
 
@@ -112,6 +111,7 @@ public class LoginController {
 
                 }
             }
+            session.setAttribute("myCircles", user1.getCircles());
             session.setAttribute("id", user1.getUserId());//把用户信息存到session 以供其他页面使用
             session.setAttribute("name", user1.getUsername());
             session.setAttribute("email", user1.getEmail());
@@ -121,7 +121,6 @@ public class LoginController {
             session.setAttribute("prodays", user1.getProdays());
             session.setAttribute("sex", user1.getSex());
             session.setAttribute("area", user1.getAreabelongto());
-            session.setAttribute("myCircles", user1.getCircles());
             return mav;
         } else
             return errormav;

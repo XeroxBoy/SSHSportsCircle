@@ -151,7 +151,7 @@
             tab += "</tr>";
             for (var i = 0; i <= days / 7; i++) { //输出日期
 
-                tab += "<tr>"
+                tab += "<tr>";
                 if (i < days / 7 - 1) {
                     for (j = 1; j <= 7; j++) {
                         var nowday = j + i * 7;
@@ -250,7 +250,8 @@
                                                                                                  data-letters="${sessionScope.area }">${sessionScope.area }</span></a>
 
                     <ul class="subnav" style="display:none;float:left;left:20px;position:relative;">
-                        <c:forEach items="${sessionScope.myCircles }" var="circle" begin="0" end="${circles.size()}">
+                        <c:forEach items="${sessionScope.myCircles }" var="circle" begin="0"
+                                   end="${sessionScope.myCircles.size()}">
                             <li><a href="/findArea?area=${circle.getCircleName() }"><span class="nav-in"
                                                                                           data-letters="${circle.getCircleName()}"
                                                                                           style="font-size:15px;color:#FFF">${circle.getCircleName()}</span></a>

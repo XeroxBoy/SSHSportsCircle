@@ -71,7 +71,7 @@ public class Circle {
     }
 
     public void setCircleMessages(List<Message> circleMessages) {
-        this.circleMessages = (List<Message>) circleMessages;
+        this.circleMessages = circleMessages;
     }
 
     public List<User> getCircleUsers() {

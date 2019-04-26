@@ -18,17 +18,14 @@ public class CircleService {
         return circles;
     }
     public void save(Circle message) {
-        // TODO Auto-generated method stub
         circledao.save(message);
     }
 
     public void update(Circle message) {
-        // TODO Auto-generated method stub
         circledao.save(message);
     }
 
     public void delete(Circle message) {
-        // TODO Auto-generated method stub
         circledao.delete(message);
     }
 
