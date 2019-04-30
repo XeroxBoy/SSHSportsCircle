@@ -15,6 +15,10 @@ public class WebSocketController {
     private Friends friends;
     @Autowired
     private FriendsService dao;
+
+    /*
+     *  去聊天
+     * */
     @RequestMapping("/toContact")
     public ModelAndView contact(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/contact");

@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /**
- *
+ * 评论的Controller
  */
 @Controller
 public class CommentController {

@@ -16,35 +16,33 @@ public class UserService {
     @Autowired
     private Userdao userdao;
 
+    //找到所有的用户
     public List<User> findAllUsers() {
-        // TODO Auto-generated method stub
         return userdao.findAll();
     }
 
+    //找到我的圈子
     public List<Circle> queryMyCircle(String username) {
         List<User> user = userdao.queryByName(username);
         List<Circle> circles = user.get(0).getCircles();
         return circles;
     }
 
+    // 通过名字找到user
     public List<User> queryByName(String username) {
-        // TODO Auto-generated method stub
         List<User> user = userdao.queryByName(username);
         return user;
     }
 
     public void save(User user) {
-        // TODO Auto-generated method stub
         userdao.save(user);
     }
 
     public void update(User user) {
-        // TODO Auto-generated method stub
         userdao.save(user);
     }
 
     public void delete(User user) {
-        // TODO Auto-generated method stub
         userdao.delete(user);
     }
 

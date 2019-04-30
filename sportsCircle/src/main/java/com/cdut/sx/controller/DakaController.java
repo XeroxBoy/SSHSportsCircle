@@ -27,10 +27,12 @@ public class DakaController {
         date1 = new Date(calendar.getTimeInMillis());
         return date1;
     }
+
     @RequestMapping("/toDaka")
     public ModelAndView toDaka(){
         return new ModelAndView("views/daka");
     }
+
     @RequestMapping("/daka")
     public ModelAndView daka(HttpSession session, HttpServletRequest request, HttpServletResponse resp) { //写判断函数 判断打卡天数
         String username = (String) session.getAttribute("name");

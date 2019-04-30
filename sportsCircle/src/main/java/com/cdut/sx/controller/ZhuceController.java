@@ -29,6 +29,9 @@ public class ZhuceController {
     @Autowired
     private CircleService circledao;
 
+    /*
+     * 用户的注册
+     * */
     @RequestMapping("/zhuce")
     public ModelAndView zhuce(@Validated @ModelAttribute("user") User User) {
         ModelAndView mav = new ModelAndView("views/Login");

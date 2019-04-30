@@ -68,11 +68,7 @@ public class LoginController {
 
 
     /**
-     * @param User
-     * @param session
-     * @param request
-     * @param response
-     * @return
+     * 登录
      */
     @SuppressWarnings("deprecation")
     @RequestMapping("/login")

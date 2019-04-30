@@ -30,6 +30,10 @@ public class UploadController {
     public void setUploadFileName(String uploadFileName) {
         this.uploadFileName = uploadFileName;
     }
+
+    /*
+     * 上传头像函数
+     * */
     @RequestMapping("/upload")
     public String upload1(HttpSession session, HttpServletRequest request) {
         if (uploadFileName != null) {
