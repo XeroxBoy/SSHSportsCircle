@@ -16,10 +16,6 @@ public class Circle {
         return circleId;
     }
 
-    public void setCircleId(Integer circleId) {
-        this.circleId = circleId;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "circle_id")
@@ -62,24 +58,8 @@ public class Circle {
         return circleName;
     }
 
-    public void setCircleName(String circleName) {
-        this.circleName = circleName;
-    }
-
-    public List<Message> getCircleMessages() {
-        return circleMessages;
-    }
-
-    public void setCircleMessages(List<Message> circleMessages) {
-        this.circleMessages = circleMessages;
-    }
-
     public List<User> getCircleUsers() {
         return circleUsers;
-    }
-
-    public void setCircleUsers(List<User> circleUsers) {
-        this.circleUsers = circleUsers;
     }
 
     @Override

@@ -290,7 +290,7 @@
     <input type="submit" value="点我打卡" class="btn btn-default " id="dakaer">
 </form>
 <p style="color: #39b3d7;font-size:20px;" class="total">
-    您已连续签到:${sessionScope.prodays }天</p>
+    您已连续签到:${sessionScope.prodays }天，最长签到时间为${sessionScope.maxProdays }</p>
 <!--显示出该月哪几天打过卡-->
 <span id="tongzhi" style="color: #39b3d7;font-size:20px;left:700px;top:-250px;position:relative;"><br><strong
         id="news"></strong></span>

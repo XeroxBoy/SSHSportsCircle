@@ -37,6 +37,7 @@ public class CommentController {
         this.currPage = currPage;
     }
 
+    //评论保存
     @RequestMapping("/comment")
     public ModelAndView save(@ModelAttribute Comments comment) {
         if (comment == null) return new ModelAndView(ERR);
@@ -50,6 +51,7 @@ public class CommentController {
         return new ModelAndView(ZHUYE);
     }
 
+    //删除功能
     @RequestMapping("/commentDelete")
     public ModelAndView delete(HttpServletRequest request) {
         int commentid = Integer.parseInt(request.getParameter("commentId"));

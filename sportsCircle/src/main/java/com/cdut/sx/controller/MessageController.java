@@ -42,6 +42,9 @@ public class MessageController {
     @Autowired
     private Circledao circledao;
 
+    /*
+     * 保存帖子
+     * */
     @RequestMapping("/message")
     public ModelAndView message(HttpSession session, @ModelAttribute Message message) {
         if (message == null || session.getAttribute("name") == null)//未登录
@@ -53,6 +56,7 @@ public class MessageController {
         String name = (String) session.getAttribute("name");
         message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
         dao.save(message);
+        dao.change();
         return new ModelAndView("forward:/findArea");
     }
 
@@ -64,6 +68,9 @@ public class MessageController {
         this.currPage = currPage;
     }
 
+    /*
+     * 找到所有信息
+     * */
     @RequestMapping("/findAll")
     public ModelAndView findAll() {
         PageBean<Message> pageBean = dao.findByPage(currPage);
@@ -72,6 +79,9 @@ public class MessageController {
         return mav;
     }
 
+    /*
+     * 去发状态的页面
+     * */
     @RequestMapping("/date")
     public ModelAndView date(HttpSession session) {
         ModelAndView mav = new ModelAndView("views/date");
@@ -114,9 +124,7 @@ public class MessageController {
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
 
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
-        for (Message message : pageBean.getList()) {
-            System.out.println(message.getContent());
-        }
+
         if (pageBean != null)
             mav.addObject(PAGE, pageBean);
         return mav;
@@ -129,8 +137,10 @@ public class MessageController {
     public ModelAndView findMine(HttpSession session) {
         ModelAndView mav = new ModelAndView(ZHUYE);
         String userId;
+        int pagesize = 5;
+
         userId = String.valueOf(session.getAttribute("id")); // Servlet 中获取 Session 对象
-        PageBean<Message> pageBean = dao.findMineByPage(currPage, userId);
+        PageBean<Message> pageBean = dao.findByPage(currPage, userId, String.valueOf(session.getAttribute("area")));
         mav.addObject(PAGE, pageBean);
         return mav;
     }

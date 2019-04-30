@@ -21,9 +21,6 @@ public class Friends {
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private User userId;
-    public int getFriendsId() {
-        return friendsId;
-    }
 
     public void setFriendsId(int friendsId) {
         this.friendsId = friendsId;

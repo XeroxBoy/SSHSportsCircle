@@ -6,7 +6,7 @@
 %>
 <!DOCTYPE HTML>
 <html>
-
+<head>
 <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <link href="../css/style01.css" rel='stylesheet' type='text/css'/>
 <link href='../css/fileinput.css' rel='stylesheet' type='text/css'>

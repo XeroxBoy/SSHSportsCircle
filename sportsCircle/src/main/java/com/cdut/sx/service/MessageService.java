@@ -1,5 +1,6 @@
 package com.cdut.sx.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cdut.sx.dao.Messagedao;
 import com.cdut.sx.dao.Userdao;
 import com.cdut.sx.pojo.Circle;
@@ -19,7 +20,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -30,10 +30,21 @@ public class MessageService {
     Messagedao messagedao;
     @Autowired
     CircleService circledao;
+
+    private static boolean isChanged = false;
+    private JSONObject json = new JSONObject();
+
+    @Autowired
+    private RedisService redisService;
     // 查询所有message
     public ArrayList<Message> queryAll() {
         // TODO Auto-generated method stub
         return (ArrayList<Message>) messagedao.findAll();
+    }
+
+    //改变ischanged状态
+    public void change() {
+        isChanged = true;
     }
 
     // 按照username查询message 即这个人发过的状态
@@ -83,13 +94,24 @@ public class MessageService {
         int totalCount = (int) this.findCount();
         pageBean.setTotalCount(totalCount);
         trans.commit();
+        Criteria criteria = session.createCriteria(Message.class);
+        int begin = (currPage - 1) * pagesize;
+        criteria.setFirstResult(begin);// 从这条记录开始
+        criteria.setMaxResults(pagesize);// 最大记录数
         // 封装总页数
         double tc = totalCount;
         Double num = Math.ceil(tc / pagesize);
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
-        int begin = (currPage - 1) * pagesize;
-        List<Message> list = this.findByPage(begin, pagesize);
+        List<Message> list;
+        String currpage = String.valueOf(currPage);
+        if (redisService.get(currpage) == null || isChanged) {
+            list = criteria.list();
+            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
+        } else {
+            String jsonList = redisService.get(currpage);
+            list = JSONObject.parseArray(jsonList, Message.class);
+        }
         pageBean.setList(list);
         return pageBean;
     }
@@ -100,7 +122,14 @@ public class MessageService {
         Criteria criteria = session.createCriteria(Message.class);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<Message> list = criteria.list();
+        List<Message> list;
+        if (redisService.get("1") == null || isChanged) {
+            list = criteria.list();
+            redisService.set("1", JSONObject.toJSONString(list));
+        } else {
+            String jsonList = redisService.get("1");
+            list = JSONObject.parseArray(jsonList, Message.class);
+        }
         trans.commit();
         session.close();
         return list;
@@ -119,33 +148,6 @@ public class MessageService {
         }
         return 0;
     }
-
-    public PageBean<Message> findMineByPage(Integer currPage, String userId) {
-        Session session = HibernateUtil.getSession();
-        Transaction trans = session.beginTransaction();
-        PageBean<Message> pageBean = new PageBean<Message>();
-        // 封装当前页数
-        pageBean.setCurrPage(currPage);
-        // 封装每页显示的记录数
-        int pagesize = 5;
-        pageBean.setPageSize(pagesize);
-        // 封装总记录数
-        int totalCount = (int) this.findMyCount(userId);
-        pageBean.setTotalCount(totalCount);
-        // 封装总页数
-        double tc = totalCount;
-        Double num = Math.ceil(tc / pagesize);
-        pageBean.setTotalPage(num.intValue());
-        // 封装每页显示的数据
-        int begin = (currPage - 1) * pagesize;
-        List<Message> list = this.findByPage(begin, pagesize, userId);
-        pageBean.setList(list);
-        trans.commit();
-        session.close();
-        return pageBean;
-
-    }
-
 
     public long findMyCount(String userId) {//看我发了多少条记录
         // TODO Auto-generated method stub
@@ -172,20 +174,41 @@ public class MessageService {
         return 0;
     }
 
-    public List<Message> findByPage(int begin, int pagesize, String userId) {//找出这个人发过的状态
+    public PageBean<Message> findByPage(int currPage, String userId, String area) {//找出这个人发过的状态
+        PageBean<Message> pageBean = new PageBean<Message>();
+        // 封装当前页数
+        pageBean.setCurrPage(currPage);
+        int pagesize = 5;
+        pageBean.setPageSize(pagesize);
+        // 封装总记录数
+        long totalCount = this.findAreaCount(area);
+        pageBean.setTotalCount(totalCount);
+        // 封装总页数
+        double tc = totalCount;
+        Double num = Math.ceil(tc / pagesize);
+        pageBean.setTotalPage(num.intValue());
+        // 封装每页显示的数据
+        int begin = (currPage - 1) * pagesize;
         Session session = HibernateUtil.getSession();
         Transaction trans = session.beginTransaction();
+        List<Message> list;
         Criteria criteria = session.createCriteria(Message.class);
         Criterion criterion = Expression.eq("userId", userId);
+
         criteria.add(criterion);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        List<Message> list = criteria.list();
-        for (Message i : list) Logger.getLogger("abc").info(i.getContent());
+        if (redisService.get(userId) == null || isChanged) {
+            list = criteria.list();
+            redisService.set(userId, JSONObject.toJSONString(list));
+        } else {
+            String jsonList = redisService.get(userId);
+            list = JSONObject.parseArray(jsonList, Message.class);
+        }
+        pageBean.setList(list);
         trans.commit();
         session.close();
-        return list;
-
+        return pageBean;
     }
 
     public List<Message> findByPageArea(int begin, int pagesize, String area) {//跟据页数和圈子筛选
@@ -205,8 +228,10 @@ public class MessageService {
         return list;
     }
 
+    //根据圈子筛选出帖子信息并显示
     public PageBean<Message> findByArea(Integer currPage, String area) {
         PageBean<Message> pageBean = new PageBean<Message>();
+        List<Message> list;
         // 封装当前页数
         pageBean.setCurrPage(currPage);
         // 封装每页显示的记录数
@@ -221,9 +246,15 @@ public class MessageService {
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
-        List<Message> list = this.findByPageArea(begin, pagesize, area);
+        String currpage = String.valueOf(currPage);
+        if (redisService.get(currpage) == null || isChanged) {
+            list = this.findByPageArea(begin, pagesize, area);
+            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
+        } else {
+            String jsonList = redisService.get(currpage);
+            list = JSONObject.parseArray(jsonList, Message.class);
+        }
         pageBean.setList(list);
-
         return pageBean;
     }
 

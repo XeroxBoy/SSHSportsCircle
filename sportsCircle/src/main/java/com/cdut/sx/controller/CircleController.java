@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/*
+ * 圈子类的实现
+ * */
 @Controller
 public class CircleController {
     @Autowired
@@ -24,6 +27,7 @@ public class CircleController {
     public final String CIRCLE_PAGE = "views/circle";
     public final String TO_CIRCLE = "forward:/toCircle";
 
+    //去创建圈子的页面
     @RequestMapping("/toCircle")
     public ModelAndView toCircle() {
         ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
@@ -36,6 +40,7 @@ public class CircleController {
         return new ModelAndView("views/createCircle");
     }
 
+    //去创建圈子的页面
     @RequestMapping("/circle")
     public ModelAndView circle(@ModelAttribute Circle circle, HttpSession session) {
         circledao.save(circle);
@@ -53,12 +58,14 @@ public class CircleController {
         return mav;
     }
 
+    //删除圈子
     @RequestMapping("/deleteCircle")
     public ModelAndView deleteCircle(@RequestParam("circle_name") String name) {
         circledao.delete(circledao.findCircle(name).get(0));
         return new ModelAndView(TO_CIRCLE);
     }
 
+    //关注圈子
     @RequestMapping("/follow")
     public ModelAndView followCircle(HttpSession session, @RequestParam("circleName") String circleName) {
         String name = (String) session.getAttribute("name");
