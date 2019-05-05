@@ -7,6 +7,7 @@
     <welcome-file-list>
         <welcome-file>views/Login.jsp</welcome-file>
     </welcome-file-list>
+
     <!--转码的filter-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>

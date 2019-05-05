@@ -7,6 +7,7 @@ import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.MessageService;
+import com.cdut.sx.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +35,9 @@ import java.util.logging.Logger;
 public class MessageController {
     private static final String PAGE = "PageBean";
     private static final String ZHUYE = "views/fitcircle";
+    private static boolean isChanged = false;
+    @Autowired
+    private RedisService redisService;
 
     private Integer currPage = 1;
     @Autowired
@@ -41,6 +46,11 @@ public class MessageController {
     private Userdao userdao;
     @Autowired
     private Circledao circledao;
+
+    //改变ischanged状态
+    public void change() {
+        isChanged = true;
+    }
 
     /*
      * 保存帖子
@@ -56,7 +66,7 @@ public class MessageController {
         String name = (String) session.getAttribute("name");
         message.setUserId(userdao.queryByName(name).get(0));//给message所属人属性赋值
         dao.save(message);
-        dao.change();
+        this.change();
         return new ModelAndView("forward:/findArea");
     }
 
@@ -88,7 +98,7 @@ public class MessageController {
         String username = (String) session.getAttribute("name");
         List<User> users = userdao.queryByName(username);
         User user = users.get(0);
-        List<Circle> userCircles = user.getCircles();
+        Set<Circle> userCircles = user.getCircles();
         mav.addObject("userCircles", userCircles);
         return mav;
     }
@@ -122,7 +132,7 @@ public class MessageController {
         if (currPage == 0)
             currPage = 1;
         session.setAttribute("area", area);//重新赋值 分页查询才会正确显示其他圈子的状态
-
+        String currpage = String.valueOf(currPage);
         PageBean<Message> pageBean = dao.findByArea(currPage, area);
 
         if (pageBean != null)

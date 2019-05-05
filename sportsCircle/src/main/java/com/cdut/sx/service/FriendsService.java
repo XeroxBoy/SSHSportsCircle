@@ -31,7 +31,6 @@ public class FriendsService {
     }
 
     public void save(Friends friend) {
-        // TODO Auto-generated method stub
         friendsdao.save(friend);
     }
 
@@ -46,12 +45,10 @@ public class FriendsService {
     }
 
     public int findCount() {
-        // TODO Auto-generated method stub
         return (int) friendsdao.count();
     }
 
     public PageBean<User> findByPage(Integer currPage) throws Exception {
-        // TODO Auto-generated method stub
         int totalCount = 0;
         int pagesize = 0;
         PageBean<User> pageBean = new PageBean<User>();
@@ -91,8 +88,6 @@ public class FriendsService {
         List<Friends> list = criteria.list();
         trans.commit();
         return list;
-        // TODO Auto-generated method stub
-
     }
 
     public void delete(String friends1, String friend2) {

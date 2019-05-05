@@ -5,12 +5,15 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Proxy(lazy = false)
 @Entity
 @Table(name = "circle")
 @Component("Circle")
+
 public class Circle {
     public Integer getCircleId() {
         return circleId;
@@ -34,7 +37,7 @@ public class Circle {
     private List<Message> circleMessages = new ArrayList<>();
     //圈子的用户
     @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class, mappedBy = "circles")
-    private List<User> circleUsers = new ArrayList<>();
+    private Set<User> circleUsers = new HashSet<>();
 
 
 
@@ -58,7 +61,7 @@ public class Circle {
         return circleName;
     }
 
-    public List<User> getCircleUsers() {
+    public Set<User> getCircleUsers() {
         return circleUsers;
     }
 

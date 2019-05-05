@@ -171,7 +171,6 @@ function hideURLbar() {
 
 <form action="/circle" method="post" class="form-inline" role="form">
     <div class="form-group">
-        <%--TODO--%>
         <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">创建你的圈子</h3>
         <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
                                                   style="width: 302px; " required><br>

@@ -2,6 +2,7 @@ package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.Message;
 import com.cdut.sx.pojo.User;
+import com.cdut.sx.service.RedisService;
 import com.cdut.sx.service.UserService;
 import com.cdut.sx.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -26,7 +30,8 @@ public class LoginController {
     UserService userdao;
     @Autowired
     private User User;
-
+    @Autowired
+    private RedisService redisService;
     public static Date getNextDay(Date date) {//获取今天的前一天
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -85,7 +90,7 @@ public class LoginController {
             User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配
                 return errormav; //查询失败 去失败页面
-            if (!code.equals(String.valueOf(session.getAttribute("randstr")))) {//验证码数错了 不能用== 不然比较的是引用
+            if (!code.equals(String.valueOf(redisService.get("randstr")))) {//验证码数错了 不能用== 不然比较的是引用
                 return errormav;
             }
             if (remember != null)
@@ -154,6 +159,44 @@ public class LoginController {
         userdao.save(User);
         mav.addObject("user", User);
         return mav;
+    }
+
+    /*
+     * 验证码
+     * */
+    @ResponseBody
+    @RequestMapping("/randstr")
+    public void rangstr(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache");
+        int width = 60, height = 20;
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        //获取画笔
+        Graphics g = image.getGraphics();
+        //设定背景色
+        g.setColor(new Color(100, 100, 100));
+        g.fillRect(0, 0, width, height);
+        //取随机产生的验证码
+        Random rnd = new Random();
+        int randNum = rnd.nextInt(8999) + 1000;
+        String randStr = String.valueOf(randNum);
+        //将验证码存入session
+//        session.setAttribute("randstr", randStr);
+        redisService.set("randstr", randStr);
+        //将验证码显示在图像中
+        g.setColor(Color.black);
+        g.setFont(new Font("", Font.PLAIN, 20));
+        g.drawString(randStr, 10, 17); //10，17为画笔的高度，宽度
+        for (int i = 0; i < 50; i++) {
+            int x = rnd.nextInt(width);
+            int y = rnd.nextInt(height);
+            g.drawOval(x, y, 1, 1);
+        }
+        try {
+            ImageIO.write(image, "JPEG", response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

@@ -49,7 +49,6 @@ public class UploadController {
             try {
                 FileUtils.copyFile(upload, destFile);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return "views/fitcircle";

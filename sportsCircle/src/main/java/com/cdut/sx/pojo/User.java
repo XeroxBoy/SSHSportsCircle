@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Proxy(lazy = false)
 @Entity
@@ -44,20 +42,19 @@ public class User {
 
     //用户所属的圈子
     @ManyToMany(cascade = CascadeType.ALL,targetEntity = Circle.class)
-    private List<Circle> circles = new ArrayList<>();
+    private Set<Circle> circles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Friends.class, mappedBy = "userId")
     private List<Friends> friends = new ArrayList<>();//一个用户有很多py
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId", fetch = FetchType.EAGER)
+    private List<Message> messages = new ArrayList<>();//一用户有多条状态
 
-    public List<Circle> getCircles() {
+    public Set<Circle> getCircles() {
         return circles;
     }
 
-    public void setCircles(List<Circle> circles) {
+    public void setCircles(Set<Circle> circles) {
         this.circles = circles;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Message.class, mappedBy = "userId")
-    private List<Message> messages = new ArrayList<>();//一用户有多条状态
 
     public List<Friends> getFriends() {
         return friends;

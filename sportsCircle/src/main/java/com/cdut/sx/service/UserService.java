@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -22,9 +23,9 @@ public class UserService {
     }
 
     //找到我的圈子
-    public List<Circle> queryMyCircle(String username) {
+    public Set<Circle> queryMyCircle(String username) {
         List<User> user = userdao.queryByName(username);
-        List<Circle> circles = user.get(0).getCircles();
+        Set<Circle> circles = user.get(0).getCircles();
         return circles;
     }
 

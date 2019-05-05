@@ -105,13 +105,13 @@ public class MessageService {
         // 封装每页显示的数据
         List<Message> list;
         String currpage = String.valueOf(currPage);
-        if (redisService.get(currpage) == null || isChanged) {
+//        if (redisService.get(currpage) == null || isChanged) {
             list = criteria.list();
-            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
-        } else {
-            String jsonList = redisService.get(currpage);
-            list = JSONObject.parseArray(jsonList, Message.class);
-        }
+//            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
+//        } else {
+//            String jsonList = redisService.get(currpage);
+//            list = JSONObject.parseArray(jsonList, Message.class);
+//        }
         pageBean.setList(list);
         return pageBean;
     }
@@ -123,13 +123,13 @@ public class MessageService {
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
         List<Message> list;
-        if (redisService.get("1") == null || isChanged) {
+//        if (redisService.get("1") == null || isChanged) {
             list = criteria.list();
-            redisService.set("1", JSONObject.toJSONString(list));
-        } else {
-            String jsonList = redisService.get("1");
-            list = JSONObject.parseArray(jsonList, Message.class);
-        }
+//            redisService.set("1", JSONObject.toJSONString(list));
+//        } else {
+//            String jsonList = redisService.get("1");
+//            list = JSONObject.parseArray(jsonList, Message.class);
+//        }
         trans.commit();
         session.close();
         return list;
@@ -198,13 +198,13 @@ public class MessageService {
         criteria.add(criterion);
         criteria.setFirstResult(begin);// 从这条记录开始
         criteria.setMaxResults(pagesize);// 最大记录数
-        if (redisService.get(userId) == null || isChanged) {
+//        if (redisService.get(userId) == null || isChanged) {
             list = criteria.list();
-            redisService.set(userId, JSONObject.toJSONString(list));
-        } else {
-            String jsonList = redisService.get(userId);
-            list = JSONObject.parseArray(jsonList, Message.class);
-        }
+//            redisService.set(userId, JSONObject.toJSONString(list));
+//        } else {
+//            String jsonList = redisService.get(userId);
+//            list = JSONObject.parseArray(jsonList, Message.class);
+//        }
         pageBean.setList(list);
         trans.commit();
         session.close();
@@ -247,16 +247,15 @@ public class MessageService {
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
         String currpage = String.valueOf(currPage);
-        if (redisService.get(currpage) == null || isChanged) {
-            list = this.findByPageArea(begin, pagesize, area);
-            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
-        } else {
-            String jsonList = redisService.get(currpage);
-            list = JSONObject.parseArray(jsonList, Message.class);
-        }
+//        if (redisService.get(currpage) == null || isChanged) {
+        list = this.findByPageArea(begin, pagesize, area);
+//            redisService.set(String.valueOf(currPage), JSONObject.toJSONString(list));
+//        } else {
+//            String jsonList = redisService.get(currpage);
+//            list = JSONObject.parseArray(jsonList, Message.class);
+//        }
         pageBean.setList(list);
         return pageBean;
     }
 
 }
-

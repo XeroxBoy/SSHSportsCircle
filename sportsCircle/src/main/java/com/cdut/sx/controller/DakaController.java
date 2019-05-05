@@ -40,7 +40,6 @@ public class DakaController {
         try {
             request.setCharacterEncoding("utf-8");
         } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         resp.setContentType("text/html;charset=utf-8");//不然打回来乱码

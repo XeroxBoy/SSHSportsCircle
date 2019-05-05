@@ -22,7 +22,7 @@
     </script>
     <script type="text/javascript">
         function refresh(imgurl) {
-            imgurl.src = "views/validate.jsp" + "?id=" + Math.random();
+            imgurl.src = "/randstr" + "?id=" + Math.random();
         }
     </script>
     <%
@@ -65,7 +65,7 @@
                     <span class="error">This is an error</span>
                     <span style="padding-left:25px"> 请输入验证码：</span><br><input type="text" name="code" size="10"
                                                                               required>
-                    <img border=0 src="views/validate.jsp" onclick="refresh(this)" id="yzm"
+                    <img border=0 src="/randstr" onclick="refresh(this)" id="yzm"
                          style="padding-left:30px;padding-top:10px;width:20%;">
                 </div>
                 <div class="bottom">

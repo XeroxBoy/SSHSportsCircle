@@ -20,13 +20,11 @@ public class CommentsService {
     private Commentsdao commentdao;
 
     public ArrayList<Comments> queryAll() {
-        // TODO Auto-generated method stub
         ArrayList<Comments> comments = (ArrayList<Comments>) commentdao.queryAll();
         return comments;
     }
 
     public List queryByMsgId(String messagename) {
-        // TODO Auto-generated method stub
         List comments = commentdao.queryByMsgId(messagename);
         return comments;
     }
@@ -36,18 +34,15 @@ public class CommentsService {
     }
 
     public void update(Comments comments) {
-        // TODO Auto-generated method stub
         commentdao.save(comments);
     }
 
 
     public void delete(Comments comments) {
-        // TODO Auto-generated method stub
         commentdao.delete(comments.getCommentId());
     }
 
     public List<Comments> queryById(int commentId) {
-        // TODO Auto-generated method stub
         return commentdao.queryById(commentId);
     }
 
