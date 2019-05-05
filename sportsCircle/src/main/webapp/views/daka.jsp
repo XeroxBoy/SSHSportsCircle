@@ -73,7 +73,6 @@
     <!---js--->
     <script src="../js/jquery-latest.js"></script>
     <script src="../js/bootstrap.js"></script>
-    <script src="../js/websocket.js"></script>
     <!---js--->
     <!--web-fonts-->
     <link href='../css/font1.css' rel='stylesheet' type='text/css'>
@@ -284,17 +283,23 @@
 </nav>
 <!--body-->
 
-<form action="/daka" style="width:320px;height:130px;left:12%;top:-120px;position:relative">
+
+<form action="/daka" style="width:320px;height:130px;left:12%;top:-120px;position:relative"
+      enctype="multipart/form-data">
     <h3 style="color: #2A4;">运动完了 说点话发泄下吧！</h3>
-    <textarea name="message" cols="20" class="form-control" rows="4" id="faxie"></textarea>
-    <input type="submit" value="点我打卡" class="btn btn-default " id="dakaer">
+    <label for="faxie"></label><textarea name="message" cols="20" class="form-control" rows="4"
+                                         id="faxie">欢迎来到打卡世界</textarea>
+    <input type="button" value="点我打卡" class="btn btn-default " id="dakaer">
 </form>
+<br>
 <p style="color: #39b3d7;font-size:20px;" class="total">
     您已连续签到:${sessionScope.prodays }天，最长签到时间为${sessionScope.maxProdays }</p>
 <!--显示出该月哪几天打过卡-->
-<span id="tongzhi" style="color: #39b3d7;font-size:20px;left:700px;top:-250px;position:relative;"><br><strong
-        id="news"></strong></span>
 
+
+<canvas style="width: 960px;height: 640px;background-color: rgba(0,0,0,0.2)">你的浏览器不支持canvas</canvas>
+<script src="../js/daka.js"></script>
+<script src="../js/danmu.js"></script>
 
 </body>
 </html>
