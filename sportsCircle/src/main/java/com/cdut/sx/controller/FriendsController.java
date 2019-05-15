@@ -1,6 +1,7 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.Friends;
+import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.FriendsService;
 import com.cdut.sx.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -73,5 +75,23 @@ public class FriendsController {
         return new ModelAndView("views/contact");
     }
 
+    /**
+     * 查找朋友
+     */
+    @RequestMapping("/findFriends")
+    public ModelAndView findArea(HttpServletRequest request, HttpSession session, @RequestParam(name = "currPage", required = false) Integer Currpage) {
+        ModelAndView mav = new ModelAndView("views/friends");
+        if (Currpage != null) currPage = Currpage;
+        if (currPage == 0)
+            currPage = 1;
+        PageBean<Friends> allUsers = dao.findFriendsByPage(currPage);
+        if (allUsers != null){
+            mav.addObject("allUsers", allUsers); }
+        PageBean<Friends> myFriends = dao.findMyFriendsByPage(currPage, (String) session.getAttribute("name"));
+        if(myFriends != null){
+            mav.addObject("myFriends",myFriends);
+        }
+        return mav;
+    }
 }
 

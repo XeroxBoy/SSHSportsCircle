@@ -1,6 +1,7 @@
 package com.cdut.sx.controller;
 
 import com.cdut.sx.pojo.Circle;
+import com.cdut.sx.pojo.PageBean;
 import com.cdut.sx.pojo.User;
 import com.cdut.sx.service.CircleService;
 import com.cdut.sx.service.UserService;
@@ -25,8 +26,10 @@ public class CircleController {
     @Autowired
     UserService userdao;
 
+    private static final String PAGE = "PageBean";
     public final String CIRCLE_PAGE = "views/circle";
     public final String TO_CIRCLE = "forward:/toCircle";
+    private Integer currPage = 1;
 
     //去创建圈子的页面
     @RequestMapping("/toCircle")
@@ -81,6 +84,22 @@ public class CircleController {
         }
         session.setAttribute("myCircles", users.get(0).getCircles());
         return new ModelAndView(TO_CIRCLE);
+    }
+
+    /**
+     * 查找圈子（打球圈,健身圈，跑步圈，……）
+     */
+    @RequestMapping("/findCircle")
+    public ModelAndView findArea(HttpServletRequest request, HttpSession session, @RequestParam(name = "currPage", required = false) Integer Currpage) {
+        ModelAndView mav = new ModelAndView(CIRCLE_PAGE);
+        if (Currpage != null) currPage = Currpage;
+        if (currPage == 0)
+            currPage = 1;
+        String currpage = String.valueOf(currPage);
+        PageBean<Circle> pageBean = circledao.findCirclesByPage(currPage);
+        if (pageBean != null){
+            mav.addObject(PAGE, pageBean); }
+        return mav;
     }
 }
 

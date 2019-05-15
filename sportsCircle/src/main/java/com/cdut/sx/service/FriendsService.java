@@ -9,6 +9,8 @@ import com.cdut.sx.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,9 +91,73 @@ public class FriendsService {
         trans.commit();
         return list;
     }
+    public List<Friends> findMineByPage(int begin, int pagesize, String username) {
+        Session session = HibernateUtil.getSession();
+        Transaction trans = session.beginTransaction();
+        Criteria criteria = session.createCriteria(Friends.class);
+        Criterion criterion = Expression.eq("friendsFrom", username);
+        criteria.add(criterion);
+        criteria.setFirstResult(begin);// 从这条记录开始
+        criteria.setMaxResults(pagesize);// 最大记录数
+        List<Friends> list = criteria.list();
+        trans.commit();
+        return list;
+    }
 
     public void delete(String friends1, String friend2) {
         friendsdao.delete(friends1, friend2);
     }
+
+    public PageBean<Friends> findFriendsByPage(Integer currPage) {
+        PageBean<Friends> pageBean = new PageBean<Friends>();
+        List<Friends> list;
+        // 封装当前页数
+        pageBean.setCurrPage(currPage);
+        // 封装每页显示的记录数
+        int pagesize = 3;
+        pageBean.setPageSize(pagesize);
+        // 封装总记录数
+        int totalCount = friendsdao.findAll().size();
+        pageBean.setTotalCount(totalCount);
+        // 封装总页数
+        double tc = totalCount;
+        Double num = Math.ceil(tc / pagesize);
+        pageBean.setTotalPage(num.intValue());
+        // 封装每页显示的数据
+        int begin = (currPage - 1) * pagesize;
+        String currpage = String.valueOf(currPage);
+        list = this.findByPage(begin, pagesize);
+        if(list != null && list.size()!=0)
+            pageBean.setList(list);
+        if(list.size() == 0)
+            pageBean.setList(new ArrayList<>());
+        return pageBean;
+    }
+
+    public PageBean<Friends> findMyFriendsByPage(Integer currPage,String username) {
+        PageBean<Friends> pageBean = new PageBean<Friends>();
+        List<Friends> list;
+        // 封装当前页数
+        pageBean.setCurrPage(currPage);
+        // 封装每页显示的记录数
+        int pagesize = 3;
+        pageBean.setPageSize(pagesize);
+        // 封装总记录数
+        int totalCount = friendsdao.queryMyFriends(username).size();
+        pageBean.setTotalCount(totalCount);
+        // 封装总页数
+        double tc = totalCount;
+        Double num = Math.ceil(tc / pagesize);
+        pageBean.setTotalPage(num.intValue());
+        // 封装每页显示的数据
+        int begin = (currPage - 1) * pagesize;
+        list = this.findMineByPage(begin, pagesize, username);
+        if(list != null && list.size()!=0)
+            pageBean.setList(list);
+        if(list.size() == 0)
+            pageBean.setList(new ArrayList<>());
+        return pageBean;
+    }
+
 }
 
