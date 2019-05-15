@@ -40,7 +40,6 @@ public class Circle {
     private Set<User> circleUsers = new HashSet<>();
 
 
-
     public int getUserCount() {
         return userCount;
     }
@@ -75,6 +74,10 @@ public class Circle {
                 ", circleMessages=" + circleMessages +
                 ", circleUsers=" + circleUsers + '\'' +
                 '}';
+    }
+
+    public void setCircleName(String circleName) {
+        this.circleName = circleName;
     }
 }
 

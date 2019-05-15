@@ -175,7 +175,7 @@
 <form action="/circle" method="post" class="form-inline" role="form">
     <div class="form-group">
         <h3 style="font-family: 'Arial';left:25% ;top:15%;position:relative;">创建你的圈子</h3>
-        <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control"
+        <label for="circleName">圈名:</label><input type="text" name="circleName" class="form-control" id="circleName"
                                                   style="width: 302px; " required><br>
         <br><br>
         <input type="submit" class="btn btn-info" style=" left:40%;bottom:10%; position: relative" value="创建圈子">

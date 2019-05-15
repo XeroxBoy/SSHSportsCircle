@@ -224,9 +224,10 @@
     <div class="form-item">
         <label>感兴趣的领域：</label>
         <select class="form-control form-item-fix" name="Areabelongto" value='${user.areabelongto}' required>
-            <option value="跑步圈">跑步圈</option>
-            <option value="健身圈">健身圈</option>
-            <option value="打球圈">打球圈</option>
+            <c:forEach items="${sessionScope.myCircles }" var="l" step="1" begin="0"
+                       end="${sessionScope.myCircles.size() }">
+                <option value="${l.circleId}">${l.circleName}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="form-item">

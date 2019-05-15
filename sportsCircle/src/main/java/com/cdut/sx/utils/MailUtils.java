@@ -13,13 +13,13 @@ public class MailUtils {
         //创建邮件对象
         MimeMessage message = new MimeMessage(session);
         //指明邮件的发件人
-        message.setFrom(new InternetAddress("sb827312773@163.com"));
+        message.setFrom(new InternetAddress("1024300613@qq.com"));
         //指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
         message.setRecipient(Message.RecipientType.TO, new InternetAddress("1121062986@qq.com"));
         //邮件的标题
-        message.setSubject("运动圈今日第" + n + "次启动");
+        message.setSubject("第" + n + "次抗压");
         //邮件的文本内容
-        message.setContent("你学你🐎呢", "text/html;charset=UTF-8");
+        message.setContent("抗不住压了？", "text/html;charset=UTF-8");
         //返回创建好的邮件对象
         return message;
     }

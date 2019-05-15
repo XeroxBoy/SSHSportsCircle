@@ -1,6 +1,8 @@
 package com.cdut.sx.service;
 
 import com.cdut.sx.dao.Redisdao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -8,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
-
 @Service("RedisService")
 public class RedisService implements Redisdao {
+    private static Logger logger = LoggerFactory.getLogger(RedisService.class);
 
     @Resource
     private RedisTemplate<String, ?> redisTemplate;
@@ -23,6 +25,7 @@ public class RedisService implements Redisdao {
             return true;
         });
     }
+
 
     @Override
     public String get(final String key) {
@@ -45,4 +48,6 @@ public class RedisService implements Redisdao {
             return true;
         });
     }
+
+
 }

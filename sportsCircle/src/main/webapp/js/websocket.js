@@ -29,7 +29,7 @@ if (typeof (WebSocket) == "undefined") {
     // 监听消息
     ws.onmessage = function (msg) {
         var chatter = document.getElementById("chatter");
-        var show = document.getElementById("show");
+        // var show = document.getElementById("show");
         // console.log(msg.data);
         var oneMessage = document.createElement("li");
         // console.log(oneMessage0);

@@ -158,15 +158,15 @@
 <form action="/message" method="post" class="form-inline" role="form">
     <div class="form-group">
         <%--@declare id="lsex"--%><h3 style="font-family: 'Arial';left:30% ;top:0px;position:relative;">发出你的邀请</h3>
-        <label for="content">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control"
+        <label for="content">状态内容:</label><textarea name="content" cols="45" rows="3" class="form-control" id="content"
                                                     style="vertical-align:top;position: relative;width:400px"
                                                     required></textarea><br><br>
-        <label for="location">集合地点:</label><input type="text" name="location" class="form-control"
+        <label for="location">集合地点:</label><input type="text" name="location" class="form-control" id="location"
                                                   style="width: 302px; " required><br>
         <label for="assignTime"><br>约定时间:</label>
-        <p><label for="outDate">日期：</label><input type="date" class="form-control" id="pickdate" name="outDate"
+        <p><label for="outDate">日期：</label><input type="date" class="form-control" id="pickdate" name="outDate" id="outDate"
                                                   required/></p><br/>
-        <p><label for="assignTime">时间：</label><input type="text" class="input" id="picktime" name="assignTime"
+        <p><label for="assignTime">时间：</label><input type="text" class="input" id="picktime" name="assignTime" id="assignTime"
                                                      list="timedata" required/></p>
         <datalist id="timedata">
             <option value="早上6点以前"/>

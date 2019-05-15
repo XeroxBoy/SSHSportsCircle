@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class CircleController {
 
     //去创建圈子的页面
     @RequestMapping("/circle")
-    public ModelAndView circle(@ModelAttribute Circle circle, HttpSession session) {
+    public ModelAndView circle(@ModelAttribute("Circle") Circle circle, HttpSession session, HttpServletRequest request) {
         circledao.save(circle);
         if (session.getAttribute("name") == null) {
             return new ModelAndView("views/zhuce");

@@ -85,7 +85,7 @@ public class LoginController {
         List<User> user = userdao.queryByName(User.getUsername());//获取用户信息
         String reqPass = MD5.encodeMd5(User.getPassword());
         ModelAndView mav = new ModelAndView("forward:/findArea");
-        ModelAndView errormav = new ModelAndView("redirect:views/Login");
+        ModelAndView errormav = new ModelAndView("views/Login");
         if (!user.isEmpty()) {
             User user1 = user.get(0);//获取数据库中的对象
             if (user1 == null || !user1.getPassword().equals(reqPass))//没查到用户信息,或者密码不匹配

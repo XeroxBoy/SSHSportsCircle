@@ -254,7 +254,10 @@ public class MessageService {
 //            String jsonList = redisService.get(currpage);
 //            list = JSONObject.parseArray(jsonList, Message.class);
 //        }
+        if(list != null && list.size()!=0)
         pageBean.setList(list);
+        if(list.size() == 0)
+            pageBean.setList(new ArrayList<>());
         return pageBean;
     }
 

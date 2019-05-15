@@ -12,11 +12,11 @@ public class Sendmail {
     public static void sendMail(int n) {
         System.out.println("开始发送邮件");
         Properties prop = new Properties();
-        prop.setProperty("mail.host", "smtp.163.com");
+        prop.setProperty("mail.host", "smtp.qq.com");
         prop.setProperty("mail.transport.protocol", "smtp");
         prop.setProperty("mail.smtp.auth", "true");
         //使用JavaMail发送邮件的5个步骤
-        //1、创建session
+        //1、创建session qq授权码：knxwezduzvpxbbjh
         javax.mail.Session session = javax.mail.Session.getInstance(prop);
         //开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
         session.setDebug(true);
@@ -29,7 +29,7 @@ public class Sendmail {
         }
         //3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给smtp服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。
         try {
-            ts.connect("sb827312773@163.com", "daohaodegun87549");
+            ts.connect("1024300613@qq.com", "knxwezduzvpxbbjh");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
