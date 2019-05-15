@@ -241,8 +241,7 @@ public class MessageService {
         int totalCount = (int) this.findAreaCount(area);
         pageBean.setTotalCount(totalCount);
         // 封装总页数
-        double tc = totalCount;
-        Double num = Math.ceil(tc / pagesize);
+        Double num = Math.ceil((double) totalCount / pagesize);
         pageBean.setTotalPage(num.intValue());
         // 封装每页显示的数据
         int begin = (currPage - 1) * pagesize;
