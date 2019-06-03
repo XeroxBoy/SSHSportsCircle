@@ -244,15 +244,6 @@
     </div>
     <input type="submit" value="保存修改"/>
 </form>
-
-<table>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" id="upload" name="upload"/><br>
-        <input type="submit" value="提交"/>
-        <br>
-    </form>
-
-</table>
 </body>
 </html>
 

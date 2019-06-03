@@ -47,7 +47,6 @@ public class DakaController {
             e1.printStackTrace();
         }
         resp.setContentType("text/html;charset=utf-8");//不然打回来乱码
-
         User user = dao.queryByName(username).get(0);
         if (user.getLastProday().getDate() == getBeforeDate(new Date()).getDate()) {   //上次打卡日期为昨天
             int prodays = user.getProdays();//当前连续打卡天数
@@ -59,13 +58,17 @@ public class DakaController {
             user.setLastProday(new Date());
             int exExp = (int) (Math.pow(prodays, 1 / 2) + 2);//本次打卡增加的经验值
             user.setExp(user.getExp() + exExp);
-        } else if (user.getLastProday().getDate() != new Date().getDate())//今天没打卡 且上次打卡日期不为昨天
+        } else if (user.getLastProday().getDate() != new Date().getDate()) {//今天没打卡 且上次打卡日期不为昨天
             user.setProdays(1);//因为没有连续打卡 设为1
+            if (user.getProdays() > user.getMaxProdays()) {//已打卡天数大于打卡最大天数记录,则更新打卡最大天数
+                user.setMaxProdays(user.getProdays());
+                session.setAttribute("maxProdays", user.getMaxProdays());
+            }
+        }
         user.setLastProday(new Date());//将今天设为last打卡day
         dao.save(user);
         session.setAttribute("lastProdays", user.getLastProday().getDate());//在session中更新上次打卡时间与连续打卡时间
         session.setAttribute("prodays", user.getProdays());
-
         return mav;
     }
 

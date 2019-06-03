@@ -289,7 +289,7 @@
     <h3 style="color: #2A4;">运动完了 说点话发泄下吧！</h3>
     <label for="faxie"></label><textarea name="message" cols="20" class="form-control" rows="4"
                                          id="faxie">欢迎来到打卡世界</textarea>
-    <input type="button" value="点我打卡" class="btn btn-default " id="dakaer">
+    <input type="button" value="点我打卡" class="btn btn-default " id="dakaer"/>
 </form>
 <br>
 <p style="color: #39b3d7;font-size:20px;" class="total">

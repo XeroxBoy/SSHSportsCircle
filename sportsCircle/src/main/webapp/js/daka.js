@@ -3,6 +3,6 @@ Sendmsg = function () {
     var dkMessage = document.getElementById("faxie");
     $('canvas').barrager([{"msg": dkMessage.value}]);
     dkMessage.value = "";
-    $('#dakaer').submit();
+    $("#dakaer").submit();
 };
 $('#dakaer').click(Sendmsg);
